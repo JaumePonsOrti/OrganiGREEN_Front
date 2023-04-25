@@ -7,7 +7,7 @@ function onReady () {
 	win.loadURL(url.format({      
 		pathname: path.join(
 			__dirname,
-			'dist/first-angular-electron-app/index.html'),       
+			'www/index.html'),       
 		protocol: 'file:',      
 		slashes: true     
 	}))   

@@ -11,7 +11,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "electron":"ionic build & electron ."
+    "electron": "ionic build & electron ."
   },
   "private": true,
   "dependencies": {
