@@ -1,10 +1,12 @@
-<ion-header [translucent]="true">
+<!--
+  <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Blank ñaaaaaaaaaaaaaa
     </ion-title>
   </ion-toolbar>
 </ion-header>
+-->
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -13,8 +15,70 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="hold-transition login-page">
+    <div class="login-box">
+      <!-- /.login-logo -->
+      <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+          <span  class="h1"><b>Organi</b>GREEN</span>
+        </div>
+        <div class="card-body">
+          <p class="login-box-msg">Logueate para entrar</p>
+    
+          <form action="../../index3.html" method="post">
+            <div class="input-group mb-3">
+              <input type="email" class="form-control" placeholder="Correo">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" class="form-control" placeholder="Contraseña">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-7">
+                <div class="icheck-primary">
+                  <input type="checkbox" id="remember">
+                  <label for="remember">
+                    Recuerdame
+                  </label>
+                </div>
+              </div>
+              <!-- /.col -->
+              <div class="col-5">
+                <button type="submit" class="btn btn-primary btn-block">Logueame</button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+          
+           <!--
+          <div class="social-auth-links text-center mt-2 mb-3">
+            <a href="#" class="btn btn-block btn-primary">
+              <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+            </a>
+            <a href="#" class="btn btn-block btn-danger">
+              <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+            </a>
+          </div>
+          -->
+          <!-- /.social-auth-links -->
+    
+          <p class="mb-1">
+            <a href="forgot-password.html">Olvide la contraseña</a>
+          </p>
+         
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
   </div>
 </ion-content>
