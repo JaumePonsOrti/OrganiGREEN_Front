@@ -7,11 +7,22 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CoreModule } from './core/core.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, NgbModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  imports: [BrowserModule,
+     IonicModule.forRoot(),
+     AppRoutingModule, 
+     NgbModule,
+     CoreModule,
+    ],
+  providers: [{
+     provide: RouteReuseStrategy, useClass: IonicRouteStrategy, 
+    },
+   
+    ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

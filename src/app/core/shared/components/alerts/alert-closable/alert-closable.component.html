@@ -1,0 +1,3 @@
+<ngb-alert  class="fixed-top" *ngIf="show ||config.show" [type]="config.type" [dismissible]="true" (close)="closeAlert()">
+    {{ config.message }}
+</ngb-alert>

@@ -1,6 +1,6 @@
 {
   "name": "ionic-app-base",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "main.js",
   "author": "Jaume Pons Orti",
   "homepage": "https://ionicframework.com/",
@@ -26,6 +26,8 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "ionicons": "^7.0.0",
+    "js-sha512": "^0.8.0",
+    "ngx-cookie-service": "^15.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
