@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: "intranet",
+    loadChildren: () => import('./intranet/intranet.module').then(m => m.IntranetModule)
+  }
 ];
 
 @NgModule({
