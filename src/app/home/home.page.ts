@@ -50,7 +50,7 @@ export class HomePage {
             }
             console.log("Respuesta login:",data);
             if(data.usuario_token){
-              this.router.navigate(['//']); 
+              this.router.navigate(['/intranet']); 
             }else{
                 
               alert(data.error); 

@@ -13,7 +13,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     FooterComponent,
-    CarrouselComponent
+    CarrouselComponent,
   ],
   imports: [
     CommonModule,
