@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ServicesModule } from '../services/services.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { CarrouselComponent } from './carrousel/carrousel.component';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 

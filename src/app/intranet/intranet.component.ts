@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuService } from '../core/shared/services/menu/menu.service';
 
 @Component({
   selector: 'app-intranet',
@@ -7,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IntranetComponent  implements OnInit {
 
-  constructor() { }
+  constructor(private menuService:MenuService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.menuService.getMenuDeApi().subscribe({});
+  }
 
 }

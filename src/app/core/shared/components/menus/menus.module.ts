@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MenuPublicComponent } from './menu-public/menu-public.component';
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { MenuOverlayableComponent } from './menu-overlayable/menu-overlayable.component';
+import { NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -13,7 +14,8 @@ import { MenuOverlayableComponent } from './menu-overlayable/menu-overlayable.co
     MenuOverlayableComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    
   ],
   exports:[
     MenuAdminComponent,

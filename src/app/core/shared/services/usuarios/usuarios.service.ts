@@ -15,8 +15,11 @@ export class UsuariosService {
   loggedIn: boolean = false;
   //username: string = '';
   token: string = '';
+  user:any;
   //cookieNameVar:string = this.hasher.sha3_512("auth_code");
   cookieNameVar:string = "token";
+  cookieNameVar2:string = "user";
+
   constructor(private http: HttpClient, private cookieService:CookieService, private hasher:HashService) {
     if(this.cookieService.get(this.cookieNameVar) != ""){
       this.token=this.cookieService.get(this.cookieNameVar);
@@ -35,8 +38,10 @@ export class UsuariosService {
       .pipe(
         map(response => {
           this.loggedIn = true;
-          this.token = response.access_token;
-          this.cookieService.set(this.cookieNameVar,response.access_token,1);
+          this.token = response.usuario_token;
+          this.user =  response;
+          this.cookieService.set(this.cookieNameVar,response.usuario_token,1);
+          this.cookieService.set(this.cookieNameVar2,response,1);
           return response;
         }),
         catchError(error => {
@@ -49,6 +54,7 @@ export class UsuariosService {
   }
 
   getToken(){
+   
     return this.token;
   }
   

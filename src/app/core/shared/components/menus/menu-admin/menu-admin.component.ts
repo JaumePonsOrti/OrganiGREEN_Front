@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { MenuService } from '../../../services/menu/menu.service';
 
 @Component({
   selector: 'app-menu-admin',
@@ -6,5 +8,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu-admin.component.scss']
 })
 export class MenuAdminComponent {
+  constructor(public menuService:MenuService) {}
+  seeSidebar = true;
+  marginLeft =  "";
+  openScroll() {
+		if (this.seeSidebar) {
+      this.seeSidebar = false;
+      this.marginLeft =  "ml-0";
+    }
+    else{
+      this.seeSidebar = true;
+      this.marginLeft =  "";
+      
+    }
+	}
 
+  ifMayorQue0(item:Array<any>){
+    if(typeof item != "undefined"){
+      return true;
+    }
+    return false;
+  }
+
+  generarEnlace(menu:any){
+    let m = menu.tipo_de_view +"/"+menu.controlador;
+    return m;
+  }
 }

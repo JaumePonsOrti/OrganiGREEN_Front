@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ContactService } from './contacto/ContactService';
 import { UsuariosService } from './usuarios/usuarios.service';
+import { MenuService } from './menu/menu.service';
 
 
 
@@ -15,7 +16,8 @@ import { UsuariosService } from './usuarios/usuarios.service';
     HttpClientModule
   ],providers:[
     ContactService,
-    UsuariosService
+    UsuariosService,
+    MenuService
   ]
 })
 export class ServicesModule { }

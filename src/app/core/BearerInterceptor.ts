@@ -11,7 +11,7 @@ export class BearerInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Agregar encabezados comunes a todas las solicitudes
     const modifiedRequest = request.clone({
-      headers: request.headers.set('Authorization', 'Bearer ' + this.usuSer.token)
+      headers: request.headers.set('Authorization', 'Bearer ' + this.usuSer.getToken())
     });
 
     // Manipular la solicitud antes de enviarla
