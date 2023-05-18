@@ -10,7 +10,8 @@ export const environment = {
   frontendName:"Jaume Pons Orti",
   metaTitlePage:"",
   lenguage:"es-ES",
-  imagenesUrl:"http://localhost/images/personal"
+  imagenesUrl:"http://localhost/images/personal",
+  tiempoComprobarSiHayConexion:1500
 };
 
 /*

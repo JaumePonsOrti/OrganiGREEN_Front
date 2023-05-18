@@ -4,6 +4,7 @@ import { ServicesModule } from './shared/services/services.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BearerInterceptor } from './BearerInterceptor';
 import { AppKeyInterceptor } from './AppKeyInterceptor';
+import { ConectadoService } from './shared/services/conectado/conectado.service';
 
 
 
@@ -22,7 +23,8 @@ import { AppKeyInterceptor } from './AppKeyInterceptor';
     { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor,multi:true},
     {
       provide: HTTP_INTERCEPTORS, useClass: AppKeyInterceptor,multi:true
-    }
+    },
+    ConectadoService
   ]
 })
 export class CoreModule { }

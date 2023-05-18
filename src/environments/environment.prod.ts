@@ -4,5 +4,6 @@ export const environment = {
   frontendName:"Jaume Pons Orti",
   metaTitlePage:"",
   lenguage:"es",
-  imagenesUrl:"http://localhost/images/personal"
+  imagenesUrl:"http://localhost/images/personal",
+  tiempoComprobarSiHayConexion:1500
 };

@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from './core/core.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AlertsModule } from './core/shared/components/alerts/alerts.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
      AppRoutingModule, 
      NgbModule,
      CoreModule,
+     AlertsModule
     ],
   providers: [{
      provide: RouteReuseStrategy, useClass: IonicRouteStrategy, 
