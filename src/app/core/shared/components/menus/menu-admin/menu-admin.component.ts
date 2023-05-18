@@ -1,14 +1,17 @@
 import { Component, TemplateRef } from '@angular/core';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { MenuService } from '../../../services/menu/menu.service';
+import { Debug } from '../../../helpers/Debug';
 
 @Component({
   selector: 'app-menu-admin',
   templateUrl: './menu-admin.component.html',
   styleUrls: ['./menu-admin.component.scss']
 })
-export class MenuAdminComponent {
-  constructor(public menuService:MenuService) {}
+export class MenuAdminComponent extends Debug {
+  constructor(public menuService:MenuService) {
+    super(true);
+  }
   seeSidebar = true;
   marginLeft =  "";
   openScroll() {
@@ -31,7 +34,9 @@ export class MenuAdminComponent {
   }
 
   generarEnlace(menu:any){
+
     let m = menu.tipo_de_view +"/"+menu.controlador;
+  
     return m;
   }
 }
