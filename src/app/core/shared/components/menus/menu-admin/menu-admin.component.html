@@ -1,3 +1,13 @@
+
+<div class="alertActivada" *ngIf="this.conectadoService.alertAbierto === true">
+  <ngb-alert *ngIf="mostrarAlertaDesconectado" (closed)="onClose('i')" class="position-fixed fixed-top w-100" type="danger">
+    Desconectado del Servidor
+  </ngb-alert>
+  <ngb-alert *ngIf="mostrarAlertaConectado" (closed)="onClose('i')" class="position-fixed fixed-top w-100" type="success">
+    Conectado al Servidor
+  </ngb-alert>
+</div>
+
 <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light" [class]="marginLeft">
@@ -192,9 +202,17 @@
             </ul>
           </li>
         </ul>
+        <ul>
+          <li class="nav-item">
+            <button class="btn btn-navbar btn-primary" (click)="cerrarSesion()">
+              Cerrar sesion
+            </button>
+          </li>
+        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
   
+</div>

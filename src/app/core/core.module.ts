@@ -5,6 +5,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BearerInterceptor } from './BearerInterceptor';
 import { AppKeyInterceptor } from './AppKeyInterceptor';
 import { ConectadoService } from './shared/services/conectado/conectado.service';
+import { GuardsModule } from './shared/guards/guards.module';
 
 
 
@@ -13,11 +14,9 @@ import { ConectadoService } from './shared/services/conectado/conectado.service'
   declarations: [],
   imports: [
     CommonModule,
-    ServicesModule
-
+    ServicesModule, 
   ],
   exports:[
-    
     ServicesModule
   ],providers:[
     { provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor,multi:true},

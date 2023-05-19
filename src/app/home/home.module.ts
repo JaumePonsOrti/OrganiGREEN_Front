@@ -6,6 +6,9 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { SharedModule } from '../core/shared/shared.module';
+import { GuardsModule } from '../core/shared/guards/guards.module';
+import { AuthGuard } from '../core/shared/guards/auth/auth.guard';
+import { LoginGuard } from '../core/shared/guards/login.guard';
 
 
 @NgModule({
@@ -16,6 +19,10 @@ import { SharedModule } from '../core/shared/shared.module';
     HomePageRoutingModule,
     SharedModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage], 
+  providers:[ 
+    AuthGuard,
+    LoginGuard,
+  ]
 })
 export class HomePageModule {}

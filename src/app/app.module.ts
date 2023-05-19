@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from './core/core.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertsModule } from './core/shared/components/alerts/alerts.module';
+import { GuardsModule } from './core/shared/guards/guards.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { AlertsModule } from './core/shared/components/alerts/alerts.module';
      AppRoutingModule, 
      NgbModule,
      CoreModule,
-     AlertsModule
+     GuardsModule,
+    
     ],
   providers: [{
      provide: RouteReuseStrategy, useClass: IonicRouteStrategy, 

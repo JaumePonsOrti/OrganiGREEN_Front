@@ -60,6 +60,9 @@ export class UsuariosService {
   
   cerrarSesion(){
     this.token = "";
+    this.loggedIn = false;
+    this.user = null;
     this.cookieService.delete(this.cookieNameVar);
+    this.cookieService.delete(this.cookieNameVar2);
   }
 }

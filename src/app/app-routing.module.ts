@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/shared/guards/auth/auth.guard';
+import { LoginGuard } from './core/shared/guards/login.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
   },
   {
     path: "intranet",
-    loadChildren: () => import('./intranet/intranet.module').then(m => m.IntranetModule)
+    loadChildren: () => import('./intranet/intranet.module').then(m => m.IntranetModule),
+    
+  },
+  {
+    path: "no-conectado",
+    loadChildren: () => import('./no-conectado/no-conectado.module').then(m => m.NoConectadoModule),
+    canActivate:[]
   }
+
 ];
 
 @NgModule({
