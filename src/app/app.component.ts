@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ConectadoService } from './core/shared/services/conectado/conectado.service';
 import { Subscription, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UsuariosService } from './core/shared/services/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
- constructor(private conectadoService: ConectadoService) {
+ constructor(private conectadoService: ConectadoService,
+  usuarioService: UsuariosService) {
   this.conectadoService.ping().subscribe(() => {});
  }
  

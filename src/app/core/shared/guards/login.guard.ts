@@ -19,6 +19,20 @@ export class LoginGuard implements CanActivate, CanActivateChild {
     // Obtiene el token de otra forma
     const token = this.usuariosService.getToken();
     // Si hay token
+    if (!token || token == "") {
+      return true;
+      //Si el token no es un string vacio
+      if(token !=""){
+        return true;
+      }
+      return false;
+    }
+    // Si no hay token, redirige al login y devuelve false
+    else  {
+      this.router.navigate(['/intranet']);
+      
+      return false;
+    }
     if(this.conectada.conectada == true) {
       return true;
     }
