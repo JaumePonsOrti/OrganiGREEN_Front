@@ -11,6 +11,7 @@ import { CoreModule } from './core/core.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertsModule } from './core/shared/components/alerts/alerts.module';
 import { GuardsModule } from './core/shared/guards/guards.module';
+import { NoConComponent } from './home/no-con/no-con.component';
 
 @NgModule({
   declarations: [AppComponent],

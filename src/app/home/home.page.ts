@@ -4,6 +4,8 @@ import { AlertConfig } from '../core/shared/components/alerts/Models/AlerConfig'
 import { Router } from '@angular/router';
 import { UsuariosService } from '../core/shared/services/usuarios/usuarios.service';
 import { environment } from 'src/environments/environment';
+import { ConectadoService } from '../core/shared/services/conectado/conectado.service';
+import { Observable, lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +18,11 @@ export class HomePage {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    public usuariosServices:UsuariosService
-  ) { }
+    public usuariosServices:UsuariosService,
+    public conectada:ConectadoService
+  ) {
+    
+  }
   alertConfig: AlertConfig = {
     type: 'success',
     message: 'Este es un mensaje de éxito',
@@ -40,7 +45,8 @@ export class HomePage {
       if(environment.production==false){
         console.log("Los datos son validos");
       }
-      
+      let subs$ = this.conectada.ping();
+    // let result = await lastValueFrom(subs$);
       const { username, password } = this.loginForm.value;
       this.usuariosServices.login(username, password)
         .subscribe({

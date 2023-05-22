@@ -12,7 +12,9 @@ import { UsuariosService } from './core/shared/services/usuarios/usuarios.servic
 export class AppComponent {
  constructor(private conectadoService: ConectadoService,
   usuarioService: UsuariosService) {
-  this.conectadoService.ping().subscribe(() => {});
+  this.conectadoService.ping().subscribe((response) => {
+    console.log(this.conectadoService.conectada);
+  });
  }
  
 }

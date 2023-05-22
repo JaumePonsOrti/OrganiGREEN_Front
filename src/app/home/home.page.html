@@ -15,7 +15,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="hold-transition login-page">
+  <div class="hold-transition login-page" *ngIf="conectada.conectada">
     <div class="login-box">
       <!-- /.login-logo -->
       <div class="card card-outline card-primary">
@@ -78,4 +78,5 @@
       <!-- /.card -->
     </div>
   </div>
+  <app-no-con *ngIf="!conectada.conectada"></app-no-con>
 </ion-content>

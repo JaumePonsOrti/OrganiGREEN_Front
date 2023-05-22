@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NoConectadoComponent } from './no-conectado.component';
 
-import { NoConectadoRoutingModule } from './no-conectado-routing.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [NoConectadoComponent],
   imports: [
     CommonModule,
-    NoConectadoRoutingModule
-  ]
+
+  ],exports:[NoConectadoComponent]
 })
 export class NoConectadoModule { }

@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/shared/guards/auth/auth.guard';
 import { LoginGuard } from './core/shared/guards/login.guard';
+import { NoConComponent } from './home/no-con/no-con.component';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+   
   },
   {
     path: "intranet",
@@ -14,9 +16,12 @@ const routes: Routes = [
     
   },
   {
-    path: "no-conectado",
+    path: "noconectado",
     loadChildren: () => import('./no-conectado/no-conectado.module').then(m => m.NoConectadoModule),
-    canActivate:[]
+    
+  },{
+    path:"nocon",
+    component: NoConComponent
   }
 
 ];

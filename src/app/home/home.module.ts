@@ -9,6 +9,8 @@ import { SharedModule } from '../core/shared/shared.module';
 import { GuardsModule } from '../core/shared/guards/guards.module';
 import { AuthGuard } from '../core/shared/guards/auth/auth.guard';
 import { LoginGuard } from '../core/shared/guards/login.guard';
+import { NoConectadoModule } from '../no-conectado/no-conectado.module';
+import { NoConComponent } from './no-con/no-con.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { LoginGuard } from '../core/shared/guards/login.guard';
     HomePageRoutingModule,
     SharedModule
   ],
-  declarations: [HomePage], 
+  declarations: [HomePage,
+    NoConComponent
+  ], 
   providers:[ 
     AuthGuard,
     LoginGuard,
