@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertConfig } from '../core/shared/components/alerts/Models/AlerConfig';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../core/shared/services/usuarios/usuarios.service';
-import { environment } from 'src/environments/environment';
 import { ConectadoService } from '../core/shared/services/conectado/conectado.service';
 import { Observable, lastValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',

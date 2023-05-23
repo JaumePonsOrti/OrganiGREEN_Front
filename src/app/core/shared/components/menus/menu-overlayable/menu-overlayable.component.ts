@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Escaler } from '../../escaler/escaler';
 import { linkMenu } from '../interface/MenuConfig';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-menu-overlayable',

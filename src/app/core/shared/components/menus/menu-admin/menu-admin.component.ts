@@ -4,9 +4,10 @@ import { MenuService } from '../../../services/menu/menu.service';
 import { Debug } from '../../../helpers/Debug';
 import { ConectadoService } from '../../../services/conectado/conectado.service';
 import { Subscription, interval } from 'rxjs';
-import { environment } from 'src/environments/environment';
+
 import { UsuariosService } from '../../../services/usuarios/usuarios.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-menu-admin',

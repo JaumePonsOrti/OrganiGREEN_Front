@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Debug } from '../../helpers/Debug';
 import { Enlace_Menu } from '../../models/enlace_menu';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

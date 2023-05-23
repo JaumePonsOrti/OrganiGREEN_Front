@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ConectadoService } from './core/shared/services/conectado/conectado.service';
 import { Subscription, interval } from 'rxjs';
-import { environment } from 'src/environments/environment';
+
 import { UsuariosService } from './core/shared/services/usuarios/usuarios.service';
 
 @Component({

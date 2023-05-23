@@ -21,7 +21,8 @@ import { NoConComponent } from './no-con/no-con.component';
     HomePageRoutingModule,
     SharedModule
   ],
-  declarations: [HomePage,
+  declarations: [
+    HomePage,
     NoConComponent
   ], 
   providers:[ 

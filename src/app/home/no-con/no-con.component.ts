@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConectadoService } from 'src/app/core/shared/services/conectado/conectado.service';
+import { ConectadoService } from '../../core/shared/services/conectado/conectado.service';
+
 
 @Component({
   selector: 'app-no-con',
