@@ -12,6 +12,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertsModule } from './core/shared/components/alerts/alerts.module';
 import { GuardsModule } from './core/shared/guards/guards.module';
 import { NoConComponent } from './home/no-con/no-con.component';
+import { ViewsModule } from './core/shared/views/views.module';
+import { IntranetModule } from './intranet/intranet.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,7 @@ import { NoConComponent } from './home/no-con/no-con.component';
      NgbModule,
      CoreModule,
      GuardsModule,
-    
+     
     ],
   providers: [{
      provide: RouteReuseStrategy, useClass: IonicRouteStrategy, 
