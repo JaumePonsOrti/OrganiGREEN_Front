@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PlanificacionComponent } from './planificacion.component';
 
-const routes: Routes = [];
+const routes: Routes = [{
+  path:'',
+  component: PlanificacionComponent
+}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

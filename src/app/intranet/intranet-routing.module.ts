@@ -7,7 +7,23 @@ const routes: Routes = [
   {
     path:"",
     component:IntranetComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard],
+   
+    
+  },
+  { 
+    path: 'planificacion', 
+    loadChildren:  ()=> import('../core/shared/views/planificacion/planificacion.module').then(
+      m => m.PlanificacionModule
+    ),
+    
+  },
+   { 
+    path: 'plan', 
+    loadChildren:  ()=> import('../core/shared/views/planificacion/planificacion.module').then(
+      m => m.PlanificacionModule
+    ),
+    
   }
 ];
 
