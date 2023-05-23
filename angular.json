@@ -31,8 +31,16 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": []
+            "styles": [
+              "src/theme/variables.scss",
+              "src/global.scss",
+              "src/assets/fontawesome-free/css/all.min.css",
+              "src/assets/icheck-bootstrap/icheck-bootstrap.min.css",
+              "src/assets/css/adminlte.min.css"
+            ],
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {
@@ -111,7 +119,13 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "src/theme/variables.scss", 
+              "src/global.scss",
+              "src/assets/fontawesome-free/css/all.min.css",
+              "src/assets/icheck-bootstrap/icheck-bootstrap.min.css",
+              "src/assets/css/adminlte.min.css"
+            ],
             "scripts": []
           },
           "configurations": {
