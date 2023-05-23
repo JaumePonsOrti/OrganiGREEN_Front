@@ -5,6 +5,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Credentials } from '../../models/Credentials';
 import { HashService } from '../crytp/hash.service';
 import { environment } from '../../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,12 @@ export class UsuariosService {
   cookieNameVar:string = "token";
   cookieNameVar2:string = "user";
 
-  constructor(private http: HttpClient, private cookieService:CookieService, private hasher:HashService) {
+  constructor(
+    private http: HttpClient,
+    private cookieService:CookieService, 
+    private hasher:HashService,
+    private router: Router
+  ) {
     if(this.cookieService.get(this.cookieNameVar) != ""){
       this.token=this.cookieService.get(this.cookieNameVar);
     }
@@ -64,5 +70,6 @@ export class UsuariosService {
     this.user = null;
     this.cookieService.delete(this.cookieNameVar);
     this.cookieService.delete(this.cookieNameVar2);
+    this.router.navigate(['/']);
   }
 }
