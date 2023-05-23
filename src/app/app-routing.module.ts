@@ -13,17 +13,7 @@ const routes: Routes = [
   {
     path: "intranet",
     loadChildren: () => import('./intranet/intranet.module').then(m => m.IntranetModule),
-    
-  },
-  {
-    path: "noconectado",
-    loadChildren: () => import('./no-conectado/no-conectado.module').then(m => m.NoConectadoModule),
-    
-  },{
-    path:"nocon",
-    component: NoConComponent
   }
-
 ];
 
 @NgModule({
