@@ -33,6 +33,7 @@ export class MenuAdminComponent extends Debug {
       next: (tiempo) => {
         this.conectadoService.ping().subscribe({
           next: (response) => {
+            this.menuService.getMenuDeApi().subscribe();
             if (this.conectadoService.estadoAnterior !== this.conectadoService.conectada) {
               this.mostrarAlertaDesconectado = false;
               this.mostrarAlertaConectado = true;

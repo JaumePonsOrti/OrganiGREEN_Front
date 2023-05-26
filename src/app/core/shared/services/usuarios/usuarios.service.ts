@@ -6,6 +6,7 @@ import { Credentials } from '../../models/Credentials';
 import { HashService } from '../crytp/hash.service';
 import { environment } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
+import { SesionService } from '../sesion/sesion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,8 @@ export class UsuariosService {
     private http: HttpClient,
     private cookieService:CookieService, 
     private hasher:HashService,
-    private router: Router
+    private router: Router,
+    private sesion:SesionService
   ) {
     if(this.cookieService.get(this.cookieNameVar) != ""){
       this.token=this.cookieService.get(this.cookieNameVar);
@@ -44,10 +46,12 @@ export class UsuariosService {
       .pipe(
         map(response => {
           this.loggedIn = true;
+           this.sesion.caducada = false;
           this.token = response.usuario_token;
           this.user =  response;
           this.cookieService.set(this.cookieNameVar,response.usuario_token,1);
           this.cookieService.set(this.cookieNameVar2,response,1);
+          
           return response;
         }),
         catchError(error => {
@@ -64,12 +68,15 @@ export class UsuariosService {
     return this.token;
   }
   
-  cerrarSesion(){
+  cerrarSesion(sesionCaducada?:boolean){
     this.token = "";
     this.loggedIn = false;
     this.user = null;
     this.cookieService.delete(this.cookieNameVar);
     this.cookieService.delete(this.cookieNameVar2);
+    if(sesionCaducada){
+      this.sesion.caducada = true;
+    }
     this.router.navigate(['/']);
   }
 }

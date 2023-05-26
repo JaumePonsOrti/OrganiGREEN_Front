@@ -5,6 +5,7 @@ import { ContactService } from './contacto/ContactService';
 import { UsuariosService } from './usuarios/usuarios.service';
 import { MenuService } from './menu/menu.service';
 import { UniversalService } from './universal/universal.service';
+import { SesionService } from './sesion/sesion.service';
 
 
 
@@ -19,7 +20,8 @@ import { UniversalService } from './universal/universal.service';
     ContactService,
     UsuariosService,
     MenuService,
-    UniversalService
+    UniversalService, 
+    SesionService
   ]
 })
 export class ServicesModule { }
