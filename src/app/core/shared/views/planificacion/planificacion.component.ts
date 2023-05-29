@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/core';
 
 @Component({
   selector: 'app-planificacion',
@@ -10,5 +11,13 @@ export class PlanificacionComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+  calendarOptions: CalendarOptions = {
+   
+    initialView: 'dayGridMonth',
+    weekends: false,
+    events: [
+      { title: 'Meeting', start: new Date() }
+    ]
+  };
 
 }
