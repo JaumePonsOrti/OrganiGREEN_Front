@@ -5,6 +5,7 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { MenuOverlayableComponent } from './menu-overlayable/menu-overlayable.component';
 import { NgbAlertModule, NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertsModule } from '../alerts/alerts.module';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -16,13 +17,15 @@ import { AlertsModule } from '../alerts/alerts.module';
   ],
   imports: [
     CommonModule,
-    NgbAlertModule
+    NgbAlertModule,
+    IonicModule,
   ],
   exports:[
     MenuAdminComponent,
     MenuPublicComponent,
     MenuOverlayableComponent,
-    NgbAlertModule
+    NgbAlertModule,
+    
   ]
 })
 export class MenusModule { }

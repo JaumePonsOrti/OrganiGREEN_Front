@@ -92,7 +92,7 @@ export class MenuAdminComponent extends Debug {
 
   generarEnlace(menu:any){
 
-    let m = menu.tipo_de_view +"/"+menu.controlador;
+    let m = "intranet/"+menu.tipo_de_view +"/"+menu.controlador;
   
     return m;
   }
