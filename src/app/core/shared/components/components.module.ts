@@ -7,6 +7,7 @@ import { ServicesModule } from '../services/services.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { CarrouselComponent } from './carrousel/carrousel.component';
 import { NgbCarouselModule, NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
+import { BusquedaModule } from './busqueda/busqueda.module';
 
 
 
@@ -20,7 +21,8 @@ import { NgbCarouselModule, NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstra
     MenusModule,
     ReactiveFormsModule,
     AlertsModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    BusquedaModule
   ],
   exports:[
     MenusModule,
@@ -28,7 +30,8 @@ import { NgbCarouselModule, NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstra
     ReactiveFormsModule,
     NgbCarouselModule,
     CarrouselComponent,
-    AlertsModule
+    AlertsModule, 
+    BusquedaModule
   ]
 })
 export class ComponentsModule { }

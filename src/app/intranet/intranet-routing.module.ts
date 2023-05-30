@@ -6,7 +6,7 @@ import { AuthGuard } from '../core/shared/guards/auth/auth.guard';
 const routes: Routes = [
   {
     path:"",
-    component:IntranetComponent,
+    component:IntranetComponent
     
     //canActivate: [AuthGuard],
   },
@@ -16,7 +16,14 @@ const routes: Routes = [
       m => m.PlanificacionModule
     ),
     
-  }
+  },
+  {
+    path:'crud',
+    loadChildren:  ()=> import('../core/shared/views/crud/crud.module').then(
+      m => m.CrudModule
+    )
+  },      
+ 
 ];
 
 @NgModule({
