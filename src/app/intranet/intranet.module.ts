@@ -7,6 +7,8 @@ import { IntranetComponent } from './intranet.component';
 import { RouterModule } from '@angular/router';
 import { IonRouterOutlet, IonicModule } from '@ionic/angular';
 import { PlanificacionModule } from "../core/shared/views/planificacion/planificacion.module";
+import { viewport } from '@popperjs/core';
+import { ViewsModule } from '../core/shared/views/views.module';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { PlanificacionModule } from "../core/shared/views/planificacion/planific
         IntranetRoutingModule,
         SharedModule,
         IonicModule,
-         RouterModule
+         RouterModule,
+        
     ]
 })
 export class IntranetModule { }

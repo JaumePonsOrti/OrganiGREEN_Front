@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CrudRoutingModule } from './crud-routing.module';
 import { CrudComponent } from './crud.component';
-import { ComponentsModule } from '../../components/components.module';
+import { MenusModule } from '../../components/menus/menus.module';
 
 
 @NgModule({
@@ -12,8 +12,8 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     CommonModule,
-    CrudRoutingModule, 
-    ComponentsModule
+    CrudRoutingModule,
+    MenusModule
   ],
   exports:[
     CrudComponent

@@ -4,12 +4,12 @@ import { CrudComponent } from './crud.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:  CrudComponent
+    path: '',
+    component: CrudComponent
   },
   {
-    path:':controlador',
-    component:  CrudComponent
+    path: ':controlador',
+    component: CrudComponent
   }
 ];
 
