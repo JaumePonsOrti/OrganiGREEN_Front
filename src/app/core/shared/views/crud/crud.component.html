@@ -1,7 +1,8 @@
-<app-menu-admin></app-menu-admin>
-<p>
-  crud works!
-</p>
-<p>
-  {{rutaActiva.snapshot.params["controlador"] }} 
-</p>
+<ion-header>
+  <app-menu-admin (menuAbierto)="seAbrioMenu($event)"> </app-menu-admin>
+</ion-header>
+<ion-content [fullscreen]="true" >
+ <div [class]="claseAAplicar">
+  {{nombreControlador}}
+ </div>
+</ion-content>

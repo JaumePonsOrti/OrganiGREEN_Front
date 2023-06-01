@@ -19,7 +19,8 @@ const routes: Routes = [
   },
   {
     path:'crud',
-    loadChildren:  ()=> import('../core/shared/views/crud/crud.module').then(
+    loadChildren:  ()=> import('../core/shared/views/crud/crud.module'
+    ).then(
       m => m.CrudModule
     )
   },      

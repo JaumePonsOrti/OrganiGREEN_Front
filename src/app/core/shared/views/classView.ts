@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 export class ClassView {
     public nombreControlador: string = "";
-    public rutaActiva: ActivatedRoute = new ActivatedRoute();
-    constructor( ) {
-        
+    
+
+    constructor(public claseAAplicar: string, public rutaActiva: ActivatedRoute) {
+        this.claseAAplicar = "margin-left-menu-desplegado";
     }
 
     public alInicio( ) {
@@ -14,4 +15,10 @@ export class ClassView {
         console.log("nombre:",this.nombreControlador);
     }
 
+    seAbrioMenu(menuAvierto:boolean) {
+        this.claseAAplicar = "";
+        if(menuAvierto == true){ 
+            this.claseAAplicar = "margin-left-menu-desplegado";
+        }
+    }
 }

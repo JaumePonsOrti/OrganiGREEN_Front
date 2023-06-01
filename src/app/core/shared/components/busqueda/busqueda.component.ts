@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-busqueda',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./busqueda.component.scss'],
 })
 export class BusquedaComponent  implements OnInit {
-
+  @Input() controlador: string = "";
   constructor() { }
 
   ngOnInit() {}

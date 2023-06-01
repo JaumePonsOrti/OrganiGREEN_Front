@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Output, TemplateRef } from '@angular/core';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { MenuService } from '../../../services/menu/menu.service';
 import { Debug } from '../../../helpers/Debug';
@@ -9,6 +9,7 @@ import { UsuariosService } from '../../../services/usuarios/usuarios.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../../environments/environment';
 
+
 @Component({
   selector: 'app-menu-admin',
   templateUrl: './menu-admin.component.html',
@@ -18,7 +19,8 @@ export class MenuAdminComponent extends Debug {
   timerSubscripcion!: Subscription;
   mostrarAlertaDesconectado = false;
   mostrarAlertaConectado = false;
-
+  
+  @Output() menuAbierto = new EventEmitter<boolean>();
   constructor(
     public conectadoService: ConectadoService,
     public menuService: MenuService, 
@@ -27,6 +29,9 @@ export class MenuAdminComponent extends Debug {
   ) 
   {
     super(true);
+    //Nos subscrivimos a el menu
+    this.menuService.getMenuDeApi().subscribe();
+
     this.timerSubscripcion = interval(
       environment.tiempoComprobarSiHayConexion
     ).subscribe({
@@ -81,6 +86,7 @@ export class MenuAdminComponent extends Debug {
       this.marginLeft =  "";
       
     }
+    this.menuAbierto.emit(this.seeSidebar);
 	}
 
   ifMayorQue0(item:Array<any>){
