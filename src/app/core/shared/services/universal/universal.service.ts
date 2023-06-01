@@ -82,11 +82,11 @@ export class UniversalService {
     );
   }
 
-  can_create(controllerName: string) {
+  public can_create(controllerName: string) {
     return this.canActivateUniversalControllerParameter(controllerName,"crear");
   }
 
-  can_update(controllerName: string, id?: string) {
+  public can_update(controllerName: string, id?: string) {
     return this.canActivateUniversalControllerParameter(controllerName,"actualizar",id);
 
     this.controllerName = controllerName;
@@ -99,7 +99,7 @@ export class UniversalService {
     
   }
 
-  can_get(controllerName: string, id?: string) {
+  public can_get(controllerName: string, id?: string) {
     return this.canActivateUniversalControllerParameter(controllerName,"ver",id);
 
     this.controllerName = controllerName;
@@ -111,7 +111,7 @@ export class UniversalService {
     }
   }
 
-  can_delete(controllerName: string, id: string) {
+  public can_delete(controllerName: string, id: string) {
     return this.canActivateUniversalControllerParameter(controllerName,"borrar",id);
 
     this.controllerName = controllerName;
@@ -120,7 +120,7 @@ export class UniversalService {
     return this.http.get(this.apiUrl + controllerName + '/borrar/' + id+"/can_activate");
   }
 
-  can_replace(controllerName: string, id: string) {
+  public can_replace(controllerName: string, id: string) {
     return this.canActivateUniversalControllerParameter(controllerName,"remplazar",id);
 
     this.controllerName = controllerName;
@@ -128,7 +128,7 @@ export class UniversalService {
     return this.http.get(this.apiUrl + controllerName + '/remplazar/' + id + '/can_activate');
   }
 
-  can_count(controllerName: string) {
+  public can_count(controllerName: string) {
     return this.canActivateUniversalControllerParameter(controllerName,"contar");
 
     this.controllerName = controllerName;

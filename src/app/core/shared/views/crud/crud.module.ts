@@ -6,6 +6,7 @@ import { CrudComponent } from './crud.component';
 
 import { IonicModule } from '@ionic/angular';
 import { MenusModule } from 'src/app/core/shared/components/menus/menus.module';
+import { ComponentsModule } from '../../components/components.module';
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import { MenusModule } from 'src/app/core/shared/components/menus/menus.module';
   imports: [
     CommonModule,
     CrudRoutingModule,
-    MenusModule,
+    ComponentsModule,
     IonicModule
   ],
   exports:[

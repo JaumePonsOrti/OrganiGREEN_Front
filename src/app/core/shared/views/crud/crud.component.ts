@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClassView } from '../classView';
+import { UniversalService } from '../../services/universal/universal.service';
 
 @Component({
   selector: 'app-crud',
@@ -9,13 +10,12 @@ import { ClassView } from '../classView';
 })
 export class CrudComponent extends ClassView implements OnInit {
 
-  constructor(rutaActivaLocal: ActivatedRoute) { 
-    super("margin-left-menu-desplegado",rutaActivaLocal);
+  constructor(rutaActivaLocal: ActivatedRoute,  universalService: UniversalService, private router: Router) { 
+    super("margin-left-menu-desplegado", universalService, rutaActivaLocal);
   }
 
   ngOnInit() {
     this.alInicio();  
-   
   }
 
   
