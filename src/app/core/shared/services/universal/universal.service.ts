@@ -60,7 +60,7 @@ export class UniversalService {
     let api = this.apiUrl+ "/" + funcion ;
     if(campos_Afectados && campos_Afectados!= ""){
       api = api + "/"+ campos_Afectados;
-    } else{ 
+    } else if(funcion != "crear"){ 
       api = api + "/todos";
     }   
     api = api +"/can_activate";
@@ -80,6 +80,37 @@ export class UniversalService {
       }
       )
     );
+  }
+
+  /*
+  * El siguiente metodo sirve para obtener o ejecutar x funcion.
+  */
+  public request(controller: string, method: string, option?: string | number, data?: any) {
+    this.controllerName = controller.toLowerCase();
+    this.getApiURL();
+    let url = `${this.apiUrl}/${method}`;
+    if (option) {
+      url += `/${option}`;
+    }
+    switch (method) {
+      case 'ver':
+        return this.http.get(url);
+        break;
+      case 'crear':
+        return this.http.post(url, data);
+        break;
+      case 'actualizar':
+        return this.http.put(url, data);
+        break;
+      case 'borrar':
+        return this.http.delete(url);
+        break;
+      case'remplazar':
+        return this.http.put(url, data);
+        break;
+    }
+
+    return this.http.get(url);
   }
 
   public can_create(controllerName: string) {

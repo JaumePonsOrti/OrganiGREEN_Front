@@ -8,41 +8,71 @@
   -->
   
     <div class="container">
-      <div class="row m-auto" *ngIf="can_ver == true">
-        <table>
+      <div class="mt-2 mb-5 row">
+        <b>
+          Crear nuevo {{nombreControlador}}:
+        </b>
+        <div class="col" *ngFor="let contenido of modificarParaInsert() | keyvalue">
+          <!--
+          <label [for]="'exampleFormControlInput'+contenido.key" class="form-label">{{contenido.key}}</label>
+          --> 
+          <input type="text" class="form-control" [id]="'exampleFormControlInput'+contenido.key" [placeholder]="contenido.key">
+        </div>
+       
+        <div class="col" *ngIf="can_agregar === true">
+          <button type="button" class="btn btn-outline-primary" (click)="crear()">
+            Crear
+          </button>
+        </div>
+      </div>
+
+      <b>
+        Contenido de {{nombreControlador}}:
+      </b>
+      <div class="row m-auto" *ngIf="can_ver === true">
+        <table class="table table-striped col-8 ">
           <thead>
             <tr>
-              <th class="text-center">ID</th>
-              <th class="text-center">Name</th>
-              <th class="text-center">Editar</th>
-              <th class="text-center">Borrar</th>
+              <th *ngFor="let contenido of listaContenidos[0] | keyvalue" class="text-center">{{contenido.key}}</th>
+              <th class="text-center" *ngIf="can_editar === true">Editar</th>
+              <th class="text-center" *ngIf="can_borrar === true">Borrar</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-center">ID</td>
-              <td class="text-center">
-                Nombre
+            <tr *ngFor="let contenido of listaContenidos">
+              <td class="text-center" *ngFor="let parte of contenido | keyvalue ">
+                {{parte.value}}
               </td>
+            
               <td class="text-center">
+               <!--
                <span *ngIf="can_editar === false">No tienes permiso</span>
+               -->
                <button *ngIf="can_editar === true" class="btn btn-primary">
                 Editar
                </button>
               </td>
               <td class="text-center">
+                <!--
                 <span *ngIf="can_borrar === false">No tienes permiso</span>
-                <button *ngIf="can_borrar === true" class="btn btn-primary">
+                -->
+                
+                <button *ngIf="can_borrar === true" class="btn btn-danger" (click)="eliminar(contenido)">
                   Borrar
                  </button>
               </td>
             </tr>
           </tbody>
         </table>
+         
         
       </div>
     </div>
-    {{nombreControlador}}
-
+  
+  
+    <!--
+      Tabla  boostrap
+        {{nombreControlador}}
+    -->
   </div>
 </ion-content>
