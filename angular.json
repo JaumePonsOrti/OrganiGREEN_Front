@@ -32,11 +32,11 @@
               }
             ],
             "styles": [
+              "src/assets/icheck-bootstrap/icheck-bootstrap.min.css",
+              "src/assets/css/adminlte.min.css",
               "src/theme/variables.scss",
               "src/global.scss",
-              "src/assets/fontawesome-free/css/all.min.css",
-              "src/assets/icheck-bootstrap/icheck-bootstrap.min.css",
-              "src/assets/css/adminlte.min.css"
+              "src/assets/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
               
@@ -120,11 +120,11 @@
               }
             ],
             "styles": [
-              "src/theme/variables.scss", 
-              "src/global.scss",
-              "src/assets/fontawesome-free/css/all.min.css",
               "src/assets/icheck-bootstrap/icheck-bootstrap.min.css",
-              "src/assets/css/adminlte.min.css"
+              "src/assets/css/adminlte.min.css",
+              "src/theme/variables.scss",
+              "src/global.scss",
+              "src/assets/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },

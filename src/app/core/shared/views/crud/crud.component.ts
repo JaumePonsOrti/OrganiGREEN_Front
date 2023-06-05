@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClassView } from '../classView';
 import { UniversalService } from '../../services/universal/universal.service';
+import { 
+  NgbModal,
+  NgbModalRef 
+} from '@ng-bootstrap/ng-bootstrap';
+import { ModalAutofocusComponent } from '../../components/modals/modal-autofocus/modal-autofocus.component';
+import { NewModalComponent } from '../../components/modals/new-modal/new-modal.component';
+
 
 @Component({
   selector: 'app-crud',
@@ -9,8 +16,15 @@ import { UniversalService } from '../../services/universal/universal.service';
   styleUrls: ['./crud.component.scss'],
 })
 export class CrudComponent extends ClassView implements OnInit {
-
-  constructor(rutaActivaLocal: ActivatedRoute,  universalService: UniversalService, ) { 
+  withAutofocus = `<button type="button" ngbAutofocus class="btn btn-danger"
+    (click)="modal.close('Ok click')">Ok</button>`;
+  
+  constructor(
+    rutaActivaLocal: ActivatedRoute, 
+     universalService: UniversalService, 
+     public _modalService: NgbModal
+    ) 
+  { 
     super("margin-left-menu-desplegado", universalService, rutaActivaLocal);
    // this.refreshCountries();
   }
@@ -77,4 +91,28 @@ export class CrudComponent extends ClassView implements OnInit {
     }
     return object;
   }
+
+  openModal(object: any) {
+    //let modal = this._modalService.open(MODALS["autoFocus"]);
+    let modal = this._modalService.open(ModalAutofocusComponent);
+    console.log('let Modal:', modal);
+    modal.closed.subscribe((closed)=>{
+      console.log('CLOSED modal:', closed);
+      this.eliminar(object);
+    });
+    modal.dismissed.subscribe((dismis)=>{
+      console.log('Dismis modal:', dismis);
+    });
+		//modal.componentInstance.name = 'ModalAutofocusComponent';
+    //
+    /*
+    */
+
+  }
+
+  open() {
+		const modalRef = this._modalService.open(NewModalComponent);
+		modalRef.componentInstance.name = 'World';
+	}
 }
+

@@ -57,15 +57,13 @@
                 <span *ngIf="can_borrar === false">No tienes permiso</span>
                 -->
                 
-                <button *ngIf="can_borrar === true" class="btn btn-danger" (click)="eliminar(contenido)">
+                <button *ngIf="can_borrar === true" class="btn btn-danger"   (click)="open()">
                   Borrar
                  </button>
               </td>
             </tr>
           </tbody>
         </table>
-         
-        
       </div>
     </div>
   

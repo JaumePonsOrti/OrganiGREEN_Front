@@ -9,6 +9,7 @@ import { CarrouselComponent } from './carrousel/carrousel.component';
 import { NgbCarouselModule, NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
 import { BusquedaModule } from './busqueda/busqueda.module';
 import { ModalsModule } from './modals/modals.module';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -24,6 +25,7 @@ import { ModalsModule } from './modals/modals.module';
     AlertsModule,
     NgbCarouselModule,
     BusquedaModule,
+    IonicModule,
     ModalsModule
   ],
   exports:[
@@ -34,6 +36,7 @@ import { ModalsModule } from './modals/modals.module';
     CarrouselComponent,
     AlertsModule, 
     BusquedaModule,
+    IonicModule,
     ModalsModule
   ]
 })
