@@ -17,7 +17,7 @@ import { NoConComponent } from './no-con/no-con.component';
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
+    
     HomePageRoutingModule,
     SharedModule
   ],

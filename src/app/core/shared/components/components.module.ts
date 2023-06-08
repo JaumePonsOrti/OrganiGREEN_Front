@@ -10,6 +10,7 @@ import { NgbCarouselModule, NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstra
 import { BusquedaModule } from './busqueda/busqueda.module';
 import { ModalsModule } from './modals/modals.module';
 import { IonicModule } from '@ionic/angular';
+import { MiFormsModule } from './mi-forms/mi-forms.module';
 
 
 
@@ -26,7 +27,8 @@ import { IonicModule } from '@ionic/angular';
     NgbCarouselModule,
     BusquedaModule,
     IonicModule,
-    ModalsModule
+    ModalsModule,
+    MiFormsModule
   ],
   exports:[
     MenusModule,
@@ -37,7 +39,8 @@ import { IonicModule } from '@ionic/angular';
     AlertsModule, 
     BusquedaModule,
     IonicModule,
-    ModalsModule
+    ModalsModule, 
+    MiFormsModule
   ]
 })
 export class ComponentsModule { }

@@ -89,7 +89,7 @@ export class UniversalService {
     this.controllerName = controller.toLowerCase();
     this.getApiURL();
     let url = `${this.apiUrl}/${method}`;
-    if (option) {
+    if (option || option != "") {
       url += `/${option}`;
     }
     switch (method) {

@@ -6,6 +6,7 @@ import { UsuariosService } from '../core/shared/services/usuarios/usuarios.servi
 import { ConectadoService } from '../core/shared/services/conectado/conectado.service';
 import { Observable, lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { HashService } from '../core/shared/services/crytp/hash.service';
 
 @Component({
   selector: 'app-home',
@@ -19,10 +20,12 @@ export class HomePage {
     private formBuilder: FormBuilder,
     private router: Router,
     public usuariosServices:UsuariosService,
-    public conectada:ConectadoService
+    public conectada:ConectadoService,
+    private hashService: HashService
   ) {
     
   }
+
   alertConfig: AlertConfig = {
     type: 'success',
     message: 'Este es un mensaje de éxito',
@@ -47,7 +50,8 @@ export class HomePage {
       }
       let subs$ = this.conectada.ping();
     // let result = await lastValueFrom(subs$);
-      const { username, password } = this.loginForm.value;
+      let { username, password } = this.loginForm.value;
+      password = this.hashService.sha3_512(password);
       this.usuariosServices.login(username, password)
         .subscribe({
           next: data => {
