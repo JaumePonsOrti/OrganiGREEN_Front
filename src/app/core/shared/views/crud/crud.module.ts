@@ -17,7 +17,7 @@ import { ComponentsModule } from '../../components/components.module';
     CommonModule,
     CrudRoutingModule,
     ComponentsModule,
-    IonicModule
+    
   ],
   exports:[
     CrudComponent

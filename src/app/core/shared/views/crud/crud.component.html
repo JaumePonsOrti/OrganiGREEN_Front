@@ -8,22 +8,12 @@
   -->
   
     <div class="container">
-      <div class="mt-2 mb-5 row">
+      <div class="mt-2 mb-3 ">
         <b>
           Crear nuevo {{nombreControlador}}:
         </b>
-        <div class="col" *ngFor="let contenido of modificarParaInsert() | keyvalue">
-          <!--
-          <label [for]="'exampleFormControlInput'+contenido.key" class="form-label">{{contenido.key}}</label>
-          --> 
-          <input type="text" class="form-control" [id]="'exampleFormControlInput'+contenido.key" [placeholder]="contenido.key">
-        </div>
+        <app-dynamic-form  *ngIf="can_agregar === true" [fields]="contenidoInsert" (submited)="ejecuta($event)"></app-dynamic-form>
        
-        <div class="col" *ngIf="can_agregar === true">
-          <button type="button" class="btn btn-outline-primary" (click)="crear()">
-            Crear
-          </button>
-        </div>
       </div>
 
       <b>
@@ -57,7 +47,7 @@
                 <span *ngIf="can_borrar === false">No tienes permiso</span>
                 -->
                 
-                <button *ngIf="can_borrar === true" class="btn btn-danger"   (click)="open()">
+                <button *ngIf="can_borrar === true" class="btn btn-danger"  (click)="openModal(contenido)">
                   Borrar
                  </button>
               </td>
