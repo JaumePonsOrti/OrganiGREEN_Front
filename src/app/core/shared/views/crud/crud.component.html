@@ -23,31 +23,34 @@
         <table class="table table-striped col-8 ">
           <thead>
             <tr>
-              <th *ngFor="let contenido of listaContenidos[0] | keyvalue; let primero = first;" 
-              [ngClass]="{'d-none':primero}" class="text-center">{{contenido.key}}</th>
+              <th *ngFor=" let contenido of listaClavesContenido;" class="text-center">{{contenido}}</th>
               <th class="text-center" *ngIf="can_editar === true">Editar</th>
               <th class="text-center" *ngIf="can_borrar === true">Borrar</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let contenido of listaContenidos; let i = index">
+            <tr *ngFor="let contenido of listaContenidos; let i = index; trackBy: trackByFuncion">
               <td class="text-center" *ngFor="
-                let parte of contenido | keyvalue;
-                let primero = first;
-                let j = index" 
-                [ngClass]="{'d-none':primero}">
+                let parte of listaClavesContenido;
+                let j = index;
+                let last
+                trackBy: trackByClave;
+                " 
+                >
                 <span *ngIf="contenido.editable === false">
-                  {{parte.value}}
+                  {{contenido[parte]}}
                 </span>
                
-                <input *ngIf="
-                parte.key !== 'usuario_contrasenya' && 
-                contenido.editable === true 
-                " 
-                  class="form-control" 
-                  type="text"  
-                  [formControl] = "listaFormsContol[j]"
-                  [placeholder]="parte.key" />
+                <div *ngIf="contenido.editable === true ">
+                  <input *ngIf="
+                  parte !== nombreControlador+'_id'
+                  " 
+                    class="form-control" 
+                    type="text"  
+                    [formControl] = "listaFormsContol[j]"
+                    [placeholder]="contenido[parte]" />
+                </div>
+                
                 
               </td>
             
@@ -55,22 +58,28 @@
                <!--
                <span *ngIf="can_editar === false">No tienes permiso</span>
                -->
-               <button *ngIf="can_editar === true && contenido.editable === false" class="btn btn-primary" (click)="activarDesactivarEdicion(i)">
-                Editar
-               </button>
-               <button *ngIf="can_editar === true && contenido.editable === true" class="btn btn-success col" (click)="ejecuta()">
-                Guardar cambios
-               </button>
-               <button *ngIf="can_editar === true && contenido.editable === true" class="btn btn-outline-danger col" (click)="activarDesactivarEdicion(i)">
-                Cancelar cambios
-               </button>
+                <div *ngIf="can_editar === true">
+                  <button  *ngIf="contenido.editable === false" class="btn btn-primary" (click)="activarDesactivarEdicion(i)">
+                    Editar
+                  </button>
+                  <div *ngIf="contenido.editable === true">
+                    <button class="btn btn-success col-4" (click)="ejecuta()">
+                      Guardar cambios
+                    </button>
+                    <button class="btn btn-outline-danger col-4 " (click)="activarDesactivarEdicion(i)">
+                      Cancelar cambios
+                    </button>
+                  </div>
+                  
+                </div>
+               
               </td>
-              <td class="text-center">
+              <td class="text-center"  *ngIf="can_borrar === true">
                 <!--
                 <span *ngIf="can_borrar === false">No tienes permiso</span>
                 -->
                 
-                <button *ngIf="can_borrar === true" class="btn btn-danger"  (click)="openModal(contenido)">
+                <button class="btn btn-danger"  (click)="openModal(contenido)">
                   Borrar
                  </button>
               </td>

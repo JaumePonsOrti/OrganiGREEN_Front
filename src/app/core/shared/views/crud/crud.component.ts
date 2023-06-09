@@ -33,6 +33,8 @@ export class CrudComponent extends ClassView implements OnInit {
 
   public listaContenidos:any = [];
   public listaFormsContol: any = [];
+  public listaClavesContenido: Array<any> = [];
+  
   private posicionContenidoEditado:number = 0
   ngOnInit() {
     this.alInicio();  
@@ -48,6 +50,11 @@ export class CrudComponent extends ClassView implements OnInit {
             }
             element["editable"] = false;
             this.listaContenidos[index] = element;
+          }
+           if (this.listaContenidos.length > 0) {
+            this.listaClavesContenido = Object.keys(this.listaContenidos[0]);
+          } else {
+            this.listaClavesContenido = [];
           }
           this.contenidoInsert = this.modificarParaInsert();
           this.getFormControl(this.listaContenidos[0]);
@@ -168,20 +175,30 @@ export class CrudComponent extends ClassView implements OnInit {
     }else{
       this.listaContenidos[indice]["editable"] = false;
     }
-    this.getFormControl(this.listaContenidos[indice]);
+   
     this.posicionContenidoEditado = indice;
   }
 
   getFormControl(contenido:any){
     let id = contenido[this.nombreControlador+"_id"];
-    let newLista : any = {};
-    for(let i=0; i< Object.keys(this.listaFormsContol).length; i++){
-      const parteValor = Object.values(Object.keys(this.listaFormsContol));
+    let newLista : any = [];
+    for(let i=0; i< this.listaClavesContenido.length; i++){
+      const parteValor = contenido[this.listaClavesContenido[i]];
       newLista.push(new FormControl(parteValor));
+     
     }
    
     this.listaFormsContol = newLista;
   }
 
+  trackByFuncion(index: number, item: any): any {
+    // Devuelve un valor único para cada elemento
+    return item[this.nombreControlador+"_id"];
+  }
+
+  trackByClave(index: number, clave: string): any {
+    // Devuelve la clave como valor único
+    return clave;
+  }
 }
 
