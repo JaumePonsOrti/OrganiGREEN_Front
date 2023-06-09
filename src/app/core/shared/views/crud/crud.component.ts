@@ -1,14 +1,13 @@
-import { Component, OnInit, Type } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ClassView } from '../classView';
 import { UniversalService } from '../../services/universal/universal.service';
 import { 
-  NgbModal,
-  NgbModalRef 
+  NgbModal 
 } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAutofocusComponent } from '../../components/modals/modal-autofocus/modal-autofocus.component';
-import { NewModalComponent } from '../../components/modals/new-modal/new-modal.component';
 import { HashService } from '../../services/crytp/hash.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -31,28 +30,33 @@ export class CrudComponent extends ClassView implements OnInit {
   { 
     super("margin-left-menu-desplegado", universalService, rutaActivaLocal);
   }
-  
 
   public listaContenidos:any = [];
+  public listaFormsContol: any = [];
+  private posicionContenidoEditado:number = 0
   ngOnInit() {
     this.alInicio();  
     this.universalService.request( this.nombreControlador,"ver", "todos").subscribe(
       {
         next: (response) => {
           this.listaContenidos = response;
-          
-          this.contenidoInsert = this.modificarParaInsert();
-          if(this.nombreControlador == "usuario"){
-            for (let index = 0; index < this.listaContenidos.length; index++) {
-              const element = this.listaContenidos[index];
+
+          for (let index = 0; index < this.listaContenidos.length; index++) {
+            const element = this.listaContenidos[index];
+            if(this.nombreControlador === "usuario"){
               element["usuario_contrasenya"] = "";
             }
+            element["editable"] = false;
+            this.listaContenidos[index] = element;
           }
+          this.contenidoInsert = this.modificarParaInsert();
+          this.getFormControl(this.listaContenidos[0]);
         },
         error: (error) => {
         },
       }
     );
+    
   }
   
   eliminar(object: any) {
@@ -80,29 +84,31 @@ export class CrudComponent extends ClassView implements OnInit {
   }
 
   
-  ejecuta(o:any) {
+  ejecuta(o?:any) {
     let oCopy = Object.assign({},o);
     let sePuedeEjecutar : boolean = true;
-    if(this.nombreControlador == "usuario"){
-      if(o.usuario_contrasenya.length<8)
-      {
-        sePuedeEjecutar = false;
-      }else if(o.usuario_contrasenya.length>=8){
-        sePuedeEjecutar = true;
-        o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
-      }
-    }
-    if(sePuedeEjecutar === true){
-      this.universalService.request(this.nombreControlador, "crear","",o).subscribe(
+    if(o != undefined){
+      if(this.nombreControlador == "usuario"){
+        if(o.usuario_contrasenya.length<8)
         {
-          next : (response) => {
-            this.listaContenidos.push();
-          },
-          error : (error) => {
-            console.log("Error al CREAR:",error);
-          },
+          sePuedeEjecutar = false;
+        }else if(o.usuario_contrasenya.length>=8){
+          sePuedeEjecutar = true;
+          o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
         }
-      );
+      }
+      if(sePuedeEjecutar === true){
+        this.universalService.request(this.nombreControlador, "crear","",o).subscribe(
+          {
+            next : (response) => {
+              this.listaContenidos.push();
+            },
+            error : (error) => {
+              console.log("Error al CREAR:",error);
+            },
+          }
+        );
+      }
     }
     
   }
@@ -112,7 +118,8 @@ export class CrudComponent extends ClassView implements OnInit {
     delete object[this.nombreControlador+"_id"];
     
     if(this.nombreControlador === "usuario"){
-      object[this.nombreControlador+"_contrasenya"] = "";
+      //object[this.nombreControlador+"_contrasenya"] = "";
+      delete object["editable"];
       delete object[this.nombreControlador+"_intentos_fallidos"];
     }
     return object;
@@ -152,6 +159,28 @@ export class CrudComponent extends ClassView implements OnInit {
     /*
     */
 
+  }
+
+  activarDesactivarEdicion(indice:number){
+    if(this.listaContenidos[indice]["editable"] === false){
+      this.listaContenidos[this.posicionContenidoEditado]["editable"] = false;
+      this.listaContenidos[indice]["editable"] = true;
+    }else{
+      this.listaContenidos[indice]["editable"] = false;
+    }
+    this.getFormControl(this.listaContenidos[indice]);
+    this.posicionContenidoEditado = indice;
+  }
+
+  getFormControl(contenido:any){
+    let id = contenido[this.nombreControlador+"_id"];
+    let newLista : any = {};
+    for(let i=0; i< Object.keys(this.listaFormsContol).length; i++){
+      const parteValor = Object.values(Object.keys(this.listaFormsContol));
+      newLista.push(new FormControl(parteValor));
+    }
+   
+    this.listaFormsContol = newLista;
   }
 
 }
