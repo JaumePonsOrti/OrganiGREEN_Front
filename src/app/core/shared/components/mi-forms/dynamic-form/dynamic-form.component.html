@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <div class="row ml-2 mr-2">
-    <div class="col" *ngFor="let field of keyFieldsArray; let indice=index">
+    <div class="col" *ngFor="let field of keyFieldsArray; ">
       <input class="form-control" type="text" [formControlName]="field" [placeholder]="field" />
     </div>
     <div class="col-2">
