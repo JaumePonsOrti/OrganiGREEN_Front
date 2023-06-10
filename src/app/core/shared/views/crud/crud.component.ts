@@ -170,9 +170,9 @@ export class CrudComponent extends ClassView implements OnInit {
     
     if(this.nombreControlador === "usuario"){
       //object[this.nombreControlador+"_contrasenya"] = "";
-      delete object["editable"];
       delete object[this.nombreControlador+"_intentos_fallidos"];
     }
+    delete object["editable"];
     return object;
   }
 
