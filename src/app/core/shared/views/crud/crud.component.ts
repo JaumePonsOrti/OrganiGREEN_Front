@@ -8,6 +8,7 @@ import {
 import { ModalAutofocusComponent } from '../../components/modals/modal-autofocus/modal-autofocus.component';
 import { HashService } from '../../services/crytp/hash.service';
 import { FormControl } from '@angular/forms';
+import { ConfigModal } from '../../models/configModal';
 
 
 @Component({
@@ -91,33 +92,76 @@ export class CrudComponent extends ClassView implements OnInit {
   }
 
   
-  ejecuta(o?:any) {
+  ejecuta(o:any,funcion:any) {
+    let obcion = "";
     let oCopy = Object.assign({},o);
+
     let sePuedeEjecutar : boolean = true;
-    if(o != undefined){
-      if(this.nombreControlador == "usuario"){
-        if(o.usuario_contrasenya.length<8)
-        {
-          sePuedeEjecutar = false;
-        }else if(o.usuario_contrasenya.length>=8){
-          sePuedeEjecutar = true;
-          o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
-        }
-      }
-      if(sePuedeEjecutar === true){
-        this.universalService.request(this.nombreControlador, "crear","",o).subscribe(
+    switch (funcion) {
+      case "crear":
+        if(this.nombreControlador == "usuario"){
+          if(o.usuario_contrasenya.length<8)
           {
-            next : (response) => {
-              this.listaContenidos.push();
-            },
-            error : (error) => {
-              console.log("Error al CREAR:",error);
-            },
+            sePuedeEjecutar = false;
+            alert("La contraseña debe tener al menos 8 caracteres");
+          }else if(o.usuario_contrasenya.length>=8){
+            sePuedeEjecutar = true;
+            o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
           }
-        );
-      }
+        }
+        break;
+      case "actualizar":
+        obcion = o[this.nombreControlador+"_id"];
+        if(this.nombreControlador == "usuario"){
+          if(o.usuario_contrasenya.length === 0)
+          {
+            alert("No se ha rellenado el espacio para la contraseña del usuario, por lo tanto se mantendra la anterior");
+          }else if(o.usuario_contrasenya.length<8)
+          {
+            
+            alert("Se usara la antigua contraseña, dado que la nueva no tiene al menos 8 caracteres");
+            o.usuario_contrasenya = "";   
+          }else if(o.usuario_contrasenya.length>=8){
+            o = Object.assign({}, o);
+            o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
+          }
+        }
+        break;
+      default:
+        break;
     }
     
+    
+    if(sePuedeEjecutar === true){
+      this.universalService.request(this.nombreControlador, funcion,obcion,o).subscribe(
+        {
+          next : (response) => {
+            this.listaContenidos.push();
+          },
+          error : (error) => {
+            console.log("Error al CREAR:",error);
+          },
+        }
+      );
+      
+    }
+    
+  }
+  
+  modificarEnBd(index: number) {
+    let object:any = this.listaContenidos[index];
+    for (let index = 0; index < this.listaClavesContenido.length-1; index++) {
+      object[this.listaClavesContenido[index]] =  this.listaFormsContol[index].getRawValue();     
+    }
+    if(this.nombreControlador === "usuario"){
+      if(object.usuario_medida_id === null){
+        object.usuario_medida_id = "";
+      }
+      
+    }
+    this.listaContenidos[index] = object;
+    this.activarDesactivarEdicion(index);
+    this.ejecuta(object,"actualizar");
   }
 
   modificarParaInsert() {
@@ -132,10 +176,26 @@ export class CrudComponent extends ClassView implements OnInit {
     return object;
   }
 
-  openModal(object: any) {
+  openModal(object: any, configModal?:ConfigModal) {
     //let modal = this._modalService.open(MODALS["autoFocus"]);
     let modal = this._modalService.open(ModalAutofocusComponent);
-    
+    let modalC:ConfigModal|undefined = configModal;
+    if(!configModal){
+     
+      try {
+        modalC = 
+        {
+          title: "Eliminar "+this.nombreControlador+" con el id: " + object[this.nombreControlador+"_id"],
+          strong1: object.nombre,
+          strong2: "",
+          spanStrong: "",
+          textDanger: "",
+          textoButton: "Eliminar",
+          classButtonOk: "btn btn-danger"
+        };
+      } catch (error){ 
+      }
+    }
     try {
       //Editar titulo modal
       modal.componentInstance.tittle = "Eliminar "+this.nombreControlador+" con el id: " + object[this.nombreControlador+"_id"];
@@ -149,8 +209,8 @@ export class CrudComponent extends ClassView implements OnInit {
     //Modificar variable para cambia el strong2
     modal.componentInstance.strong2 = 'de la base de datos?';
     //Modificar variable para cambia el texto normal
-    modal.componentInstance.textoNormal =  ' Este' + this.nombreControlador+ 
-    'dejara de estar disponible para su gestión y sera eliminada permanentemente';
+    modal.componentInstance.textoNormal =  ' Este ' + this.nombreControlador+ 
+    ' dejara de estar disponible para su gestión y sera eliminada permanentemente';
     //Modificar variable para cambia el texto de error
     modal.componentInstance.textDanger = 'Esta acción no se puede deshacer';
 
@@ -175,7 +235,7 @@ export class CrudComponent extends ClassView implements OnInit {
     }else{
       this.listaContenidos[indice]["editable"] = false;
     }
-   
+    this.getFormControl(this.listaContenidos[indice]);
     this.posicionContenidoEditado = indice;
   }
 

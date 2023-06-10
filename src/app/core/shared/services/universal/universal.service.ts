@@ -100,7 +100,7 @@ export class UniversalService {
         return this.http.post(url, data);
         break;
       case 'actualizar':
-        return this.http.put(url, data);
+        return this.http.patch(url, data);
         break;
       case 'borrar':
         return this.http.delete(url);

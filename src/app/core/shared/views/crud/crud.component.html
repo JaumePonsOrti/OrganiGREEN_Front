@@ -12,7 +12,7 @@
         <b>
           Crear nuevo {{nombreControlador}}:
         </b>
-        <app-dynamic-form  *ngIf="can_agregar === true" [fields]="contenidoInsert" (submited)="ejecuta($event)"></app-dynamic-form>
+        <app-dynamic-form  *ngIf="can_agregar === true" [fields]="contenidoInsert" (submited)="ejecuta($event,'crear')"></app-dynamic-form>
        
       </div>
 
@@ -23,20 +23,25 @@
         <table class="table table-striped col-8 ">
           <thead>
             <tr>
-              <th *ngFor=" let contenido of listaClavesContenido;" class="text-center">{{contenido}}</th>
+              <th *ngFor=" let contenido of listaClavesContenido; let ultimo = last;"  
+              [class]="{'d-none': ultimo}"
+               class="text-center">{{contenido}}</th>
               <th class="text-center" *ngIf="can_editar === true">Editar</th>
               <th class="text-center" *ngIf="can_borrar === true">Borrar</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let contenido of listaContenidos; let i = index; trackBy: trackByFuncion">
-              <td class="text-center" *ngFor="
+              <td class="text-center" 
+              *ngFor="
                 let parte of listaClavesContenido;
                 let j = index;
-                let last
                 trackBy: trackByClave;
-                " 
+                let ultimo = last;
+                "  
+                [class]="{'d-none': ultimo}"
                 >
+                
                 <span *ngIf="contenido.editable === false">
                   {{contenido[parte]}}
                 </span>
@@ -63,7 +68,7 @@
                     Editar
                   </button>
                   <div *ngIf="contenido.editable === true">
-                    <button class="btn btn-success col-4" (click)="ejecuta()">
+                    <button class="btn btn-success col-4" (click)="modificarEnBd(i)">
                       Guardar cambios
                     </button>
                     <button class="btn btn-outline-danger col-4 " (click)="activarDesactivarEdicion(i)">
