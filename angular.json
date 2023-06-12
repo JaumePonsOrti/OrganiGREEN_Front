@@ -35,12 +35,11 @@
               "src/assets/icheck-bootstrap/icheck-bootstrap.min.css",
               "src/assets/css/adminlte.min.css",
               "src/theme/variables.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/global.scss",
               "src/assets/fontawesome-free/css/all.min.css"
             ],
-            "scripts": [
-              
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -124,6 +123,7 @@
               "src/assets/css/adminlte.min.css",
               "src/theme/variables.scss",
               "src/global.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
@@ -150,8 +150,7 @@
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ],
-    "analytics": false
+    ]
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

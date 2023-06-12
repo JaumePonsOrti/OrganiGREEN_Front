@@ -1,5 +1,7 @@
 {
   "name": "OrganiGREEN_Front",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
