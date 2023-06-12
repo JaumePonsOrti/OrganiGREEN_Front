@@ -63,12 +63,17 @@ export class CrudComponent extends ClassView implements OnInit {
             //campo el nombre de la tabla con la variable nombreControlador
             let tamanyoNombreControlador = this.nombreControlador.length;
             for (let index = 0; index < tamanyoNombreControlador; index++) {
-              const element:string = this.listaClavesContenido[index];
-              let sliceNombre:string = element.slice(tamanyoNombreControlador+1);
-              let primeraMayuscula:string = sliceNombre.charAt(0).toUpperCase();
-              let sliceNombre2:string = sliceNombre.slice(1);
-              sliceNombre = primeraMayuscula + sliceNombre2;
-              this.listaClavesContenidoSinNombreTablas.push(sliceNombre);
+              try {
+                const element:string = this.listaClavesContenido[index];
+                let sliceNombre:string = element.slice(tamanyoNombreControlador+1);
+                let primeraMayuscula:string = sliceNombre.charAt(0).toUpperCase();
+                let sliceNombre2:string = sliceNombre.slice(1);
+                sliceNombre = primeraMayuscula + sliceNombre2;
+                this.listaClavesContenidoSinNombreTablas.push(sliceNombre);
+              } catch (error) {
+                
+              }
+              
             }
             
           } 
