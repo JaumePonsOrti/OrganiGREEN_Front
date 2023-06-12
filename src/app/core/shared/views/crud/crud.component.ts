@@ -9,6 +9,7 @@ import { ModalAutofocusComponent } from '../../components/modals/modal-autofocus
 import { HashService } from '../../services/crytp/hash.service';
 import { FormControl } from '@angular/forms';
 import { ConfigModal } from '../../models/configModal';
+import { s } from '@fullcalendar/core/internal-common';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class CrudComponent extends ClassView implements OnInit {
   public listaContenidos:any = [];
   public listaFormsContol: any = [];
   public listaClavesContenido: Array<any> = [];
-  
+  public listaClavesContenidoSinNombreTablas: Array<any> = [];
   private posicionContenidoEditado:number = 0
   ngOnInit() {
     this.alInicio();  
@@ -53,12 +54,25 @@ export class CrudComponent extends ClassView implements OnInit {
             this.listaContenidos[index] = element;
           }
            if (this.listaContenidos.length > 0) {
-            this.listaClavesContenido = Object.keys(this.listaContenidos[0]);
-          } else {
-            this.listaClavesContenido = [];
-          }
-          this.contenidoInsert = this.modificarParaInsert();
-          this.getFormControl(this.listaContenidos[0]);
+            this.contenidoInsert = this.modificarParaInsert();
+            this.getFormControl(this.listaContenidos[0]);
+            
+            this.listaClavesContenido =  Object.keys(this.listaContenidos[0]);
+            //Añadimos las claves a  la lista de claves sin el nombre de la tabla
+            //Para obtener la clave si el nombre de la tabla habrá que trimear campo por 
+            //campo el nombre de la tabla con la variable nombreControlador
+            let tamanyoNombreControlador = this.nombreControlador.length;
+            for (let index = 0; index < tamanyoNombreControlador; index++) {
+              const element:string = this.listaClavesContenido[index];
+              let sliceNombre:string = element.slice(tamanyoNombreControlador+1);
+              let primeraMayuscula = sliceNombre.charAt(0).toUpperCase();
+              let sliceNombre2 = sliceNombre.slice(1);
+              sliceNombre = primeraMayuscula + sliceNombre2;
+              this.listaClavesContenidoSinNombreTablas.push(sliceNombre);
+            }
+            
+          } 
+         
         },
         error: (error) => {
         },

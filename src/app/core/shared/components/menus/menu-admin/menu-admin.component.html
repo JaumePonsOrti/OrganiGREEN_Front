@@ -187,7 +187,7 @@
                with font-awesome or any other icon font library -->
                
           <li class="nav-item" *ngFor="let menu of menuService.menus;" [class]="menu.clase_extra">
-            <a [href]="generarEnlace(menu)" class="nav-link ">
+            <a [href]="generarEnlace(menu)" class="nav-link " (click)="cambiarAEnlace(menu)">
               <i class="nav-icon " [class]="menu.icono"></i>
               <p>
                 {{menu.nombre_del_campo}}

@@ -11,7 +11,7 @@ import { UsuariosService } from '../usuarios/usuarios.service';
 })
 export class MenuService extends Debug{
   public menus:any;
-  
+  public paginaActual:any;
 
   apiUrl:string = environment.apiUrl+"/menu";
   constructor(

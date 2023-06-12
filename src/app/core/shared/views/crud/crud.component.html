@@ -12,7 +12,7 @@
         <b>
           Crear nuevo {{nombreControlador}}:
         </b>
-        <app-dynamic-form  *ngIf="can_agregar === true" [fields]="contenidoInsert" (submited)="ejecuta($event,'crear')"></app-dynamic-form>
+        <app-dynamic-form  *ngIf="can_agregar === true" [fields]="contenidoInsert" [nombreCampos]="listaClavesContenidoSinNombreTablas" (submited)="ejecuta($event,'crear')"></app-dynamic-form>
        
       </div>
 
@@ -23,7 +23,7 @@
         <table class="table table-striped col-8 ">
           <thead>
             <tr>
-              <th *ngFor=" let contenido of listaClavesContenido; let ultimo = last;"  
+              <th *ngFor=" let contenido of listaClavesContenidoSinNombreTablas; let ultimo = last;"  
               [class]="{'d-none': ultimo}"
                class="text-center">{{contenido}}</th>
               <th class="text-center" *ngIf="can_editar === true">Editar</th>
