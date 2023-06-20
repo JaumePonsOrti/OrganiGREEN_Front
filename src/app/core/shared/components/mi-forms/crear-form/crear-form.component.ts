@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { Configuracion_Input } from '../../../models/config_input';
 import { FormControl, FormGroup } from '@angular/forms';
 
+
 @Component({
   selector: 'app-crear-form',
   templateUrl: './crear-form.component.html',

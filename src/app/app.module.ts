@@ -14,6 +14,7 @@ import { GuardsModule } from './core/shared/guards/guards.module';
 import { NoConComponent } from './home/no-con/no-con.component';
 import { ViewsModule } from './core/shared/views/views.module';
 import { IntranetModule } from './intranet/intranet.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { IntranetModule } from './intranet/intranet.module';
      NgbModule,
      CoreModule,
      GuardsModule,
+     BrowserAnimationsModule,
      
     ],
   providers: [{

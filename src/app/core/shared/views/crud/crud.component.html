@@ -14,6 +14,7 @@
         </b>
         <app-dynamic-form  *ngIf="can_agregar === true" [fields]="contenidoInsert" (submited)="ejecuta($event,'crear')"></app-dynamic-form>
         <app-crear-form></app-crear-form>
+        <app-autocompletar></app-autocompletar>
       </div>
 
       <b>
