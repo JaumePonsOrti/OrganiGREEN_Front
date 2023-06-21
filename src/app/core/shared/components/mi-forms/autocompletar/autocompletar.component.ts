@@ -1,20 +1,27 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Configuracion_Input } from '../../../models/config_input';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
-import { Configuracion_Input2 } from '../../../models/Config_input2';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Configuracion_Input } from '../../../models/Config_input';
 
 @Component({
   selector: 'app-autocompletar',
   templateUrl: './autocompletar.component.html',
   styleUrls: ['./autocompletar.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: AutocompletarComponent,
+      multi: true
+    }
+  ]
 })
-export class AutocompletarComponent  implements OnInit {
+export class AutocompletarComponent  implements OnInit, ControlValueAccessor {
   form: FormControl = new FormControl();
   filtreredObject!:  Observable<any[]>;
   campoMostrar !:any;
   objetoSelecionado: any;
-  @Input() public  config: Configuracion_Input2 = 
+  @Input() public  config: Configuracion_Input = 
     {
       nombre_campo:"usuario_medida_id",
       nombre_visible:"Nombre unidad de medida",
@@ -26,7 +33,8 @@ export class AutocompletarComponent  implements OnInit {
       campo_mostrar:{
         nombre_campo:"medida_nombre",
         nombre_tabla:"unidad_medida",
-      }
+      }, 
+      autocompletar: true
     };
   @Input() public  referenciados: any = [
       {
@@ -41,6 +49,21 @@ export class AutocompletarComponent  implements OnInit {
   ;
 
   constructor() { }
+  onChange: any = () => {};
+  onTouched: any = () => {};
+
+  writeValue(value: any): void {
+    this.form.setValue(value);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
 
   ngOnInit() {
     this.filtreredObject = 
@@ -59,6 +82,7 @@ export class AutocompletarComponent  implements OnInit {
         const condicion = this._normalizeValue(referenciado[mostrar_autocompletar]).includes(filterValue);
         if (condicion){
           this.objetoSelecionado = referenciado;
+          this.onChange(referenciado);
         }
         return this._normalizeValue(referenciado[mostrar_autocompletar]).includes(filterValue);
       }
