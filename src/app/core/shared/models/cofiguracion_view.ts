@@ -1,4 +1,5 @@
-import { Configuracion_Input } from "./config_input";
+import { Configuracion_Input } from "./Config_input";
+
 
 export interface Configuracion_View {
   crear: Configuracion_Input[];

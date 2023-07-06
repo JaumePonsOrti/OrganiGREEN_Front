@@ -8,8 +8,8 @@ export class Enlace_Menu {
     nombre_del_campo: string,
     tipo_de_view: string,
     controlador: string,
-    icon?:string,
-    configuracion_view?: Configuracion_View
+    icon:string,
+    configuracion_view: Configuracion_View
   ) {
     this.nombre_del_campo = nombre_del_campo;
     this.tipo_de_view = tipo_de_view;

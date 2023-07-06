@@ -42,6 +42,10 @@ export class MenuService extends Debug{
       })
     );
   }
+
+  public setPaginaActual(paginaActual:any){
+    this.paginaActual = paginaActual;
+  }
   
   
 }

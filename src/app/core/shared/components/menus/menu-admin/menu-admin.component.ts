@@ -102,7 +102,8 @@ export class MenuAdminComponent extends Debug {
   }
 
   cambiarAEnlace(menu:any){
-    this.menuService.paginaActual = menu;
+    this.menuService.setPaginaActual(menu);
+    this.router.navigate(["/intranet/"+menu.tipo_de_view +"/"+menu.controlador]);
   }
   
 }

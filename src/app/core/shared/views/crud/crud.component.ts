@@ -10,6 +10,8 @@ import { HashService } from '../../services/crytp/hash.service';
 import { FormControl } from '@angular/forms';
 import { ConfigModal } from '../../models/configModal';
 import { s } from '@fullcalendar/core/internal-common';
+import { MenuService } from '../../services/menu/menu.service';
+import { Configuracion_View } from '../../models/cofiguracion_view';
 
 
 @Component({
@@ -27,7 +29,8 @@ export class CrudComponent extends ClassView implements OnInit {
     rutaActivaLocal: ActivatedRoute, 
     universalService: UniversalService, 
     private hasService: HashService,
-     public _modalService: NgbModal
+     public _modalService: NgbModal, 
+     public menuService: MenuService
     ) 
   { 
     super("margin-left-menu-desplegado", universalService, rutaActivaLocal);
@@ -38,7 +41,16 @@ export class CrudComponent extends ClassView implements OnInit {
   public listaClavesContenido: Array<any> = [];
   public listaClavesContenidoSinNombreTablas: Array<any> = [];
   private posicionContenidoEditado:number = 0
+  public configView: Configuracion_View = {
+    crear:[],
+    editar: [],
+    borrar: [],
+  };
   ngOnInit() {
+    console.log("PAGINA ACTUAL",this.menuService.paginaActual.configuracion_view);
+    if(typeof this.menuService.paginaActual.configuracion_view != "undefined"){
+      this.configView = this.menuService.paginaActual.configuracion_view;
+    }
     this.alInicio();  
     this.universalService.request( this.nombreControlador,"ver", "todos").subscribe(
       {
