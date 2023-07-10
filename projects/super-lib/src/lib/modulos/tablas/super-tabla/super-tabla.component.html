@@ -1,0 +1,60 @@
+<table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <!-- Itera sobre los encabezados y los muestra -->
+        <th *ngFor="
+          let header of headers; 
+          let ultimo = last;
+          "  
+          [class]="{'d-none': ultimo}"
+        >
+          {{ header }}
+        </th>
+        <td *ngIf="config.canEdit === true">
+          Editar
+        </td>
+        <td *ngIf="config.canDelete === true">
+          Delete
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Itera sobre los datos y los muestra en filas -->
+      <tr *ngFor="
+        let row of data;
+        let i = index "
+        >
+        <!-- Itera sobre los valores de cada fila y los muestra en celdas -->
+        
+        <td 
+          *ngFor="
+          let value of row | keyvalue;
+          let primero = first; 
+          let ultimo = last;
+          let j = index
+          "  
+          [class]="{'d-none': ultimo}"
+        >
+          <span *ngIf="row.editable === false">
+            {{ value.value }}
+          </span>
+            
+          <div *ngIf="row.editable === true">
+            <input *ngIf="
+            configFormEdit[j].placeholder  && configFormEdit[j].type
+            " 
+              class="form-control" 
+              [type]="configFormEdit[j].type"  
+              [formControl] = "arrayControlForm[j]"
+              [placeholder]="configFormEdit[j].placeholder" />
+          </div>
+        </td>
+        <td *ngIf="config.canEdit === true">
+          <button class="btn btn-primary" (click)="editarClicked(i)">Editar</button>
+        </td>
+        <td *ngIf="config.canDelete === true">
+          <button class="btn btn-danger" (click)="deleteEmit(row)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

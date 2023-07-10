@@ -1,6 +1,10 @@
-<p>
-  cliente works!
-</p>
-<p>
-  {{rutaActiva.snapshot.params["controlador"] }} 
-</p>
+<ion-header>
+    <app-menu-admin></app-menu-admin>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="container col-10">
+        <super-tabla [data]="listaContenidos" [configFormEdit]="config_form"></super-tabla>
+    </div>
+</ion-content>
+

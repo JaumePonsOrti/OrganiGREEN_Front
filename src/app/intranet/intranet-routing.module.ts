@@ -19,12 +19,15 @@ const routes: Routes = [
   },
   {
     path:'crud',
-    loadChildren:  ()=> import('../core/shared/views/crud/crud.module'
+    loadChildren:  () => import('../core/shared/views/crud/crud.module'
     ).then(
       m => m.CrudModule
     )
-  },      
- 
+  },     
+  {
+    path: "cliente",
+    loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule),
+  }
 ];
 
 @NgModule({
