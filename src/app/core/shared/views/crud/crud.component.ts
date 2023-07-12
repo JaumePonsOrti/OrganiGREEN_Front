@@ -52,7 +52,7 @@ export class CrudComponent extends ClassView implements OnInit {
       this.configView = this.menuService.paginaActual.configuracion_view;
     }
     this.alInicio();  
-    this.universalService.request( this.nombreControlador,"ver", "todos").subscribe(
+    this.universalService.request(this.nombreControlador,"ver", "todos").subscribe(
       {
         next: (response) => {
           this.listaContenidos = response;

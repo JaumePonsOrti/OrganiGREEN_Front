@@ -5,6 +5,7 @@
         <th *ngFor="
           let header of headers; 
           let ultimo = last;
+          trackBy: trackByIndex
           "  
           [class]="{'d-none': ultimo}"
         >
@@ -28,7 +29,7 @@
         
         <td 
           *ngFor="
-          let value of row | keyvalue;
+          let value of headerArray
           let primero = first; 
           let ultimo = last;
           let j = index
@@ -36,17 +37,19 @@
           [class]="{'d-none': ultimo}"
         >
           <span *ngIf="row.editable === false">
-            {{ value.value }}
+            {{ row[value] }}
           </span>
             
           <div *ngIf="row.editable === true">
             <input *ngIf="
-            configFormEdit[j].placeholder  && configFormEdit[j].type
+            conditionInput(j)  
             " 
               class="form-control" 
               [type]="configFormEdit[j].type"  
               [formControl] = "arrayControlForm[j]"
-              [placeholder]="configFormEdit[j].placeholder" />
+              [placeholder]="configFormEdit[j].placeholder"
+              [disabled]="configFormEdit[j].disabled" />
+              {{j}}
           </div>
         </td>
         <td *ngIf="config.canEdit === true">

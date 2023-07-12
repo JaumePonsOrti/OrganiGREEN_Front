@@ -42,17 +42,20 @@ export class ClienteComponent  implements OnInit {
     {
       type:"number",
       placeholder: "ID (no se puede modificar)",
-      form_control_name:"id"
+      form_control_name:"cliente_id",
+      disabled:true
     },
     {
       type:"string",
       placeholder:"Nombre",
-      form_control_name:"cliente_nombre"
+      form_control_name:"cliente_nombre",
+      disabled:false
     },
     {
       type:"string",
       placeholder:"Mote",
-      form_control_name:"cliente_mote"
+      form_control_name:"cliente_mote", 
+      disabled:false
     }
   ];
 

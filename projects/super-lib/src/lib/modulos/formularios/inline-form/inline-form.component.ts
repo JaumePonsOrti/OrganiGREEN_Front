@@ -17,6 +17,7 @@ export class InlineFormComponent implements OnInit {
       form_control_name:"Cliente_d",
       type: 'number',
       placeholder:"Id (No se puede modificar)",
+      disabled: false,
     },
     {
       form_control_name:"unidad_medida_id",
@@ -44,7 +45,9 @@ export class InlineFormComponent implements OnInit {
           "medida_id":2,
           "medida_nombre":"metros"
         }
-      ]
+      ],
+      disabled:false, 
+      placeholder:""
 
     }
   ];
