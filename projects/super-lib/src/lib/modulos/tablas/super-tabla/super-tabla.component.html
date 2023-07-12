@@ -49,11 +49,23 @@
               [formControl] = "arrayControlForm[j]"
               [placeholder]="configFormEdit[j].placeholder"
               [disabled]="configFormEdit[j].disabled" />
-              {{j}}
+            <div *ngIf=" conditionAutocompletar(j) === true">
+              <super-input-autocompletar-objetos 
+              [config]="configFormEdit[j].config_autocomplete ?? configAutocomplete"
+              [referenciados]="configFormEdit[j].resources_autocomplete"
+              [formControl] = "arrayControlForm[j]">
+            </super-input-autocompletar-objetos>
+            </div>
+            
           </div>
         </td>
         <td *ngIf="config.canEdit === true">
-          <button class="btn btn-primary" (click)="editarClicked(i)">Editar</button>
+          <button *ngIf="row.editable === false" class="btn btn-primary" (click)="editarClicked(i)">Editar</button>
+          <div *ngIf="row.editable === true">
+            <button class="btn btn-success" (click)="saveButtonClicked(i)">Guardar</button> 
+            <button class="btn btn-outline-danger" (click)="cancelEditClicked(i)">Cancelar</button> 
+            
+          </div>
         </td>
         <td *ngIf="config.canDelete === true">
           <button class="btn btn-danger" (click)="deleteEmit(row)">Delete</button>

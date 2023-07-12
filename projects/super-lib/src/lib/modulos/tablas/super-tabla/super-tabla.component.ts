@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IFormConfig } from '../../formularios/form_Config';
 import { FormControl } from '@angular/forms';
+import { Configuracion_Autocompletar } from '../../inputs/modelos/clases/configuracion_autocompletar';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./super-tabla.component.css']
 })
 export class SuperTablaComponent implements OnInit,OnChanges {
-  ngOnInit(): void {console.log("configFormEdit:",this.configFormEdit);
+  ngOnInit(): void {
     let typeOfData = typeof this.data[0];
     
     switch (typeOfData) {
@@ -71,36 +72,68 @@ export class SuperTablaComponent implements OnInit,OnChanges {
   @Input() headerArray: any[] = [];
   @Input() configFormEdit: IFormConfig[] = [];
   arrayControlForm:FormControl[] = [];
-  @Output() deleteClicked = new EventEmitter()
+  @Output() deleteClick = new EventEmitter();
+  @Output() saveClick = new EventEmitter()
   // Obtiene las claves de los objetos como los encabezados de la tabla
   get headers(): string[] {
     return this.data.length > 0 ? Object.keys(this.data[0]) : [];
   }
-
+  configAutocomplete:Configuracion_Autocompletar={
+    campo_mostrar: {
+      nombre_campo: "",
+      nombre_tabla: ""
+    },
+    nombre_visible: "",
+    nombre_campo: '',
+    tipo_input: ''
+  };
   conditionInput(i: number): boolean {
-    console.log(this.configFormEdit[i]);
-    return  typeof this.configFormEdit[i].placeholder !== 'undefined' &&  typeof this.configFormEdit[i].type !== 'undefined';
+    try {
+      return typeof this.configFormEdit[i].placeholder !== 'undefined' &&  typeof this.configFormEdit[i].type !== 'undefined';
+    } catch (error) {
+      return false;
+    }
   }
-  deleteEmit($event: any): void {
-    this.deleteClicked.emit($event);
+
+  conditionAutocompletar(i: number): boolean {
+    try {
+      return typeof this.configFormEdit[i].config_autocomplete !== 'undefined';
+    } catch (error) {
+      return false;
+    }
   }
+  deleteEmit(row: any): void {
+    this.deleteClick.emit(row);
+  }
+
   antiguoEditable:number = 0;
   editarClicked(i:number): void {
     this.data[this.antiguoEditable].editable = false;
-    console.log("This antiguoEditable:"+ this.antiguoEditable+" I: " + i);
+
     let element = this.data[i];
-    element.editable = !element.editable;
-   
+    element.editable = true;
     for(let j = 0; j < this.arrayControlForm.length; j++){
-      this.arrayControlForm[j].setValue( this.data[i][this.configFormEdit[j].form_control_name]);
+      this.arrayControlForm[j].setValue(this.data[i][this.configFormEdit[j].form_control_name]);
     }
-   
     this.antiguoEditable = i;
   }
-  editarEmit($event: Event): void {
+
+  cancelEditClicked(i:number): void {
+    let element = this.data[i];
+    element.editable = false;
   }
-  guardarEditarEmit($event: any): void{
-    this.deleteClicked.emit($event);
+
+  saveButtonClicked(i:number): void{
+    
+    let element = this.data[i];
+    for (let index = 0; index < this.arrayControlForm.length; index++) {
+      const controlForm = this.arrayControlForm[index];
+      const configForm = this.configFormEdit[index].form_control_name;
+      this.data[i][configForm] = controlForm.getRawValue();
+    }
+    this.saveClick.emit(element);
+    
+    element.editable = false;
   }
 
   trackByClave(index: number, clave: string): any {

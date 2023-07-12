@@ -20,7 +20,15 @@ export class InputAutocompletarComponent  implements OnInit, ControlValueAccesso
   filtreredObject!:  Observable<any[]>;
   campoMostrar !:any;
   objetoSelecionado: any;
-  @Input() public  config!: Configuracion_Autocompletar;
+  @Input() public  config: Configuracion_Autocompletar={
+    campo_mostrar: {
+      nombre_campo: "",
+      nombre_tabla: ""
+    },
+    nombre_visible: "",
+    nombre_campo: '',
+    tipo_input: ''
+  };
   @Input() public  referenciados: any;
 
   constructor() { }

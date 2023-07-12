@@ -3,6 +3,8 @@ import { SuperLibComponent } from './super-lib.component';
 import { SuperSidebarAviertaComponent } from './modulos/Super-Sidebars/super-sidebar-avierta/super-sidebar-avierta.component';
 import { SuperTablaComponent } from './modulos/tablas/super-tabla/super-tabla.component';
 import { SuperTablasModule } from './modulos/tablas/tablas.module';
+import { SuperModalsModule } from './modulos/modals/modals.module';
+
 
 
 
@@ -11,11 +13,14 @@ import { SuperTablasModule } from './modulos/tablas/tablas.module';
     SuperLibComponent,
   ],
   imports: [
-    SuperTablasModule
+    SuperTablasModule,
+    SuperModalsModule
   ],
   exports: [
     SuperLibComponent,
-    SuperTablasModule
+    SuperTablasModule,
+    SuperModalsModule
+
   ]
 })
 export class SuperLibModule { }

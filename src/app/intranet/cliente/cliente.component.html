@@ -4,7 +4,8 @@
 
 <ion-content [fullscreen]="true">
     <div class="container col-10">
-        <super-tabla [data]="listaContenidos" [configFormEdit]="config_form"></super-tabla>
+        <super-tabla [data]="listaContenidos" [configFormEdit]="config_form" (saveClick)="clickSave($event)" (deleteClick)="openModal($event)"></super-tabla>
+
     </div>
 </ion-content>
 
