@@ -78,8 +78,9 @@ export class ClienteComponent  implements OnInit {
   }
 
   clickSave($event:any):void {
-    this.universalService.request(this.nombreControlador,"actualizar",$event[this.config_form[0].form_control_name]).subscribe();
+    this.ejecuta($event,"actualizar");
   }
+  
   openModal(object: any, configModal?:ConfigModal) {
     console.log("A borar:",object);
     //let modal = this._modalService.open(MODALS["autoFocus"]);
@@ -170,6 +171,8 @@ export class ClienteComponent  implements OnInit {
     switch (funcion) {
       case "crear":
         if(this.nombreControlador == "usuario"){
+          o[this.nombreControlador+"_id"] = (this.listaContenidos[this.listaContenidos.length-1][this.nombreControlador+"_id"])+1;
+
           if(o.usuario_contrasenya.length<8)
           {
             sePuedeEjecutar = false;
@@ -178,7 +181,10 @@ export class ClienteComponent  implements OnInit {
             sePuedeEjecutar = true;
             o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
           }
+          
         }
+        delete o[this.nombreControlador+"_id"];
+        this.listaContenidos.push(o);
         break;
       case "actualizar":
         obcion = o[this.nombreControlador+"_id"];
@@ -205,13 +211,13 @@ export class ClienteComponent  implements OnInit {
     
     
     if(sePuedeEjecutar === true){
-      delete o[this.nombreControlador+"_id"];
+     
+      delete o["editable"];
       this.universalService.request(this.nombreControlador, funcion,obcion,o).subscribe(
         {
           next : (response) => {
-            o[this.nombreControlador+"_id"] = (this.listaContenidos[this.listaContenidos.length-1][this.nombreControlador+"_id"])+1;
             o["editable"] = false;
-            this.listaContenidos.push(o);
+            
           },
           error : (error) => {
             console.log("Error al CREAR:",error);
