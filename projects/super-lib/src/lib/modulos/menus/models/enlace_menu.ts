@@ -1,6 +1,7 @@
 
 
 export class Enlace_Menu {
+  
   /**
    *
    */
@@ -8,14 +9,15 @@ export class Enlace_Menu {
     nombre_del_campo: string,
     enlace:string,
     icon:string,
+    controlador:string
   ) {
     this.nombre_del_campo = nombre_del_campo;
     this.direccion_url = enlace;
     this.icono = icon??"";
-    
+    this.controlador = controlador;
   }
 
- 
+  controlador: string;
   nombre_del_campo: string;
   direccion_url:string;
   icono:string = "fa-tachometer-alt";

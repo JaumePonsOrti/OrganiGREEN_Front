@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { ClienteComponent } from './cliente.component';
-import { SuperLibModule } from 'projects/super-lib/src/public-api';
+import { FormulariosModule, InputsModule, SuperLibModule, SuperSidebarsModule } from 'projects/super-lib/src/public-api';
 import { SharedModule } from 'src/app/core/shared/shared.module';
+import { SuperMenusModule } from 'projects/super-lib/src/lib/modulos/menus/menus.module';
 
 
 @NgModule({
@@ -13,7 +14,10 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
     CommonModule,
     ClienteRoutingModule,
     SuperLibModule,
-    SharedModule
+    SharedModule,
+    InputsModule,
+    FormulariosModule,
+    SuperSidebarsModule
   ], 
   exports: [ClienteComponent]
 })

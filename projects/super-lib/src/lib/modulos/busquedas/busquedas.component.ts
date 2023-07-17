@@ -22,7 +22,7 @@ export class BusquedasComponent implements OnInit, ControlValueAccessor {
   campoMostrar !:any;
   objetoSelecionado: any;
   @Input() public  config!: Config_Search;
-  @Input() public  object_list!: any[];
+  @Input() public  object_list: any[] = [];
 
   constructor() { }
   onChange: any = () => {};

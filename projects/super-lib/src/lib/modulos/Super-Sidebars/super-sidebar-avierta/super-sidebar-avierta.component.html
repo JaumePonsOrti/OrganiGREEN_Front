@@ -8,19 +8,19 @@
     <hr>
     <super-busquedas 
     [config]="config.barraBusqueda"
-     [object_list]="enlaces_perfil" 
-     *ngIf=" config.barraBusqueda.search_type == 'simple_search'" 
+     [object_list]="enlaces" 
+     *ngIf=" config.barraBusqueda && config.barraBusqueda.search_type == 'simple_search'" 
      [formControl]="formControl"
      >
     </super-busquedas>
    
     <div 
       class="input-group"
-      *ngIf = "enlaces_perfil && config.barraBusqueda.search_type == 'search_with_button_integrated'"
+      *ngIf = "config.barraBusqueda && config.barraBusqueda.search_type == 'search_with_button_integrated'"
     >
       <super-busquedas 
         [config]="config.barraBusqueda"
-        [object_list]="enlaces_perfil" 
+        [object_list]="enlaces" 
         [formControl]="formControl"
         class="col-10">
       </super-busquedas>
@@ -35,7 +35,7 @@
   
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item" *ngFor="let enlace of enlace_menu_resultantes | async">
-      <a [routerLink]="enlace.direccion_url" [routerLinkActive]="['active']" class="nav-link text-white" [routerLinkActiveOptions]="{exact: true}" aria-current="page">
+      <a [routerLink]="enlace.direccion_url" [routerLinkActive]="['active']" class="nav-link text-white a" [routerLinkActiveOptions]="{exact: true}" aria-current="page">
         <svg class="bi pe-none me-2" width="16" height="16"></svg>
         {{ enlace.nombre_del_campo }}
       </a>

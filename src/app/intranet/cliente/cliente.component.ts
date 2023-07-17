@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
 import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
 import { ModalsModule } from 'src/app/core/shared/components/modals/modals.module';
 import { ConfigModal } from 'src/app/core/shared/models/configModal';
+import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
+import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
 import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
+import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-cliente',
@@ -13,12 +16,20 @@ import { UniversalService } from 'src/app/core/shared/services/universal/univers
   styleUrls: ['./cliente.component.scss'],
 })
 export class ClienteComponent  implements OnInit {
-
-
-  constructor(public rutaActiva: ActivatedRoute, private universalService:UniversalService, private _modalService:NgbModal) { }
+  
+  constructor(
+    public rutaActiva: ActivatedRoute,
+    private universalService:UniversalService, 
+    private hasService: HashService,
+    private _modalService:NgbModal, 
+    public menuService: MenuService,
+    public router:Router, 
+    public usuario:UsuariosService
+  ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "cliente";
   ngOnInit() {
+    
     this.universalService.request( 
       this.nombreControlador,"ver", "todos").subscribe(
       {
@@ -32,12 +43,13 @@ export class ClienteComponent  implements OnInit {
       }
     );
   }
+  
   config_form:IFormConfig[] = [
     {
       type:"number",
       placeholder: "ID (no se puede modificar)",
-      form_control_name:"cliente_id",
-      disabled:true
+      form_control_name: this.nombreControlador+"_id",
+      disabled: true
     },
     {
       type:"string",
@@ -147,6 +159,73 @@ export class ClienteComponent  implements OnInit {
       }
     );
     
+  }
+
+  ejecuta(o:any,funcion:any) {
+    console.log("O: ",o);
+    let obcion = "";
+    let oCopy = Object.assign({},o);
+
+    let sePuedeEjecutar : boolean = true;
+    switch (funcion) {
+      case "crear":
+        if(this.nombreControlador == "usuario"){
+          if(o.usuario_contrasenya.length<8)
+          {
+            sePuedeEjecutar = false;
+            alert("La contraseña debe tener al menos 8 caracteres");
+          }else if(o.usuario_contrasenya.length>=8){
+            sePuedeEjecutar = true;
+            o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
+          }
+        }
+        break;
+      case "actualizar":
+        obcion = o[this.nombreControlador+"_id"];
+        
+        if(this.nombreControlador == "usuario"){
+          if(o.usuario_contrasenya.length === 0)
+          {
+            alert("No se ha rellenado el espacio para la contraseña del usuario, por lo tanto se mantendra la anterior");
+          }else if(o.usuario_contrasenya.length<8)
+          {
+            
+            alert("Se usara la antigua contraseña, dado que la nueva no tiene al menos 8 caracteres");
+            o.usuario_contrasenya = "";   
+          }else if(o.usuario_contrasenya.length>=8){
+            o = Object.assign({}, o);
+            o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
+          }
+        }
+       
+        break;
+      default:
+        break;
+    }
+    
+    
+    if(sePuedeEjecutar === true){
+      delete o[this.nombreControlador+"_id"];
+      this.universalService.request(this.nombreControlador, funcion,obcion,o).subscribe(
+        {
+          next : (response) => {
+            o[this.nombreControlador+"_id"] = (this.listaContenidos[this.listaContenidos.length-1][this.nombreControlador+"_id"])+1;
+            o["editable"] = false;
+            this.listaContenidos.push(o);
+          },
+          error : (error) => {
+            console.log("Error al CREAR:",error);
+          },
+        }
+      );
+      
+    }
+    
+  }
+  cerrarSesion() { 
+  
+    this.usuario.cerrarSesion();
+    this.router.navigateByUrl('/');
   }
 
 }

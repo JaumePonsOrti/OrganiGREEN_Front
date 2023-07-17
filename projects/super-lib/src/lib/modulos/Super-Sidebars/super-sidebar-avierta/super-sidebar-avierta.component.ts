@@ -1,18 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Enlace_Menu } from '../../menus/models/enlace_menu';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Configuracion_Autocompletar } from '../../inputs/modelos/clases/configuracion_autocompletar';
 import { Observable, Subscriber, map, pipe, startWith } from 'rxjs';
 import { Config_Search } from '../../busquedas/models/Config_Search';
+import { SuperSidebarService } from '../../../servicios/super-sidebar.service';
 
 @Component({
   selector: 'super-sidebar-avierta',
   templateUrl: './super-sidebar-avierta.component.html',
   styleUrls: ['./super-sidebar-avierta.component.scss']
 })
-export class SuperSidebarAviertaComponent implements OnInit{
-  constructor(){
+export class SuperSidebarAviertaComponent implements OnInit,OnChanges {
+  constructor(public sidebarService: SuperSidebarService){
+  }
+  iniciado: boolean = false;
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    
   }
 
   ngOnInit(): void {
@@ -29,7 +35,7 @@ export class SuperSidebarAviertaComponent implements OnInit{
           subscriber.next(asignable);
         });
       }
-      if(value !== ""){
+      if(value !== "" && asignable.length == 9){
         this.enlace_menu_resultantes = new Observable<Enlace_Menu[]>((subscriber)=> {
           subscriber.next(this.enlaces);
         });
@@ -51,7 +57,7 @@ export class SuperSidebarAviertaComponent implements OnInit{
     subscriber.next(this.enlaces);
   });
   @Input() config!: ConfigSidebar;
-  @Input() enlaces!: Enlace_Menu[];
+  @Input() enlaces: Enlace_Menu[] = [];
   @Input () enlaces_perfil!:  Enlace_Menu[];
   @Output() singOutClick: EventEmitter<any> = new EventEmitter();
  
@@ -68,7 +74,7 @@ export class SuperSidebarAviertaComponent implements OnInit{
     search_type: "simple_search"
   };
   singOut(){
-    this.singOutClick.emit();
+    this.singOutClick.emit("");
   }
   
 }

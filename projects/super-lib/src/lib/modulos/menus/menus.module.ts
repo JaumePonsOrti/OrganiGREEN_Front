@@ -15,4 +15,4 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
     MenuAdminComponent
   ]
 })
-export class MenusModule { }
+export class SuperMenusModule { }
