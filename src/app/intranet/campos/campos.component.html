@@ -1,0 +1,24 @@
+
+<div class="row">
+    {{nombreControlador}}
+    <super-sidebar-avierta [config]="menuService.configSidebar"
+     [enlaces]="menuService.menus"
+     (singOutClick)="cerrarSesion()"
+     class="col-3 slider">
+    </super-sidebar-avierta>
+    <ion-content class="col-9 m-0" [fullscreen]="true">
+        
+        <div class="container " >
+            
+             <super-inline-form [config]="config_form" class="m-3 " (submited)="ejecuta($event,'crear')" *ngIf="can_agregar === true"></super-inline-form>
+             <super-tabla 
+             *ngIf="can_ver === true"
+             [data]="listaContenidos" 
+             [configFormEdit]="config_form"
+             [config]="config"
+             (saveClick)="clickSave($event)" 
+             (deleteClick)="openModal($event)" class="m-3" ></super-tabla>
+     
+         </div>
+     </ion-content>
+</div>

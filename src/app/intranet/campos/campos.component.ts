@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
 import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
-import { ModalsModule } from 'src/app/core/shared/components/modals/modals.module';
 import { ConfigModal } from 'src/app/core/shared/models/configModal';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
@@ -12,11 +11,11 @@ import { UniversalService } from 'src/app/core/shared/services/universal/univers
 import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';
 
 @Component({
-  selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.scss'],
+  selector: 'app-campos',
+  templateUrl: './campos.component.html',
+  styleUrls: ['./campos.component.scss'],
 })
-export class ClienteComponent implements OnInit {
+export class CamposComponent  implements OnInit {
   config: SuperTableConfig = {
     canDelete: true,
     canEdit: true,
@@ -34,7 +33,7 @@ export class ClienteComponent implements OnInit {
     public usuario:UsuariosService
   ) { }
   public listaContenidos:any = [];
-  public nombreControlador:string = "cliente";
+  public nombreControlador:string = "campo";
   
   config_form:IFormConfig[] = [
     {
@@ -281,5 +280,6 @@ export class ClienteComponent implements OnInit {
     this.usuario.cerrarSesion();
     this.router.navigateByUrl('/');
   }
+
 
 }
