@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
 import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
+import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
 import { ModalsModule } from 'src/app/core/shared/components/modals/modals.module';
 import { ConfigModal } from 'src/app/core/shared/models/configModal';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
@@ -16,6 +17,12 @@ import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.
   styleUrls: ['./cliente.component.scss'],
 })
 export class ClienteComponent  implements OnInit {
+  config: SuperTableConfig ={
+    canDelete: true,
+    canEdit: true,
+  };
+  can_ver!: boolean;
+  can_agregar!: boolean;
   
   constructor(
     public rutaActiva: ActivatedRoute,
@@ -27,22 +34,7 @@ export class ClienteComponent  implements OnInit {
     public usuario:UsuariosService
   ) { }
   public listaContenidos:any = [];
-  public nombreControlador:string = "cliente";
-  ngOnInit() {
-    
-    this.universalService.request( 
-      this.nombreControlador,"ver", "todos").subscribe(
-      {
-        next: (response) => {
-          this.listaContenidos = response;
-          this.editar();
-          console.log("Lista Contenidos: ",this.listaContenidos);
-        },
-        error: (error) => {
-        },
-      }
-    );
-  }
+  public nombreControlador:string = "campos";
   
   config_form:IFormConfig[] = [
     {
@@ -64,6 +56,62 @@ export class ClienteComponent  implements OnInit {
       disabled:false
     }
   ];
+  
+  ngOnInit() {
+    
+    this.universalService.request( 
+      this.nombreControlador,"ver", "todos").subscribe(
+      {
+        next: (response) => {
+          this.listaContenidos = response;
+          this.editar();
+          console.log("Lista Contenidos: ",this.listaContenidos);
+        },
+        error: (error) => {
+        },
+      }
+    );
+    this.universalService.can_get(this.nombreControlador).subscribe({
+      next: (data) => {
+        this.can_ver= true;
+        console.log("ver:",data);
+      },
+      error: (error) => {
+        this.can_ver = false;
+      }
+  });
+
+  this.universalService.can_update(this.nombreControlador).subscribe({
+      next: (data) => {
+        this.config.canEdit = true;
+        console.log("editar:",data);
+      },
+      error: (error) => {
+        this.config.canEdit = false;
+      }
+  });
+
+  this.universalService.can_delete(this.nombreControlador,0+"").subscribe({
+      next: (data) => {
+          this.config.canDelete = true;
+          console.log("borrar:",data);
+
+      },
+      error: (error) => {
+          this.config.canDelete = false;
+      }
+  });
+
+  this.universalService.can_create(this.nombreControlador).subscribe({
+      next: (data) => {
+          this.can_agregar = true;
+          console.log("create:",data);
+      },
+      error: (error) => {
+          this.can_agregar = false;
+      }
+    });
+  }
 
   private editar(){
     for (let index = 0; index < this.listaContenidos.length; index++) {

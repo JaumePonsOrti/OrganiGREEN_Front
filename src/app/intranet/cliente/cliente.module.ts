@@ -6,6 +6,8 @@ import { ClienteComponent } from './cliente.component';
 import { FormulariosModule, InputsModule, SuperLibModule, SuperSidebarsModule } from 'projects/super-lib/src/public-api';
 import { SharedModule } from 'src/app/core/shared/shared.module';
 import { SuperMenusModule } from 'projects/super-lib/src/lib/modulos/menus/menus.module';
+import { SuperTablasModule } from 'projects/super-lib/src/lib/modulos/tablas/tablas.module';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -15,9 +17,11 @@ import { SuperMenusModule } from 'projects/super-lib/src/lib/modulos/menus/menus
     ClienteRoutingModule,
     SuperLibModule,
     SharedModule,
+    SuperSidebarsModule,
     InputsModule,
     FormulariosModule,
-    SuperSidebarsModule
+    SuperTablasModule,
+    IonicModule
   ], 
   exports: [ClienteComponent]
 })

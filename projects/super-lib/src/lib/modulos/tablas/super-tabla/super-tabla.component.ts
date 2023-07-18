@@ -30,8 +30,7 @@ export class SuperTablaComponent implements OnInit,OnChanges {
       }
     } else{
       this.config.canEdit = false;
-    }
-    
+    }    
   }
 
   cargadoData:boolean = false;
@@ -51,15 +50,14 @@ export class SuperTablaComponent implements OnInit,OnChanges {
       if(length >0){
         this.config.canEdit = true;
         for (let index = 0; index < this.configFormEdit.length; index++) {
-          const element = this.configFormEdit[index];
-          const da = this.data[index];
-         
-          this.arrayControlForm.push( new FormControl(da[element.form_control_name]));
+        
+          this.arrayControlForm.push( new FormControl());
           this.cargadoData = true;
         }
       } else{
         this.config.canEdit = false;
       }
+      
     }
     
   }
