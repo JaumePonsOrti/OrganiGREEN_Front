@@ -1,6 +1,6 @@
 {
   "name": "super-lib",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "peerDependencies": {
     "@angular/common": ["^15.0.0", "^16.0.0"],
     "@angular/core": ["^15.0.0", "^16.0.0"],
