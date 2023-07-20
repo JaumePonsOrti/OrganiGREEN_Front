@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup" class="row mr-2" (ngSubmit)="onSubmit()">
     <div *ngFor="let con of config"  class=" col">
-        <input *ngIf="con.placeholder !=undefined" type="text" class="form-control" [formControlName]="con.form_control_name" 
+        <input *ngIf="con.placeholder !=undefined && !con.config_autocomplete" type="text" class="form-control" [formControlName]="con.form_control_name" 
         [placeholder]="con.placeholder">
       <super-input-autocompletar-objetos *ngIf="con.config_autocomplete"
        [config]="con.config_autocomplete"

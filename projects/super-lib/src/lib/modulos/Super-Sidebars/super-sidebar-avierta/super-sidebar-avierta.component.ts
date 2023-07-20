@@ -35,7 +35,7 @@ export class SuperSidebarAviertaComponent implements OnInit,OnChanges {
           subscriber.next(asignable);
         });
       }
-      if(value !== "" && asignable.length == 9){
+      if(value !== "" && asignable.length == this.enlaces.length){
         this.enlace_menu_resultantes = new Observable<Enlace_Menu[]>((subscriber)=> {
           subscriber.next(this.enlaces);
         });

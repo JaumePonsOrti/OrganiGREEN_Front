@@ -30,7 +30,8 @@ export class SuperTablaComponent implements OnInit,OnChanges {
       }
     } else{
       this.config.canEdit = false;
-    }    
+    }
+    
   }
 
   cargadoData:boolean = false;
@@ -50,22 +51,27 @@ export class SuperTablaComponent implements OnInit,OnChanges {
       if(length >0){
         this.config.canEdit = true;
         for (let index = 0; index < this.configFormEdit.length; index++) {
-        
-          this.arrayControlForm.push( new FormControl());
+          const element = this.configFormEdit[index];
+          const da = this.data[index];
+         
+          this.arrayControlForm.push( new FormControl(da[element.form_control_name]));
           this.cargadoData = true;
         }
       } else{
         this.config.canEdit = false;
       }
-      
+      this.data.forEach(element => {
+        if(!element["editable"] )
+         element["editable"] = false;
+      });
     }
     
   }
   
   @Input() data: any[] = [];
   @Input() config:SuperTableConfig = {
-    canDelete: true,
-    canEdit: true
+    canDelete: false,
+    canEdit: false
   };
   @Input() headerArray: any[] = [];
   @Input() configFormEdit: IFormConfig[] = [];
@@ -101,7 +107,7 @@ export class SuperTablaComponent implements OnInit,OnChanges {
     }
   }
   deleteEmit(row: any): void {
-    this.deleteClick.emit(row);
+    this.deleteClick.emit(this.trimPassedData(row));
   }
 
   antiguoEditable:number = 0;
@@ -126,10 +132,19 @@ export class SuperTablaComponent implements OnInit,OnChanges {
     let element = this.data[i];
     for (let index = 0; index < this.arrayControlForm.length; index++) {
       const controlForm = this.arrayControlForm[index];
-      const configForm = this.configFormEdit[index].form_control_name;
-      this.data[i][configForm] = controlForm.getRawValue();
+      const configForm = this.configFormEdit[index];
+      switch (configForm.type) {
+        case "number":
+          this.data[i][configForm.form_control_name] = new Number( controlForm.getRawValue());
+          break;
+      
+        default:
+          this.data[i][configForm.form_control_name] = controlForm.getRawValue();
+          break;
+      }
+      
     }
-    this.saveClick.emit(element);
+    this.saveClick.emit(this.trimPassedData(element));
     
     element.editable = false;
   }
@@ -142,6 +157,12 @@ export class SuperTablaComponent implements OnInit,OnChanges {
     // Devuelve un valor único para cada elemento
     return index;
   }
+
+  trimPassedData(object: any): any {
+    let object2 = Object.assign({}, object);
+    delete object2["editable"];
+    return object2;
+  };
 }
  export interface SuperTableConfig{
   canDelete: boolean,

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IFormConfig } from '../form_Config';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './inline-form.component.html',
   styleUrls: ['./inline-form.component.css']
 })
-export class InlineFormComponent implements OnInit, OnChanges {
+export class InlineFormComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({});
 
   @Output() submited: EventEmitter<any> = new EventEmitter<any>();
@@ -71,15 +71,28 @@ export class InlineFormComponent implements OnInit, OnChanges {
       
     }
   }
-  ngOnChanges(changes: SimpleChanges){
-    
-  }
 
   onSubmit(){
    
     //console.log(this.formGroup.value);
    
     this.submited.emit(this.formGroup.value);
+    for (let index = 0; index < this.config.length; index++) {
+   
+      const configForm = this.config[index];
+      const data = this.formGroup.value;
+     
+      switch (configForm.type) {
+        case "number":
+          data[configForm.form_control_name] = new Number(data[configForm.form_control_name] );
+          break;
+      
+        default:
+          data[configForm.form_control_name] = data[configForm.form_control_name] ;
+          break;
+      }
+      
+    }
   }
 
 
