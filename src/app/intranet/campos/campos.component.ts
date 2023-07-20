@@ -15,7 +15,7 @@ import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.
   templateUrl: './campos.component.html',
   styleUrls: ['./campos.component.scss'],
 })
-export class CamposComponent  implements OnInit {
+export class CamposComponent implements OnInit {
   config: SuperTableConfig = {
     canDelete: true,
     canEdit: true,
@@ -43,16 +43,35 @@ export class CamposComponent  implements OnInit {
       disabled: true
     },
     {
-      type:"string",
-      placeholder:"Nombre",
-      form_control_name:"cliente_nombre",
+      type:"text",
+      placeholder:"Nombre campo",
+      form_control_name:"campo_nombre",
       disabled:false
     },
     {
-      type:"string",
-      placeholder:"Mote",
-      form_control_name:"cliente_mote", 
+      type:"number",
+      placeholder:"Tamanyo",
+      form_control_name:"campo_tamanyo_facturacion", 
       disabled:false
+    },
+    {
+      type:"number",
+      form_control_name:"campo_cliente_id",
+      disabled:false,
+      config_autocomplete:{
+        tipo_input:"text",
+        campo_mostrar:{
+          nombre_campo:"cliente_nombre",
+          nombre_tabla:"cliente",
+        },
+        campo_referenciado:{
+          nombre_campo:"cliente_id",
+          nombre_tabla:"cliente",
+        },
+        nombre_campo:"cliente_id",
+        nombre_visible:"Nombre Cliente",
+        
+      }
     }
   ];
   
@@ -61,15 +80,27 @@ export class CamposComponent  implements OnInit {
     this.universalService.request( 
       this.nombreControlador,"ver", "todos").subscribe(
       {
-        next: (response) => {
+        next: (response:any) => {
           this.listaContenidos = response;
           this.editar();
           console.log("Lista Contenidos: ",this.listaContenidos);
+         // this.config_form[3].resources_autocomplete = response;
         },
         error: (error) => {
         },
       }
     );
+    this.universalService.request(
+      "cliente","ver", "todos").subscribe(
+      {
+      next: (response:any) =>
+        {
+          console.log("Lista Cliente: ",this.listaContenidos);
+          this.config_form[3].resources_autocomplete = response;
+        }
+
+      }
+    )
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
         this.can_ver= true;
@@ -210,7 +241,7 @@ export class CamposComponent  implements OnInit {
   }
 
   ejecuta(o:any,funcion:any) {
-    console.log("O: ",o);
+    console.log("Objeto: ",o);
     let obcion = "";
     let oCopy = Object.assign({},o);
 

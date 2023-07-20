@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CamposComponent } from './campos.component';
 
 const routes: Routes = [{
-  path: "campos",
+  path: "",
   component: CamposComponent
 }];
 

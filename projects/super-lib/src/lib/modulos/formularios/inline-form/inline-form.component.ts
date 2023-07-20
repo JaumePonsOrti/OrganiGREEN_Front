@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { IFormConfig } from '../form_Config';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './inline-form.component.html',
   styleUrls: ['./inline-form.component.css']
 })
-export class InlineFormComponent implements OnInit {
+export class InlineFormComponent implements OnInit, OnChanges {
   formGroup: FormGroup = new FormGroup({});
 
   @Output() submited: EventEmitter<any> = new EventEmitter<any>();
@@ -70,6 +70,9 @@ export class InlineFormComponent implements OnInit {
      
       
     }
+  }
+  ngOnChanges(changes: SimpleChanges){
+    
   }
 
   onSubmit(){
