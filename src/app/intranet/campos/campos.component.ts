@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
 import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
+import { Convertidor_Tipos } from 'src/app/core/shared/helpers/Convertidor_tipos.helper';
 import { ConfigModal } from 'src/app/core/shared/models/configModal';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
@@ -95,7 +96,7 @@ export class CamposComponent implements OnInit {
       {
       next: (response:any) =>
         {
-          console.log("Lista Cliente: ",this.listaContenidos);
+          console.log("Lista Cliente: ",response);
           this.config_form[3].resources_autocomplete = response;
         }
 
@@ -216,7 +217,7 @@ export class CamposComponent implements OnInit {
     console.log(object);
     let keys: string[] = Object.keys(object);
     console.log(keys);
-    this.universalService.request(this.nombreControlador, "borrar", object[keys[0]]).subscribe(
+    this.universalService.request(this.nombreControlador, "borrar", object[this.nombreControlador+"_id"]).subscribe(
       {
         next: (response) => {
           
@@ -229,11 +230,13 @@ export class CamposComponent implements OnInit {
                 console.log("ListaContenido:",this.listaContenidos);
               },
               error: (error) => {
+                
               },
             }
           );
         },
         error: (error) => {
+          alert("Error al borrar");
         },
       }
     );
@@ -261,8 +264,9 @@ export class CamposComponent implements OnInit {
           }
           
         }
-        delete o[this.nombreControlador+"_id"];
         this.listaContenidos.push(o);
+        delete o[this.nombreControlador+"_id"];
+        
         break;
       case "actualizar":
         obcion = o[this.nombreControlador+"_id"];
@@ -290,15 +294,24 @@ export class CamposComponent implements OnInit {
     
     if(sePuedeEjecutar === true){
      
-      delete o["editable"];
-      this.universalService.request(this.nombreControlador, funcion,obcion,o).subscribe(
+      delete oCopy["editable"];
+      let oRef:any = Object.assign({},this.listaContenidos[0]);
+      
+      delete oCopy[this.nombreControlador+"_id"];
+      delete oRef[this.nombreControlador+"_id"];
+      delete oRef["editable"];
+ 
+      oCopy = Convertidor_Tipos.convertObject(oRef,o);
+      this.universalService.request(this.nombreControlador, funcion,obcion,oCopy).subscribe(
         {
-          next : (response) => {
-            o["editable"] = false;
-            
+          next : (response:any) => {
+            o = this.listaContenidos[this.listaContenidos.length - 1];
+            this.listaContenidos[this.listaContenidos.length - 1]["editable"] = false;
+            this.listaContenidos[this.listaContenidos.length - 1][this.nombreControlador+"_id"] = response[this.nombreControlador+"_id"];
           },
           error : (error) => {
-            console.log("Error al CREAR:",error);
+            alert("Error al Ejecutar:");
+            console.log("Error al CREAR/Editar:",error);
           },
         }
       );

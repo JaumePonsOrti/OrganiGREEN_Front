@@ -25,7 +25,7 @@ export class SuperTablaComponent implements OnInit,OnChanges {
       this.config.canEdit = true;
       for (let index = 0; index < this.configFormEdit.length; index++) {
       
-        this.arrayControlForm.push( new FormControl());
+        this.arrayControlForm.push( new FormControl(""));
         this.cargadoData = true;
       }
     } else{
@@ -53,7 +53,7 @@ export class SuperTablaComponent implements OnInit,OnChanges {
         for (let index = 0; index < this.configFormEdit.length; index++) {
           const element = this.configFormEdit[index];
           const da = this.data[index];
-         
+          console.log(da);
           this.arrayControlForm.push( new FormControl(da[element.form_control_name]));
           this.cargadoData = true;
         }
@@ -133,17 +133,14 @@ export class SuperTablaComponent implements OnInit,OnChanges {
     for (let index = 0; index < this.arrayControlForm.length; index++) {
       const controlForm = this.arrayControlForm[index];
       const configForm = this.configFormEdit[index];
-      switch (configForm.type) {
-        case "number":
-          this.data[i][configForm.form_control_name] = new Number( controlForm.getRawValue());
-          break;
-      
-        default:
-          this.data[i][configForm.form_control_name] = controlForm.getRawValue();
-          break;
+      element[configForm.form_control_name] = controlForm.getRawValue();
+      //alert(configForm.form_control_name+": "+controlForm.getRawValue());
+      if(configForm.type === "number"){
+        element[configForm.form_control_name] = new Number( controlForm.getRawValue());
       }
       
-    }
+    } 
+    console.log("ELEMENTO GUARDADO: ",element);
     this.saveClick.emit(this.trimPassedData(element));
     
     element.editable = false;

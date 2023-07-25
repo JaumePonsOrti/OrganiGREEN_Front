@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
 import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
-import { ModalsModule } from 'src/app/core/shared/components/modals/modals.module';
 import { ConfigModal } from 'src/app/core/shared/models/configModal';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';

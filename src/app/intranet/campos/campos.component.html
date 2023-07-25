@@ -9,7 +9,6 @@
     <ion-content class="col-9 m-0" [fullscreen]="true">
         
         <div class="container " >
-            {{nombreControlador}}
              <super-inline-form [config]="config_form" class="m-3 " (submited)="ejecuta($event,'crear')" *ngIf="can_agregar === true"></super-inline-form>
              <super-tabla 
              *ngIf="can_ver === true"

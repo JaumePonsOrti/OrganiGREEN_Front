@@ -51,7 +51,8 @@ export class InlineFormComponent implements OnInit {
 
     }
   ];
-  ngOnInit(): void {
+  ngOnInit(): void { 
+
     for (let index = 0; index < this.config.length; index++) {
       const element = this.config[index];
       let type =  element.type ?? element.config_autocomplete?.tipo_input??"";
@@ -60,7 +61,7 @@ export class InlineFormComponent implements OnInit {
           this.formGroup.addControl(element.form_control_name,new FormControl(""));
           break;
         case "number":
-          this.formGroup.addControl(element.form_control_name,new FormControl(Number()));
+          this.formGroup.addControl(element.form_control_name,new FormControl());
         break;
         default:
           this.formGroup.addControl(element.form_control_name,new FormControl(""));
@@ -76,23 +77,27 @@ export class InlineFormComponent implements OnInit {
    
     //console.log(this.formGroup.value);
    
-    this.submited.emit(this.formGroup.value);
+    let data = this.formGroup.value;
+    let data2:any = {};
     for (let index = 0; index < this.config.length; index++) {
    
       const configForm = this.config[index];
-      const data = this.formGroup.value;
-     
+      
+      
       switch (configForm.type) {
         case "number":
-          data[configForm.form_control_name] = new Number(data[configForm.form_control_name] );
+          data2[configForm.form_control_name] = new Number(data[configForm.form_control_name]);
           break;
-      
+        case "text":
+          data2[configForm.form_control_name] = "" + data[configForm.form_control_name] ;
+          break
         default:
-          data[configForm.form_control_name] = data[configForm.form_control_name] ;
+          
           break;
       }
       
     }
+    this.submited.emit(data);
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { Configuracion_Autocompletar } from '../modelos/clases/configuracion_autocompletar';
@@ -15,7 +15,7 @@ import { Configuracion_Autocompletar } from '../modelos/clases/configuracion_aut
     }
   ]
 })
-export class InputAutocompletarComponent  implements OnInit, ControlValueAccessor {
+export class InputAutocompletarComponent  implements OnInit, OnChanges, ControlValueAccessor {
   form: FormControl = new FormControl();
   filtreredObject!:  Observable<any[]>;
   campoMostrar !:any;
@@ -32,6 +32,28 @@ export class InputAutocompletarComponent  implements OnInit, ControlValueAccesso
   @Input() public  referenciados: any;
 
   constructor() { }
+  ngOnChanges(changes: SimpleChanges): void {
+   console.log("changes",changes);
+
+   if( typeof changes['referenciados'].currentValue !== "undefined"){
+   
+    this.filtreredObject = 
+    this.form.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+   }
+  }
+
+  ngOnInit() {
+    console.log("REFERENCIADOS:",this.referenciados);
+    this.filtreredObject = 
+    this.form.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+
   onChange: any = () => {};
   onTouched: any = () => {};
 
@@ -45,15 +67,6 @@ export class InputAutocompletarComponent  implements OnInit, ControlValueAccesso
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-
-  ngOnInit() {
-    this.filtreredObject = 
-    this.form.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
   }
 
   private _filter(value: string): any[] {
@@ -77,7 +90,7 @@ export class InputAutocompletarComponent  implements OnInit, ControlValueAccesso
 
   onClick(){
     if (typeof this.config.campo_referenciado !== "undefined") {
-      this.onChange(JSON.stringify(this.objetoSelecionado[this.config.campo_referenciado.nombre_campo]));
+      this.onChange(this.objetoSelecionado[this.config.campo_referenciado.nombre_campo]);
     }
     else{
       this.onChange(JSON.stringify(this.objetoSelecionado));
