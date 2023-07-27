@@ -68,7 +68,7 @@
           </div>
         </td>
         <td *ngIf="config.canDelete === true">
-          <button class="btn btn-danger" (click)="deleteEmit(row)">Delete</button>
+          <button class="btn btn-danger" (click)="deleteEmit(row, i)">Delete</button>
         </td>
       </tr>
     </tbody>

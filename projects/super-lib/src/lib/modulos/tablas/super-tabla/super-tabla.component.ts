@@ -54,7 +54,12 @@ export class SuperTablaComponent implements OnInit,OnChanges {
           const element = this.configFormEdit[index];
           const da = this.data[index];
           console.log(da);
-          this.arrayControlForm.push( new FormControl(da[element.form_control_name]));
+          try {
+            this.arrayControlForm.push( new FormControl(da[element.form_control_name]));
+          } catch (error) {
+            this.arrayControlForm.push( new FormControl());
+          }
+          
           this.cargadoData = true;
         }
       } else{
@@ -106,8 +111,10 @@ export class SuperTablaComponent implements OnInit,OnChanges {
       return false;
     }
   }
-  deleteEmit(row: any): void {
-    this.deleteClick.emit(this.trimPassedData(row));
+  deleteEmit(row: any, i:number): void {
+    let d={object:this.trimPassedData(row),i:i}
+    this.deleteClick.emit(d);
+    
   }
 
   antiguoEditable:number = 0;
