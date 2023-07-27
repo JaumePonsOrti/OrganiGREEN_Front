@@ -40,9 +40,7 @@ export class CrudComponent implements OnInit, OnChanges {
   * @deprecated Por favor utiliza crud CONFIG DE AHORA EN adelante
   */
   @Input() config_form: IFormConfig[] = [];
-  @Input() crudConfig:ICrudConfig = {
-
-  };
+ 
   config: SuperTableConfig = {
     canDelete: true,
     canEdit: true,
