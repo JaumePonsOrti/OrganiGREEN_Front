@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProductosRoutingModule } from './productos-routing.module';
 import { ProductosComponent } from './productos.component';
+import { NewCrudModule } from 'src/app/core/shared/views/new-crud/crud.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ProductosComponent } from './productos.component';
   ],
   imports: [
     CommonModule,
-    ProductosRoutingModule
+    ProductosRoutingModule,
+    NewCrudModule
   ]
 })
 export class ProductosModule { }

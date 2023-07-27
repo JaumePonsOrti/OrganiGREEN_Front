@@ -7,6 +7,7 @@ import { FormulariosModule, InputsModule, SuperLibModule, SuperSidebarsModule } 
 import { SharedModule } from 'src/app/core/shared/shared.module';
 import { SuperTablasModule } from 'projects/super-lib/src/lib/modulos/tablas/tablas.module';
 import { IonicModule } from '@ionic/angular';
+import { NewCrudModule } from 'src/app/core/shared/views/new-crud/crud.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { IonicModule } from '@ionic/angular';
     InputsModule,
     FormulariosModule,
     SuperTablasModule,
-    IonicModule
+    IonicModule,
+    NewCrudModule
   ],
   exports:[
     ParcelasComponent
