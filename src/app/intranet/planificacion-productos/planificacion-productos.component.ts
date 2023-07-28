@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
 import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
+import { ModalComponentComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-crud/modal-component.component';
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
-import { ConfigModal } from 'src/app/core/shared/models/configModal';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
 import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
 import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';
 import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConfig';
-
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss'],
+  selector: 'app-planificacion-productos',
+  templateUrl: './planificacion-productos.component.html',
+  styleUrls: ['./planificacion-productos.component.scss'],
 })
-export class UsuariosComponent implements OnInit {
+export class PlanificacionProductosComponent  implements OnInit {
+
   config: SuperTableConfig = {
     canDelete: true,
     canEdit: true,
@@ -34,67 +35,90 @@ export class UsuariosComponent implements OnInit {
     public usuario:UsuariosService
   ) { }
   public listaContenidos:any = [];
-  public nombreControlador:string = "usuario";
-  
+  public nombreControlador:string = "productos-planificados";
+  arrayEstados:any[] = [
+    {
+      id:0,
+      nombre:"Por hacer"
+    },
+    {
+      id:1,
+      nombre:"En proceso",
+    },
+    { 
+      id:2,
+      nombre:"Realizado",
+    },
+    {
+      id:3,
+      nombre:"Facturado "
+    },
+    {
+      id:4,
+      nombre:"Cobrado :)p "
+    }
+  ];
+
   config_form:IFormConfig[] = [
     {
       type:"number",
       placeholder: "ID (no se puede modificar)",
-      form_control_name: this.nombreControlador+"_id",
+      form_control_name: "product_plan_id",
       disabled: true
     },
     {
-      type:"text",
-      placeholder:"Nombre Email",
-      form_control_name:this.nombreControlador+"_"+"email",
-      disabled:false
-    },
-    {
       type:"number",
-     
-      form_control_name:this.nombreControlador+"_"+"medida_id", 
+      placeholder:"Nombre Campo",
+      form_control_name:"product_plan_id_produto",
       disabled:false,
       config_autocomplete:{
         tipo_input:"text",
         campo_mostrar:{
-          nombre_campo:"medida_nombre",
-          nombre_tabla:"medida",
+          nombre_campo:"campo_nombre",
+          nombre_tabla:"campo",
         },
         campo_referenciado:{
-          nombre_campo:"medida_id",
-          nombre_tabla:"medida",
+          nombre_campo:"campo_id",
+          nombre_tabla:"campo",
         },
-        nombre_campo:"medida_id",
-        nombre_visible:"Nombre medida"
+        nombre_campo:"campo_id",
+        nombre_visible:"Nombre campo"
       },
-      resources_autocomplete:[]
     },
     {
       type:"number",
-      form_control_name:this.nombreControlador+"_"+"rol_id",
-      disabled:false,
+      placeholder:"Planificacion (No tocar)",
+      super_input_type:'date-picker',
+      form_control_name:"product_plan_id_planificaion", 
+      disabled:true
+    },
+    {
+      type:"string",
+      form_control_name:"product_plan_numero_de_lote", 
       config_autocomplete:{
-        tipo_input:"text",
+        tipo_input:"number",
         campo_mostrar:{
-          nombre_campo:"rol_nombre",
-          nombre_tabla:"rol",
+          nombre_campo:"nombre",
+          nombre_tabla:"medida",
         },
         campo_referenciado:{
-          nombre_campo:"rol_id",
-          nombre_tabla:"rol",
+          nombre_campo:"id",
+          nombre_tabla:"medida",
         },
-        nombre_campo:"rol_id",
-        nombre_visible:"Nombre rol"
+        nombre_campo:"id",
+        nombre_visible:"Estado "
       },
-      resources_autocomplete:[]
       
-    },{
-      type:"text",
-      placeholder:"Contraseña",
-      form_control_name:"usuario_contrasenya",
+      resources_autocomplete: this.arrayEstados,
       disabled:false
-    
-    }
+    },{
+      type:"number",
+      placeholder:"Planidicacion",
+      super_input_type:'date-picker',
+      form_control_name:"product_plan_id_planificaion", 
+      disabled:false
+    },
+
   ];
   
   public crudConfig: ICrudConfig = {
@@ -150,41 +174,53 @@ export class UsuariosComponent implements OnInit {
     this.universalService.request( 
       this.nombreControlador,"ver", "todos").subscribe(
       {
-        next: (response:any) => {
+        next: (response: any) => {
           this.listaContenidos = response;
+        
+          for (let index = 0; index < response.length; index++) {
+            let element = response[index];
+            delete element["planificacion_timestamp_inicio"];
+            delete element[this.nombreControlador+"_timestamp_final"];
+            element["planificacion_estado"] =  this.arrayEstados[element["planificacion_estado"]].nombre;
+            
+          }
           console.log("Lista Contenidos: ",this.listaContenidos);
-         // this.config_form[3].resources_autocomplete = response;
         },
-        error: (error) => {
+        error: (error:any) => {
         },
       }
     );
-    this.universalService.request(
-      "unidad_medida","ver", "todos").subscribe(
+   this.universalService.request(
+      "campo","ver", "todos").subscribe(
       {
       next: (response:any) =>
         {
           console.log("Lista medidas: ",this.listaContenidos);
-          this.config_form[2].resources_autocomplete = response;
+          this.config_form[1].resources_autocomplete = response;
         }
 
       }
     );
-    this.universalService.request(
-      "rol","ver", "todos").subscribe(
-      {
-      next: (response:any) =>
-        {
-          console.log("Lista Rles: ",this.listaContenidos);
-          this.config_form[3].resources_autocomplete = response;
-        }
-
-      }
-    );
-  
+    
+    
   }
 
+   calcularDiferenciaFechas(fechaInicio:string, fechaFin:string) {
+    const fechaInicioCon = new Date('2023-07-26T12:00:00').getTime();
+    const fechaFinCon = new Date('2023-07-26T15:30:45').getTime();
+    const diffEnMilisegundos = fechaFinCon - fechaInicioCon;
+    if (diffEnMilisegundos < 0) {
+      throw new Error("La fecha de inicio debe ser anterior a la fecha de fin.");
+    }
   
-
-
+    const segundos = Math.floor(diffEnMilisegundos / 1000) % 60;
+    const minutos = Math.floor(diffEnMilisegundos / (1000 * 60)) % 60;
+    const horas = Math.floor(diffEnMilisegundos / (1000 * 60 * 60));
+  
+    return {
+      horas,
+      minutos,
+      segundos,
+    };
+  }
 }

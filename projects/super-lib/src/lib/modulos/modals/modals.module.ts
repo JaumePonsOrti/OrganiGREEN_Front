@@ -5,6 +5,14 @@ import { ModalAutofocusComponent } from './modal-autofocus/modal-autofocus.compo
 import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDeshacerMatchComponent } from './modal-deshacer-match/modal-deshacer-match.component';
 import { NewModalComponent } from './new-modal/new-modal.component';
+import { ModalComponentComponent } from './modal-crud/modal-component.component';
+import { SuperLibModule } from '../../super-lib.module';
+import { SuperSidebarsModule } from '../Super-Sidebars/super-sidebars.module';
+import { InputsModule } from '../inputs/inputs.module';
+import { FormulariosModule } from '../formularios/formularios.module';
+import { SuperTablasModule } from '../tablas/tablas.module';
+import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from 'src/app/core/shared/components/components.module';
 
 
 
@@ -13,15 +21,22 @@ import { NewModalComponent } from './new-modal/new-modal.component';
     ModalsComponent,
     ModalAutofocusComponent,
     ModalDeshacerMatchComponent,
-    NewModalComponent
+    NewModalComponent,
+    ModalComponentComponent,
   ],
   imports: [
     CommonModule,
-    NgbModalModule
+    NgbModalModule,
+    CommonModule,
+    InputsModule,
+    FormulariosModule,
+    IonicModule,
+    SuperTablasModule
   ],exports:[
     ModalAutofocusComponent,
     NgbModalModule, 
-    NewModalComponent
+    NewModalComponent,
+    ModalComponentComponent,
   ]
 })
 export class SuperModalsModule { }

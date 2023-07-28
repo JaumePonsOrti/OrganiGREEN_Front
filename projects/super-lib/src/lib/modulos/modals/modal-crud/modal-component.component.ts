@@ -1,49 +1,43 @@
-import { Component, OnInit, Output, Input, OnChanges, SimpleChanges,EventEmitter } from '@angular/core';
-import { ActivatedRoute, Event, Router } from '@angular/router';
-import { ClassView } from '../classView';
-import { UniversalService } from '../../services/universal/universal.service';
-import { 
-  NgbModal 
-} from '@ng-bootstrap/ng-bootstrap';
-import { ModalAutofocusComponent } from '../../components/modals/modal-autofocus/modal-autofocus.component';
-import { HashService } from '../../services/crytp/hash.service';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Convertidor_Tipos } from 'src/app/core/shared/helpers/Convertidor_tipos.helper';
+import { ModalAutofocusComponent } from '../modal-autofocus/modal-autofocus.component';
+import { ConfigModal } from 'src/app/core/shared/models/configModal';
 import { FormControl } from '@angular/forms';
-import { ConfigModal } from '../../models/configModal';
-import { s } from '@fullcalendar/core/internal-common';
-import { MenuService } from '../../services/menu/menu.service';
-import { Configuracion_View } from '../../models/cofiguracion_view';
-import { UsuariosService } from '../../services/usuarios/usuarios.service';
-import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
-import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
-import { Convertidor_Tipos } from '../../helpers/Convertidor_tipos.helper';
-import { ICrudConfig } from './models/ICrudConfig';
-import { switchAll } from 'rxjs';
-
-
+import { IFormConfig } from '../../formularios/form_Config';
+import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConfig';
+import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
+import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
 
 @Component({
-  selector: 'app-new-crud',
-  templateUrl: './crud.component.html',
-  styleUrls: ['./crud.component.scss'],
+  selector: 'lib-modal-component',
+  templateUrl: './modal-component.component.html',
+  styleUrls: ['./modal-component.component.scss'],
 })
-export class CrudComponent implements OnInit, OnChanges {
+export class ModalComponentComponent  implements OnInit, OnChanges {
   constructor(
     public rutaActiva: ActivatedRoute,
     private universalService:UniversalService, 
     private hasService: HashService,
     private _modalService:NgbModal, 
-    public menuService: MenuService,
     public router:Router, 
-    public usuario:UsuariosService
+    public usuario:UsuariosService,
+    public modal: NgbActiveModal
   ) { }
   
+  @Input () tittle: string = "Productos Planificacion"
+
+  
+  
   @Input() nombreControlador :string = "";
-  @Input() listaContenidos:any[] = [];
+  @Input() listaContenidos: any[] = [];
   /*
   * @deprecated Por favor utiliza crud CONFIG DE AHORA EN adelante
   */
   @Input() config_form: IFormConfig[] = [];
-  @Input() crudConfig:ICrudConfig = {
+  @Input() crudConfig: ICrudConfig = {
     can_agregar:false,
     can_ver:false,
     can_dataPicker: false,
@@ -202,7 +196,7 @@ export class CrudComponent implements OnInit, OnChanges {
     modal.dismissed.subscribe((dismis: any)=>{
       console.log('Dismis modal:', dismis);
     });
-		//modal.componentInstance.name = 'ModalAutofocusComponent';
+    //modal.componentInstance.name = 'ModalAutofocusComponent';
     //
     /*
     */
@@ -215,7 +209,7 @@ export class CrudComponent implements OnInit, OnChanges {
     //console.log(keys);
     this.universalService.request(this.nombreControlador, "borrar", object.object[this.nombreControlador+"_id"]).subscribe(
       {
-        next: (response) => {
+        next: (response:any) => {
           alert("Eliminado correctamente");
           delete this.listaContenidos[object.i];
           this.listaContenidos = this.listaContenidos.filter((item: any) => typeof item  != "undefined" );
@@ -232,7 +226,7 @@ export class CrudComponent implements OnInit, OnChanges {
          }
         //alert("Eliminado correctamente y borrado de la lista");
         },
-        error: (error) => {
+        error: (error:any) => {
           alert("Error al borrar. Recarga la pagina si no se hace automáticamente");
           window.location.reload();
         },
@@ -353,4 +347,3 @@ export class CrudComponent implements OnInit, OnChanges {
     this.agrupadoParaMostrar = this.listaContenidos;
   }
 }
-

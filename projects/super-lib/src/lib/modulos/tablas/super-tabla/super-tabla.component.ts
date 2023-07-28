@@ -10,6 +10,22 @@ import { Configuracion_Autocompletar } from '../../inputs/modelos/clases/configu
   styleUrls: ['./super-tabla.component.css']
 })
 export class SuperTablaComponent implements OnInit,OnChanges {
+ //Inputs y Outpust
+  @Input() data: any[] = [];
+  @Input() config:SuperTableConfig = {
+    canDelete: false,
+    canEdit: false
+  };
+  @Input() headerArray: any[] = [];
+  @Input() configFormEdit: IFormConfig[] = [];
+  @Output() deleteClick = new EventEmitter();
+  @Output() saveClick = new EventEmitter()
+
+  //Variables
+  cargadoData:boolean = false;
+  arrayControlForm:FormControl[] = [];
+
+  //NgOnInit
   ngOnInit(): void {
     let typeOfData = typeof this.data[0];
     
@@ -28,61 +44,60 @@ export class SuperTablaComponent implements OnInit,OnChanges {
         this.arrayControlForm.push( new FormControl(""));
         this.cargadoData = true;
       }
-    } else{
+    }/* else{
       this.config.canEdit = false;
-    }
+    }*/
     
   }
 
-  cargadoData:boolean = false;
+  //NgOnChange
   ngOnChanges(changes: SimpleChanges): void {
     let length:number = this.configFormEdit.length;
-    if(this.cargadoData === false && this.data.length > 0) {
-      let typeOfData = typeof this.data[0];
     
-      switch (typeOfData) {
-        case "object":
-          this.headerArray = this.headers;
-          break;
+    try {
+      if(this.cargadoData === false && this.data.length > 0) {
+        let typeOfData = typeof this.data[0];
       
-        default:
-          break;
-      }
-      if(length >0){
-        this.config.canEdit = true;
-        for (let index = 0; index < this.configFormEdit.length; index++) {
-          const element = this.configFormEdit[index];
-          const da = this.data[index];
-          console.log(da);
-          try {
-            this.arrayControlForm.push( new FormControl(da[element.form_control_name]));
-          } catch (error) {
-            this.arrayControlForm.push( new FormControl());
-          }
-          
-          this.cargadoData = true;
+        switch (typeOfData) {
+          case "object":
+            this.headerArray = this.headers;
+            break;
+        
+          default:
+            break;
         }
-      } else{
-        this.config.canEdit = false;
+        if(length >0){
+          this.config.canEdit = true;
+          for (let index = 0; index < this.configFormEdit.length; index++) {
+            const element = this.configFormEdit[index];
+            const da = this.data[index];
+            console.log(da);
+            try {
+              this.arrayControlForm.push( new FormControl(da[element.form_control_name]));
+            } catch (error) {
+              this.arrayControlForm.push( new FormControl());
+            }
+            
+            this.cargadoData = true;
+          }
+        } else {
+          this.config.canEdit = false;
+        }
+        this.data.forEach(element => {
+          if(!element["editable"] )
+           element["editable"] = false;
+        });
       }
-      this.data.forEach(element => {
-        if(!element["editable"] )
-         element["editable"] = false;
-      });
+    } catch (error) {
+      
+    }
+    if(changes["data"].previousValue.length !== changes["data"].currentValue.length ){
+      this.headerArray = this.headerArray;
+     // alert("Cambia en tabla al cargar");
     }
     
   }
   
-  @Input() data: any[] = [];
-  @Input() config:SuperTableConfig = {
-    canDelete: false,
-    canEdit: false
-  };
-  @Input() headerArray: any[] = [];
-  @Input() configFormEdit: IFormConfig[] = [];
-  arrayControlForm:FormControl[] = [];
-  @Output() deleteClick = new EventEmitter();
-  @Output() saveClick = new EventEmitter()
   // Obtiene las claves de los objetos como los encabezados de la tabla
   get headers(): string[] {
     return this.data.length > 0 ? Object.keys(this.data[0]) : [];

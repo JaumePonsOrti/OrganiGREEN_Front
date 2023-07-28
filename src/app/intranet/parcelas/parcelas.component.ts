@@ -8,6 +8,7 @@ import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
 import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
 import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';import { Component, OnInit } from '@angular/core';
+import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConfig';
 
 @Component({
   selector: 'app-parcelas',
@@ -80,8 +81,56 @@ export class ParcelasComponent implements OnInit {
       disabled:false
     }
   ];
-  
+  public crudConfig: ICrudConfig = {
+    can_agregar:false,
+    can_ver:false,
+    can_dataPicker: false,
+    config_super_table:{
+      canDelete: false,
+      canEdit: false,
+    },
+  };
   ngOnInit() {
+    this.universalService.can_get(this.nombreControlador).subscribe({
+      next: (data) => {
+        this.crudConfig.can_ver= true;
+        console.log("ver:",data);
+      },
+      error: (error) => {
+        this.crudConfig.can_ver = false;
+      }
+    });
+
+    this.universalService.can_update(this.nombreControlador).subscribe({
+      next: (data) => {
+        this.crudConfig.config_super_table.canEdit = true;
+        console.log("editar:",data);
+      },
+      error: (error) => {
+        this.crudConfig.config_super_table.canEdit = false;
+      }
+    });
+
+    this.universalService.can_delete(this.nombreControlador,0+"").subscribe({
+      next: (data) => {
+          this.crudConfig.config_super_table.canDelete = true;
+          console.log("borrar:",data);
+
+      },
+      error: (error) => {
+          this.crudConfig.config_super_table.canDelete = false;
+      }
+    });
+
+    this.universalService.can_create(this.nombreControlador).subscribe({
+      next: (data) => {
+          this.crudConfig.can_agregar = true;
+          console.log("create:",data);
+      },
+      error: (error) => {
+          this.crudConfig.can_agregar = false;
+      }
+    });
     
     this.universalService.request( 
       this.nombreControlador,"ver", "todos").subscribe(

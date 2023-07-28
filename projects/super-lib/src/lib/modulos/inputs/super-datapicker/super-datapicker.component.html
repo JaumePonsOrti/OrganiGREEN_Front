@@ -4,7 +4,7 @@
 		<div class="input-group">
 			<input
 				class="form-control"
-        [formControl]="formControl"
+        		[formControl]="formControl"
 				placeholder="yyyy-mm-dd"
 				name="dp"
 				[displayMonths]="displayMonths"
@@ -12,10 +12,12 @@
 				[outsideDays]="outsideDays"
 				[showWeekNumbers]="showWeekNumbers"
 				ngbDatepicker
+				[placeholder]="placeholder"
 				#d="ngbDatepicker"
+				
         
 			/>
-			<button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+			<button class="btn  bi bi-calendar3" [class]="buttonClass" (click)="d.toggle()" type="button"></button>
 		</div>
 	</div>
 </form>

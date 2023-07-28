@@ -7,4 +7,6 @@ export interface IFormConfig{
     config_autocomplete?: Configuracion_Autocompletar;
     resources_autocomplete?:any[];
     disabled: boolean;
+    super_input_type?:string;
+    button_input_class?:string
 }
