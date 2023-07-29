@@ -28,15 +28,18 @@ export class SuperTablaComponent implements OnInit,OnChanges {
   //NgOnInit
   ngOnInit(): void {
     let typeOfData = typeof this.data[0];
-    
     switch (typeOfData) {
       case "object":
-        this.headerArray = this.headers;
+        if(this.headerArray.length === 0){
+          this.headerArray = this.headers;
+
+        }
         break;
     
       default:
         break;
     }
+    
     if(length >0){
       this.config.canEdit = true;
       for (let index = 0; index < this.configFormEdit.length; index++) {
@@ -57,10 +60,12 @@ export class SuperTablaComponent implements OnInit,OnChanges {
     try {
       if(this.cargadoData === false && this.data.length > 0) {
         let typeOfData = typeof this.data[0];
-      
         switch (typeOfData) {
           case "object":
-            this.headerArray = this.headers;
+            if(this.headerArray.length === 0){
+              this.headerArray = this.headers;
+
+            }
             break;
         
           default:

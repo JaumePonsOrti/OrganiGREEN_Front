@@ -49,6 +49,7 @@
             [configFormEdit]="config_form"
             [config]="crudConfig.config_super_table"
             (saveClick)="clickSave($event)" 
+            [headerArray] ="headerArrayTable" 
             (deleteClick)="openModal($event)" class="m-3" 
           >
           </super-tabla>
@@ -59,6 +60,7 @@
             [config]="crudConfig.config_super_table"
             (saveClick)="clickSave($event)" 
             (deleteClick)="openModal($event)" class="m-3" 
+            [headerArray] ="headerArrayTable" 
           >
           </super-tabla>
         </div>

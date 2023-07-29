@@ -53,6 +53,7 @@ export class CrudComponent implements OnInit, OnChanges {
     }
   };
   @Output () añadido = new EventEmitter();
+  @Input() headerArrayTable: any[] = [];
   peticionBD:boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -307,11 +308,11 @@ export class CrudComponent implements OnInit, OnChanges {
       this.universalService.request(this.nombreControlador, funcion,obcion,oCopy).subscribe(
         {
           next : (response:any) => {
-            o = this.listaContenidos[this.listaContenidos.length - 1];
+            let o2 = this.listaContenidos[this.listaContenidos.length - 1];
             this.listaContenidos[this.listaContenidos.length - 1]["editable"] = false;
             this.listaContenidos[this.listaContenidos.length - 1][this.nombreControlador+"_id"] = response[this.nombreControlador+"_id"];
             alert("Se han efectuado los cambios correctamente correctamente.");
-            this.añadido.emit(response);
+            this.añadido.emit(o2);
           },
           error : (error) => {
             let mensaje:string ="Error al Crear/Editar. "+

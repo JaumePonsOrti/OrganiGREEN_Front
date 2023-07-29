@@ -35,7 +35,7 @@ export class PlanificacionProductosComponent  implements OnInit {
     public usuario:UsuariosService
   ) { }
   public listaContenidos:any = [];
-  public nombreControlador:string = "productos-planificados";
+  public nombreControlador:string = "productos_planificados";
   arrayEstados:any[] = [
     {
       id:0,
@@ -63,59 +63,45 @@ export class PlanificacionProductosComponent  implements OnInit {
     {
       type:"number",
       placeholder: "ID (no se puede modificar)",
-      form_control_name: "product_plan_id",
+      form_control_name: "productos_planificados_id",
       disabled: true
     },
     {
       type:"number",
-      placeholder:"Nombre Campo",
-      form_control_name:"product_plan_id_produto",
+      placeholder:"Producto",
+      form_control_name:"productos_planificados_id_producto",
       disabled:false,
       config_autocomplete:{
         tipo_input:"text",
         campo_mostrar:{
-          nombre_campo:"campo_nombre",
-          nombre_tabla:"campo",
+          nombre_campo:"productos_nombre",
+          nombre_tabla:"producto",
         },
         campo_referenciado:{
-          nombre_campo:"campo_id",
-          nombre_tabla:"campo",
+          nombre_campo:"productos_id",
+          nombre_tabla:"productos",
         },
-        nombre_campo:"campo_id",
-        nombre_visible:"Nombre campo"
+        nombre_campo:"productos_id",
+        nombre_visible:"Nombre producto"
       },
     },
     {
       type:"number",
       placeholder:"Planificacion (No tocar)",
-      super_input_type:'date-picker',
-      form_control_name:"product_plan_id_planificaion", 
-      disabled:true
+      form_control_name:"productos_planificados_id_planificacion", 
+      disabled:false
     },
     {
       type:"string",
-      form_control_name:"product_plan_numero_de_lote", 
-      config_autocomplete:{
-        tipo_input:"number",
-        campo_mostrar:{
-          nombre_campo:"nombre",
-          nombre_tabla:"medida",
-        },
-        campo_referenciado:{
-          nombre_campo:"id",
-          nombre_tabla:"medida",
-        },
-        nombre_campo:"id",
-        nombre_visible:"Estado "
-      },
+      form_control_name:"productos_planificados_numero_de_lote", 
+      placeholder:"Numero de lote",
       
       resources_autocomplete: this.arrayEstados,
       disabled:false
     },{
       type:"number",
-      placeholder:"Planidicacion",
-      super_input_type:'date-picker',
-      form_control_name:"product_plan_id_planificaion", 
+      placeholder:"Producto dueño",
+      form_control_name:"productos_planificados_producto_dueño", 
       disabled:false
     },
 
@@ -191,11 +177,11 @@ export class PlanificacionProductosComponent  implements OnInit {
       }
     );
    this.universalService.request(
-      "campo","ver", "todos").subscribe(
+      "productos","ver", "todos").subscribe(
       {
       next: (response:any) =>
         {
-          console.log("Lista medidas: ",this.listaContenidos);
+          console.log("Lista productoss: ",this.listaContenidos);
           this.config_form[1].resources_autocomplete = response;
         }
 
