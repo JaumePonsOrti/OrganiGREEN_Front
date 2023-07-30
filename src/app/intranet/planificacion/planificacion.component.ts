@@ -8,6 +8,7 @@ import { ModalComponentComponent } from 'projects/super-lib/src/lib/modulos/moda
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
+import { PlanificacionService } from 'src/app/core/shared/services/planificacion.service';
 import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
 import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';
 import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConfig';
@@ -34,10 +35,14 @@ export class PlanificacionComponent  implements OnInit {
     private _modalService:NgbModal, 
     public menuService: MenuService,
     public router:Router, 
-    public usuario:UsuariosService
+    public usuario:UsuariosService,
+    public planificacionService: PlanificacionService
+
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "planificacion";
+  public headerArray:any[] = ["ID","Campo","Fecha realizacion","Estado","editable"];
+
   arrayEstados:any[] = [
     {
       id:0,
@@ -128,6 +133,8 @@ export class PlanificacionComponent  implements OnInit {
     }
   };
   ngOnInit() {
+
+    console.log("Menu planificacion:", this.menuService.menus);
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
         this.crudConfig.can_ver= true;
@@ -241,13 +248,17 @@ export class PlanificacionComponent  implements OnInit {
     modal.componentInstance.title = "Redirigir a pagina de planificar productos";
     modal.closed.subscribe((closed: any)=>{
       console.log('CLOSED modal:', closed);
-      this.redirigir();
+      alert(events);
+      console.log('events:', events);
+      this.redirigir(events);
     });
     
   }
 
-  redirigir(){
+  redirigir(events: any): void {
+    this.planificacionService.idPlanificacion = events;
     this.router.navigateByUrl("/intranet/planificacion_producto");
+    
   }
 
 }

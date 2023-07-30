@@ -15,7 +15,7 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
     PlanificacionRoutingModule,
     NewCrudModule,
     InputsModule,
-    SharedModule
+    
   ],
   exports: [PlanificacionComponent]
 })

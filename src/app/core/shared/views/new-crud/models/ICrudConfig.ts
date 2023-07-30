@@ -10,6 +10,8 @@ export interface ICrudConfig{
     campo_por_el_que_agrupar?:{
         nombre_campo:string,
         nombre_controler:string
-    }
+    },
+    devolver_objeto_modificado?:boolean,
+    objeto_referencia?:any
      //can_menu_superior: boolean,
 }

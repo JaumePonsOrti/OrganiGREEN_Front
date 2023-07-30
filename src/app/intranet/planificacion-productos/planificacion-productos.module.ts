@@ -15,7 +15,7 @@ import { SharedModule } from 'src/app/core/shared/shared.module';
     PlanificacionProductosRoutingModule,
     NewCrudModule,
     InputsModule,
-    SharedModule
+    
   ]
 })
 export class PlanificacionProductosModule { }

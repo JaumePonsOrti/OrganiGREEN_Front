@@ -34,7 +34,16 @@ export class ParcelasComponent implements OnInit {
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "parcelas";
-  
+  public headerArray:any = [
+    "ID", 
+    "Numero poligono",
+    "Numero de parcela",
+    "Numero provincia",
+    "Numero municipio",
+    "Campo", 
+    "Tamaño m2",
+    "editable"
+  ];
   config_form:IFormConfig[] = [
     {
       type:"number",

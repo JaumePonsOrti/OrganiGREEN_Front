@@ -298,7 +298,7 @@ export class CrudComponent implements OnInit, OnChanges {
     if(sePuedeEjecutar === true){
       let oCopy = Object.assign({},o);
       delete oCopy["editable"];
-      let oRef:any = Object.assign({},this.listaContenidos[0]);
+      let oRef:any =this.crudConfig.objeto_referencia?? Object.assign({},this.listaContenidos[0]);
       
       delete oCopy[this.nombreControlador+"_id"];
       delete oRef[this.nombreControlador+"_id"];
@@ -312,7 +312,7 @@ export class CrudComponent implements OnInit, OnChanges {
             this.listaContenidos[this.listaContenidos.length - 1]["editable"] = false;
             this.listaContenidos[this.listaContenidos.length - 1][this.nombreControlador+"_id"] = response[this.nombreControlador+"_id"];
             alert("Se han efectuado los cambios correctamente correctamente.");
-            this.añadido.emit(o2);
+            this.añadido.emit(response);
           },
           error : (error) => {
             let mensaje:string ="Error al Crear/Editar. "+

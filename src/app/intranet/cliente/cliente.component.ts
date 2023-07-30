@@ -35,7 +35,8 @@ export class ClienteComponent implements OnInit {
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "cliente";
-  
+  public headerArray:string[]= ["ID", "Nombre", "Mote","editable"];
+
   config_form:IFormConfig[] = [
     {
       type:"number",

@@ -35,7 +35,8 @@ export class UsuariosComponent implements OnInit {
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "usuario";
-  
+  public headerArray:string[] = ["ID", "Email","Unidad de medida preferida","Rol","Contraseña","editable"]
+
   config_form:IFormConfig[] = [
     {
       type:"number",

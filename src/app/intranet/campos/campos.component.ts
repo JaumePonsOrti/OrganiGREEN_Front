@@ -24,7 +24,7 @@ export class CamposComponent implements OnInit {
   };
   can_ver!: boolean;
   can_agregar!: boolean;
-  public headerArray:string[] = ["ID", "Nombre del campo","Tamaño de factuarción","Cliente"];
+  public headerArray:string[] = ["ID", "Nombre del campo","Tamaño de factuarción","Cliente","editable"];
   constructor(
     public rutaActiva: ActivatedRoute,
     private universalService:UniversalService, 

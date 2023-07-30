@@ -8,6 +8,7 @@ import { ModalComponentComponent } from 'projects/super-lib/src/lib/modulos/moda
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
+import { PlanificacionService } from 'src/app/core/shared/services/planificacion.service';
 import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
 import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';
 import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConfig';
@@ -32,32 +33,14 @@ export class PlanificacionProductosComponent  implements OnInit {
     private _modalService:NgbModal, 
     public menuService: MenuService,
     public router:Router, 
-    public usuario:UsuariosService
+    public usuario:UsuariosService,
+    public planificacionService: PlanificacionService
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "productos_planificados";
-  arrayEstados:any[] = [
-    {
-      id:0,
-      nombre:"Por hacer"
-    },
-    {
-      id:1,
-      nombre:"En proceso",
-    },
-    { 
-      id:2,
-      nombre:"Realizado",
-    },
-    {
-      id:3,
-      nombre:"Facturado "
-    },
-    {
-      id:4,
-      nombre:"Cobrado :)p "
-    }
-  ];
+
+  headerArray = ["ID", "Producto", "ID Planificacion","Numero Lote","Producto dueño","editable"];
+ 
 
   config_form:IFormConfig[] = [
     {
@@ -95,8 +78,6 @@ export class PlanificacionProductosComponent  implements OnInit {
       type:"string",
       form_control_name:"productos_planificados_numero_de_lote", 
       placeholder:"Numero de lote",
-      
-      resources_autocomplete: this.arrayEstados,
       disabled:false
     },{
       type:"number",
@@ -114,7 +95,7 @@ export class PlanificacionProductosComponent  implements OnInit {
     config_super_table:{
       canDelete: false,
       canEdit: false,
-    }
+    },
   };
   ngOnInit() {
     this.universalService.can_get(this.nombreControlador).subscribe({
@@ -161,16 +142,20 @@ export class PlanificacionProductosComponent  implements OnInit {
       this.nombreControlador,"ver", "todos").subscribe(
       {
         next: (response: any) => {
-          this.listaContenidos = response;
-        
+          //this.listaContenidos = response;
+          let list :any[] = [];
+
+          this.crudConfig.objeto_referencia=response[1];
+
           for (let index = 0; index < response.length; index++) {
-            let element = response[index];
-            delete element["planificacion_timestamp_inicio"];
-            delete element[this.nombreControlador+"_timestamp_final"];
-            element["planificacion_estado"] =  this.arrayEstados[element["planificacion_estado"]].nombre;
-            
+            const element = response[index];
+              if(element.productos_planificados_id_planificacio === this.planificacionService.idPlanificacion.planificacion_id){
+                list.push(element);
+              }
           }
-          console.log("Lista Contenidos: ",this.listaContenidos);
+          this.listaContenidos = list;
+          
+          
         },
         error: (error:any) => {
         },
@@ -209,4 +194,9 @@ export class PlanificacionProductosComponent  implements OnInit {
       segundos,
     };
   }
+
+  volverAPlanificacion(){
+    this.router.navigateByUrl("/intranet/planificacion")
+  }
+  
 }
