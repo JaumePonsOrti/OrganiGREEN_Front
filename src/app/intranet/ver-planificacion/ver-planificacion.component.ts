@@ -156,8 +156,6 @@ export class VerPlanificacionComponent  implements OnInit {
       ];
       
       let dosisTotalCampo:number = 0;
-
-      
       for (let j = 0; j < listaParcelasCampo.length; j++) { 
         let parcela = listaParcelasCampo[j];
         let cabeceraDesplegableParcela: ICabezeraDesplegableConfig[] = [
@@ -177,7 +175,18 @@ export class VerPlanificacionComponent  implements OnInit {
         let listaProductosPlanificados = this.objetoConProductosPlanificacadosOrdenadosPorPlanificacion[planificacion["planificacion_id"]??[]]
         let listaProductos:any[]=[];
 
-       
+        for(let i = 0; i < listaProductosPlanificados; i++){
+          let productoPlan = listaProductosPlanificados[i];
+          let producto = this.objetoConProductosPorId[productoPlan["productos_planificados_id_producto"]];
+          let dosis = producto["productos_cantidad_referenciada"];
+          let unidad_medida_en_metros_cuadrados = this.objetoConMedidasPorId[producto["productos_medida_id"]]["medida_metros_cuadrados"];
+          let objeto: any = {
+            producto_id: producto["producto_nombre"],
+            producto_nombre: producto["producto_nombre"],
+            dosis_por_parcela: parcela["tamanyo_m2"]*(dosis/unidad_medida_en_metros_cuadrados)
+          }
+          listaProductos.push(objeto);
+        }  
       }
       
     }
