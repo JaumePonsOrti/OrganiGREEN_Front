@@ -1,0 +1,16 @@
+
+<div class="row">
+    
+  <super-sidebar-avierta [config]="menuService.configSidebar"
+   [enlaces]="menuService.menus"
+   (singOutClick)="cerrarSesion()"
+   class="col-3 slider">
+  </super-sidebar-avierta>
+  <ion-content class="col-9 m-0 " [fullscreen]="true">
+    <div class=" ">
+      <super-desplegable *ngFor="let config of configs  " class="col-11" [config]="config"></super-desplegable>
+
+    </div>
+      
+   </ion-content>
+</div>

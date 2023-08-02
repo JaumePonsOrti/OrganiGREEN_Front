@@ -1,0 +1,20 @@
+<div ngbAccordion>
+	<div ngbAccordionItem [collapsed]="config.collapsed">
+		<h2 ngbAccordionHeader>
+			<button ngbAccordionButton class="row">
+        <span class="col" *ngFor="let header of config.headersDesplegable" >
+         <!--
+          {{config.headersDesplegable[0].dato_mostrado}}
+         -->
+         {{header.dato_mostrado}}
+        </span>
+      </button>
+		</h2>
+		<div ngbAccordionCollapse>
+			<div ngbAccordionBody>
+				<ng-template>
+					
+				</ng-template>
+			</div>
+		</div>
+	</div>

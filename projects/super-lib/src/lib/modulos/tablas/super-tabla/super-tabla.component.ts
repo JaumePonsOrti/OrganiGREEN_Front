@@ -96,7 +96,7 @@ export class SuperTablaComponent implements OnInit,OnChanges {
     } catch (error) {
       
     }
-    if(changes["data"].previousValue.length !== changes["data"].currentValue.length ){
+    if(typeof changes["data"].previousValue !=="undefined" && typeof changes["data"].currentValue !== "undefined" && changes["data"].previousValue.length !== changes["data"].currentValue.length ){
       this.headerArray = this.headerArray;
      // alert("Cambia en tabla al cargar");
     }

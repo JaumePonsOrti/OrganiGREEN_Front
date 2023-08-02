@@ -62,7 +62,7 @@ export class PlanificacionComponent  implements OnInit {
     },
     {
       id:4,
-      nombre:"Cobrado :)p "
+      nombre:"Cobrado "
     }
   ];
 
@@ -185,7 +185,7 @@ export class PlanificacionComponent  implements OnInit {
             let element = response[index];
             delete element["planificacion_timestamp_inicio"];
             delete element[this.nombreControlador+"_timestamp_final"];
-            element["planificacion_estado"] =  this.arrayEstados[element["planificacion_estado"]].nombre;
+            //element["planificacion_estado"] =  this.arrayEstados[element["planificacion_estado"]].nombre;
             
           }
           console.log("Lista Contenidos: ",this.listaContenidos);

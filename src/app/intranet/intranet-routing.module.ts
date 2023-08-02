@@ -51,6 +51,14 @@ const routes: Routes = [
   {
     path:"planificacion_producto",
     loadChildren: () => import('./planificacion-productos/planificacion-productos.module').then(m=> m.PlanificacionProductosModule)
+  },
+  {
+    path:"ver-planificacion",
+    loadChildren:()=> import('./ver-planificacion/ver-planificacion.module').then(m => m.VerPlanificacionModule)
+  },
+  {
+    path:"ver-planificacion-en-campo",
+    loadChildren:()=> import('./ver-planificacion-en-campo/ver-planificacion-en-campo.module').then(m => m.VerPlanificacionEnCampoModule)
   }
 ];
 

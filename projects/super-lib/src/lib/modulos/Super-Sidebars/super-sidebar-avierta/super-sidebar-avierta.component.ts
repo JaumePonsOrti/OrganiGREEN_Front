@@ -18,31 +18,33 @@ export class SuperSidebarAviertaComponent implements OnInit,OnChanges {
   iniciado: boolean = false;
   
   ngOnChanges(changes: SimpleChanges): void {
-    
+    if(this.iniciado === false){
+      this.formControl.valueChanges.subscribe(value => { 
+        let asignable = JSON.parse(value)
+        console.log("Parsed:",asignable);
+        if (this.config.barraBusqueda?.tipo_input === "simple_search"){
+          this.enlace_menu_resultantes = new Observable<Enlace_Menu[]>((subscriber)=> {
+            subscriber.next(asignable);
+          });
+        }else{
+          this.provisonal_enlace_var = new Observable<Enlace_Menu[]>((subscriber)=> {
+            subscriber.next(asignable);
+          });
+        }
+        if(value !== "" && asignable.length == this.enlaces.length){
+          this.enlace_menu_resultantes = new Observable<Enlace_Menu[]>((subscriber)=> {
+            subscriber.next(this.enlaces);
+          });
+        }
+        this.iniciado = true;
+        
+      });
+    }
   }
 
   ngOnInit(): void {
     
-    this.formControl.valueChanges.subscribe(value => { 
-      let asignable = JSON.parse(value)
-      console.log("Parsed:",asignable);
-      if (this.config.barraBusqueda?.tipo_input === "simple_search"){
-        this.enlace_menu_resultantes = new Observable<Enlace_Menu[]>((subscriber)=> {
-          subscriber.next(asignable);
-        });
-      }else{
-        this.provisonal_enlace_var = new Observable<Enlace_Menu[]>((subscriber)=> {
-          subscriber.next(asignable);
-        });
-      }
-      if(value !== "" && asignable.length == this.enlaces.length){
-        this.enlace_menu_resultantes = new Observable<Enlace_Menu[]>((subscriber)=> {
-          subscriber.next(this.enlaces);
-        });
-      }
-      
-      
-    });
+   
     
   }
 
