@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SuperDesplegableComponent } from './super-desplegable.component';
+import { SuperDesplegableSimpleComponent } from './super-desplegable.component';
 
 describe('SuperDesplegableComponent', () => {
-  let component: SuperDesplegableComponent;
-  let fixture: ComponentFixture<SuperDesplegableComponent>;
+  let component: SuperDesplegableSimpleComponent;
+  let fixture: ComponentFixture<SuperDesplegableSimpleComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SuperDesplegableComponent ],
+      declarations: [ SuperDesplegableSimpleComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SuperDesplegableComponent);
+    fixture = TestBed.createComponent(SuperDesplegableSimpleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -2,19 +2,44 @@
 	<div ngbAccordionItem [collapsed]="config.collapsed">
 		<h2 ngbAccordionHeader>
 			<button ngbAccordionButton class="row">
-        <span class="col" *ngFor="let header of config.headersDesplegable" >
-         <!--
-          {{config.headersDesplegable[0].dato_mostrado}}
-         -->
-         {{header.dato_mostrado}}
-        </span>
-      </button>
+				<span class="col" *ngFor="let header of config.headersDesplegable" >
+				<!--
+				{{config.headersDesplegable[0].dato_mostrado}}
+				-->
+				<span *ngIf="header.nombre_campo !==undefined">
+					<b>
+						{{header.nombre_campo}}
+					</b>
+				</span>
+				{{header.dato_mostrado}}
+				</span>
+			</button>
 		</h2>
 		<div ngbAccordionCollapse>
 			<div ngbAccordionBody>
-				<ng-template>
+				
+				<ng-template >
+			
+					<div *ngIf = 
+						"config.componente_interno.type === 'super-desplegable' && 
+						config.componente_interno.config_desplegable !== undefined
+					 	&& this.config.componente_interno.config_desplegable.length>0"
+						
+					> 
+						<super-desplegable-simple 
+							*ngFor="let item of config.componente_interno.config_desplegable"
+							[config]="item"
+							class="m-1"
+						>
+						</super-desplegable-simple>
+						
+					</div>
+					
 					
 				</ng-template>
+				
 			</div>
 		</div>
 	</div>
+</div>
+
