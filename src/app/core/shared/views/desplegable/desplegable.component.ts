@@ -19,7 +19,9 @@ export class DesplegableComponent  implements OnInit {
 
     ) { }
   
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 
   
