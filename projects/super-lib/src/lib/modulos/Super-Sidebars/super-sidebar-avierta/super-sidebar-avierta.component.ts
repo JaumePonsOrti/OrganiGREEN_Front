@@ -18,6 +18,7 @@ export class SuperSidebarAviertaComponent implements OnInit,OnChanges {
   iniciado: boolean = false;
   
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("ENLACES:", this.enlaces);
     if(this.iniciado === false){
       this.formControl.valueChanges.subscribe(value => { 
         let asignable = JSON.parse(value)

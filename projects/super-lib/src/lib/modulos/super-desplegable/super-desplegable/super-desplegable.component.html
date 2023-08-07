@@ -34,6 +34,12 @@
 						</super-desplegable-simple>
 						
 					</div>
+					<div  *ngIf = "config.componente_interno.type === 'super-table' && config.componente_interno.config_table !== undefined">
+						<super-tabla
+						 [headerArray]="config.componente_interno.config_table.headersArrayTable"
+						 [data]="config.componente_interno.config_table.listaContenidos"></super-tabla>					
+
+					</div>
 					
 					
 				</ng-template>
