@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SuperDesplegableConfig } from 'projects/super-lib/src/lib/modulos/super-desplegable/super-desplegable/super-desplegable.component';
+import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
 
 @Component({
   selector: 'app-ver-planificacion-en-campo',
@@ -7,8 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerPlanificacionEnCampoComponent  implements OnInit {
 
-  constructor() { }
+  constructor(public universalService:UniversalService) { }
 
-  ngOnInit() {}
+  // listas de objetos
+ 
+ public configs:SuperDesplegableConfig[] = [];
+
+  ngOnInit() {
+    this.universalService.request("ver_planificacion_en_campo","ver", "todos").subscribe(
+      {
+        next:(response:any)=>{
+          this.configs = response;
+          console.log(this.configs);
+        },
+        error:(error)=>{
+
+        }
+      }
+    );
+     
+  }
+
 
 }
