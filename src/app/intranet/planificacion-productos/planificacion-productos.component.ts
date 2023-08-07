@@ -51,7 +51,6 @@ export class PlanificacionProductosComponent  implements OnInit {
     },
     {
       type:"number",
-      placeholder:"Producto",
       form_control_name:"productos_planificados_id_producto",
       disabled:false,
       config_autocomplete:{
@@ -96,8 +95,10 @@ export class PlanificacionProductosComponent  implements OnInit {
       canDelete: false,
       canEdit: false,
     },
+    modificar_objeto_posteriormente:true
   };
   ngOnInit() {
+    //console.log("Planificacion:",this.planificacionService.idPlanificacion.planificacion_id);
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
         this.crudConfig.can_ver= true;
@@ -176,7 +177,7 @@ export class PlanificacionProductosComponent  implements OnInit {
     
   }
 
-   calcularDiferenciaFechas(fechaInicio:string, fechaFin:string) {
+  calcularDiferenciaFechas(fechaInicio:string, fechaFin:string) {
     const fechaInicioCon = new Date('2023-07-26T12:00:00').getTime();
     const fechaFinCon = new Date('2023-07-26T15:30:45').getTime();
     const diffEnMilisegundos = fechaFinCon - fechaInicioCon;
@@ -199,4 +200,29 @@ export class PlanificacionProductosComponent  implements OnInit {
     this.router.navigateByUrl("/intranet/planificacion")
   }
   
+  actualizarDespuesDeAnyadido(event: any){
+    try {
+     event.productos_planificados_id_planificacion = this.planificacionService.idPlanificacion.planificacion_id;
+    } catch (error) {
+      
+    }
+   //alert("Recivido");
+   this.universalService.request(this.nombreControlador, "actualizar",event[this.nombreControlador+"_id"],event).subscribe(
+    {
+      next:()=>{
+        event["editable"] = false;
+        try {
+          this.listaContenidos.push(event);
+        } catch (error) {
+          
+        }
+        
+        alert("Añadido con exito");
+      },
+      error:()=>{
+        alert("Ha havido un error")
+      },
+      complete:()=>{}
+    });
+  }
 }

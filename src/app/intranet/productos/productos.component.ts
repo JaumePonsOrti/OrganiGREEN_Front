@@ -34,6 +34,8 @@ export class ProductosComponent  implements OnInit {
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "productos";
+
+  headerArray = ["ID", "Nº Registro", "Nombre","Precio","Dosis","Unidad de Medida","Fecha de actualizacion","Actualizado de SIPAC","editable"];
   
   config_form:IFormConfig[] = [
     {

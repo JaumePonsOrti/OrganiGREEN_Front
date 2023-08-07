@@ -5,8 +5,9 @@ import { SuperTablasModule } from 'projects/super-lib/src/lib/modulos/tablas/tab
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { SuperDesplegableModule } from 'projects/super-lib/src/lib/modulos/super-desplegable/super-desplegable.module';
 import { SuperSidebarAviertaComponent } from 'projects/super-lib/src/lib/modulos/Super-Sidebars/super-sidebar-avierta/super-sidebar-avierta.component';
-import { SuperSidebarsModule } from 'projects/super-lib/src/public-api';
+import { InputsModule, SuperSidebarsModule } from 'projects/super-lib/src/public-api';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,10 @@ import { IonicModule } from '@ionic/angular';
     CommonModule,
     SuperSidebarsModule,
     SuperDesplegableModule,
-    IonicModule
+    IonicModule,
+    InputsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[DesplegableComponent]
 })

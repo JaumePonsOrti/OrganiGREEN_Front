@@ -15,6 +15,8 @@ import { NoConComponent } from './home/no-con/no-con.component';
 import { ViewsModule } from './core/shared/views/views.module';
 import { IntranetModule } from './intranet/intranet.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlanificacionModule } from './intranet/planificacion/planificacion.module';
+import { PlanificacionService } from './core/shared/services/planificacion.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [{
      provide: RouteReuseStrategy, useClass: IonicRouteStrategy, 
     },
-   
+    PlanificacionService
     ],
   bootstrap: [AppComponent],
 })

@@ -23,7 +23,7 @@ import { PlanificacionService } from './planificacion.service';
     MenuService,
     UniversalService, 
     SesionService,
-    PlanificacionService
+  
   ]
 })
 export class ServicesModule { }

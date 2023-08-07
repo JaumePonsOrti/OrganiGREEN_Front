@@ -22,6 +22,7 @@ export class Convertidor_Tipos {
                 case "string":
                     devolver[key] = devolver[key];
                 break;
+                
             }
         }
         

@@ -1,14 +1,29 @@
 
 <div class="row">
-    
+  
   <super-sidebar-avierta [config]="menuService.configSidebar"
    [enlaces]="menuService.menus"
    (singOutClick)="cerrarSesion()"
    class="col-3 slider">
   </super-sidebar-avierta>
   <ion-content class="col-9 m-0 " [fullscreen]="true">
+    <div class="bg-body-primary position-relative row shadow-sm" >
+      <!-- *ngIf="crudConfig.can_dataPicker && informacionFiltrada === true">-->
+      <span class="col-lg-6 col-xl-6  col  mt-3 mb-1">
+        Selecciona <b>Fecha</b> con la que <b>Filtrar </b> la Planificacion:
+      </span>
+      <super-datapicker class="position-static end-0 col-lg-3 col-xl-3 col mt-1 mb-1" [formControl]="formControl" ></super-datapicker>
+      <!--
+        <button 
+        class="btn btn-outline-warning  col-lg-2 col-xl-2 col mt-1 mb-1" 
+        (click)="noFiltrarInformacion()"
+        >
+            No utilizar filtros 
+        </button>  
+      -->
+    </div> 
     <div class=" ">
-      <super-desplegable *ngFor="let config of configs  " class="col-11" [config]="config"></super-desplegable>
+      <super-desplegable *ngFor="let config of configsAgrupados[indiceFiltro]  " class="col-11" [config]="config"></super-desplegable>
 
     </div>
       

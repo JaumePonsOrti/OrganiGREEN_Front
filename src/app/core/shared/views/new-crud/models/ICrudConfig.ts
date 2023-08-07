@@ -11,7 +11,8 @@ export interface ICrudConfig{
         nombre_campo:string,
         nombre_controler:string
     },
-    devolver_objeto_modificado?:boolean,
-    objeto_referencia?:any
+    
+    objeto_referencia?:any,
+    modificar_objeto_posteriormente ?:boolean
      //can_menu_superior: boolean,
 }

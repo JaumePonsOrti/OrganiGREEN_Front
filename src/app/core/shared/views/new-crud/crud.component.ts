@@ -264,10 +264,12 @@ export class CrudComponent implements OnInit, OnChanges {
           }
           
         }
-
-        this.listaContenidos.push(oCopy);
-        console.log("o añadido:",o);
-        console.log("ocopy :",oCopy);
+        if(typeof this.crudConfig.modificar_objeto_posteriormente === "undefined" || this.crudConfig.modificar_objeto_posteriormente === false){
+          this.listaContenidos.push(oCopy);
+          console.log("o añadido:",o);
+          console.log("ocopy :",oCopy);
+        }
+        
         delete o[this.nombreControlador+"_id"];
         
         break;
@@ -287,6 +289,11 @@ export class CrudComponent implements OnInit, OnChanges {
             o = Object.assign({}, o);
             o.usuario_contrasenya = this.hasService.sha3_512(o.usuario_contrasenya);
           }
+        }
+
+        if(this.nombreControlador == "planificacion"){
+          o.planificacion_fecha_realizar = new Date( o.planificacion_fecha_realizar).toJSON();
+
         }
        
         break;
@@ -308,10 +315,14 @@ export class CrudComponent implements OnInit, OnChanges {
       this.universalService.request(this.nombreControlador, funcion,obcion,oCopy).subscribe(
         {
           next : (response:any) => {
-            let o2 = this.listaContenidos[this.listaContenidos.length - 1];
-            this.listaContenidos[this.listaContenidos.length - 1]["editable"] = false;
-            this.listaContenidos[this.listaContenidos.length - 1][this.nombreControlador+"_id"] = response[this.nombreControlador+"_id"];
-            alert("Se han efectuado los cambios correctamente correctamente.");
+           
+            if(this.crudConfig.modificar_objeto_posteriormente == undefined || this.crudConfig.modificar_objeto_posteriormente === false){
+              let o2 = this.listaContenidos[this.listaContenidos.length - 1];
+              this.listaContenidos[this.listaContenidos.length - 1]["editable"] = false;
+              this.listaContenidos[this.listaContenidos.length - 1][this.nombreControlador+"_id"] = response[this.nombreControlador+"_id"];
+              alert("Se han efectuado los cambios correctamente correctamente.");
+            }
+           
             this.añadido.emit(response);
           },
           error : (error) => {

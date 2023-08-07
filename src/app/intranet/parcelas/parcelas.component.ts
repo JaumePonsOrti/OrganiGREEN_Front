@@ -36,10 +36,10 @@ export class ParcelasComponent implements OnInit {
   public nombreControlador:string = "parcelas";
   public headerArray:any = [
     "ID", 
-    "Numero poligono",
-    "Numero de parcela",
-    "Numero provincia",
-    "Numero municipio",
+    "Nº poligono",
+    "Nº de parcela",
+    "Nº provincia",
+    "Nº municipio",
     "Campo", 
     "Tamaño m2",
     "editable"
@@ -53,32 +53,45 @@ export class ParcelasComponent implements OnInit {
     },
     {
       type:"number",
-      placeholder:"Numero poligono",
+      placeholder:"Nº Poligono",
       form_control_name:"parcelas_poligono",
       disabled:false
     },
     {
       type:"number",
-      placeholder:"Numero parcela",
+      placeholder:"Nº Parcela",
       form_control_name:"parcelas_parcela", 
       disabled:false
     },
     {
       type:"number",
-      placeholder:"Numero provincia",
+      placeholder:"Nº Provincia",
       form_control_name:"parcelas_provincia",
       disabled:false
     },
     {
       type:"number",
-      placeholder:"Numero municipio",
+      placeholder:"Nº Municipio",
       form_control_name:"parcelas_municipio", 
       disabled:false
     }, 
     {
       type:"number",
-      placeholder:"ID campo (FALTA AUTOCOMPLETE)",
       form_control_name:"parcelas_campo_id",
+      config_autocomplete:{
+        tipo_input:"text",
+        campo_mostrar:{
+          nombre_campo:"campo_nombre",
+          nombre_tabla:"campo",
+        },
+        campo_referenciado:{
+          nombre_campo:"campo_id",
+          nombre_tabla:"campo",
+        },
+        nombre_campo:"campo_id",
+        nombre_visible:"Campo"
+      },
+      resources_autocomplete:[],
       disabled:false,
       
 
@@ -147,6 +160,17 @@ export class ParcelasComponent implements OnInit {
         next: (response) => {
           this.listaContenidos = response;
         
+          console.log("Lista Contenidos: ",this.listaContenidos);
+        },
+        error: (error) => {
+        },
+      }
+    );
+    this.universalService.request( 
+      "campo","ver", "todos").subscribe(
+      {
+        next: (response:any) => {
+          this.config_form[5].resources_autocomplete = response;
           console.log("Lista Contenidos: ",this.listaContenidos);
         },
         error: (error) => {

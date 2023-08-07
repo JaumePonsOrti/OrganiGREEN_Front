@@ -130,7 +130,8 @@ export class PlanificacionComponent  implements OnInit {
     campo_por_el_que_agrupar:{
       nombre_campo:"planificacion_fecha_realizar",
       nombre_controler:"date_selector"
-    }
+    },
+    modificar_objeto_posteriormente:false
   };
   ngOnInit() {
 
@@ -248,7 +249,6 @@ export class PlanificacionComponent  implements OnInit {
     modal.componentInstance.title = "Redirigir a pagina de planificar productos";
     modal.closed.subscribe((closed: any)=>{
       console.log('CLOSED modal:', closed);
-      alert(events);
       console.log('events:', events);
       this.redirigir(events);
     });

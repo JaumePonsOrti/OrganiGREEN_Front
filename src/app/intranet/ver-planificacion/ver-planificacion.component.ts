@@ -10,15 +10,10 @@ import { UniversalService } from 'src/app/core/shared/services/universal/univers
   styleUrls: ['./ver-planificacion.component.scss'],
 })
 export class VerPlanificacionComponent  implements OnInit {
-  
- 
 
   constructor(public universalService:UniversalService) { }
 
-
- 
- 
-// listas de objetos
+  // listas de objetos
  
  public configs:SuperDesplegableConfig[] = [];
 
