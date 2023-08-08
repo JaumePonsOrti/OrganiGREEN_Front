@@ -1,5 +1,13 @@
-<div class="fullscreen" >
-    <app-menu-admin></app-menu-admin>
-    <router-outlet></router-outlet>
+<div class=" row" >
+    <super-sidebar-avierta 
+    [config]="menuService.configSidebar"
+    [enlaces]="menuService.menus"
+    (singOutClick)="cerrarSesion()"
+    
+    class="col-3 col-lg-3 slider">
+   </super-sidebar-avierta>
+    <div class="col-9">
+
+    </div>
 </div>
 
