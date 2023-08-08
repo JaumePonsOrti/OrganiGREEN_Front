@@ -349,8 +349,8 @@ export class CrudComponent implements OnInit, OnChanges {
     }
     
   }
-  cerrarSesion() { 
   
+  cerrarSesion() {
     this.usuario.cerrarSesion();
     this.router.navigateByUrl('/');
   }
