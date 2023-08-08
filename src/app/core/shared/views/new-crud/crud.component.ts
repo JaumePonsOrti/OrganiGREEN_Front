@@ -38,7 +38,7 @@ export class CrudComponent implements OnInit, OnChanges {
   ) { }
   
   @Input() nombreControlador :string = "";
-  @Input() listaContenidos:any[] = [];
+  @Input() listaContenidos:any = [];
   /*
   * @deprecated Por favor utiliza crud CONFIG DE AHORA EN adelante
   */
@@ -54,6 +54,7 @@ export class CrudComponent implements OnInit, OnChanges {
   };
   @Output () añadido = new EventEmitter();
   @Input() headerArrayTable: any[] = [];
+  @Output() fechaCambiada = new EventEmitter();
   peticionBD:boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -79,7 +80,10 @@ export class CrudComponent implements OnInit, OnChanges {
       next:(date:any) =>{
         //alert(e);       
         
-        this.agrupadoParaMostrar = this.agrupacion[new Date(date).toJSON()]??[];
+        this.agrupadoParaMostrar = this.agrupacion[new Date(date).toJSON()]  ?? [];
+        console.log("Agrupado Para Mostrar :",this.agrupadoParaMostrar);
+        this.agrupadoParaMostrar = this.agrupacion[new Date(date).toJSON()];
+        this.fechaCambiada.emit(date);
       }
     });
   }

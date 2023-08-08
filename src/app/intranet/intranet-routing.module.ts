@@ -59,6 +59,10 @@ const routes: Routes = [
   {
     path:"ver-planificacion-en-campo",
     loadChildren:()=> import('./ver-planificacion-en-campo/ver-planificacion-en-campo.module').then(m => m.VerPlanificacionEnCampoModule)
+  },
+  {
+    path:"resumen-planificacion",
+    loadChildren:()=> import('./resumen-planificacion/resumen-planificacion.module').then(m=>m.ResumenPlanificacionModule)
   }
 ];
 
