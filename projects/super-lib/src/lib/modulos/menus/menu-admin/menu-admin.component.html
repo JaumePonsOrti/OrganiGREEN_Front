@@ -1,0 +1,101 @@
+  
+  <div class="wrapper">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" type="button">
+            <i class="bi bi-list"></i>      
+         </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      
+     <!-- Main Sidebar Container -->
+    
+   
+     <aside class="main-sidebar sidebar-dark-primary elevation-4" *ngIf="seeSidebar===true">
+      <!-- Brand Logo -->
+      <a href="intranet" class="brand-link">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">AdminLTE 3</span>
+      </a>
+    
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block">Alexander Pierce</a>
+          </div>
+        </div>
+    
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+          <div class="input-group" data-widget="sidebar-search">
+            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-sidebar">
+                <i class="fas fa-search fa-fw"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+                 
+            <li class="nav-item" *ngFor="let menu of elementos_menu;" [class]="menu.clase_extra">
+              <a  class="nav-link " (click)="cambiarAEnlace(menu)">
+                <i class="nav-icon " [class]="menu.icono"></i>
+                <p>
+                  {{menu.nombre_del_campo}}
+                  <i class="right fas fa-angle-left"  *ngIf="ifMayorQue0(menu.sub_elementos)==true"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview" *ngIf="ifMayorQue0(menu.sub_elementos)==true">
+                <li class="nav-item" *ngFor="let item of menu.sub_elementos">
+                  <a [href]="generarEnlace(item)" class="nav-link">
+                    <i class="far fa-circle nav-icon" [class]="item.icono"></i>
+                    <p>{{item.nombre_del_campo}}</p>
+                  </a>
+                </li>
+  
+              </ul>
+            </li>
+          </ul>
+          <ul>
+            <li class="nav-item">
+              <button class="btn btn-navbar btn-primary" (click)="cerrarSesion()">
+                Cerrar sesion
+              </button>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+    
+  </div>

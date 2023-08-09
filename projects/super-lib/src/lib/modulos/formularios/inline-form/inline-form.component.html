@@ -1,0 +1,22 @@
+<form [formGroup]="formGroup" class="row mr-2" (ngSubmit)="onSubmit()">
+    <div *ngFor="let con of config"  class=" col">
+        <input *ngIf="con.placeholder !=undefined && !con.config_autocomplete && !con.super_input_type" type="text" class="form-control" [formControlName]="con.form_control_name" 
+        [placeholder]="con.placeholder">
+        <super-input-autocompletar-objetos 
+            *ngIf="con.config_autocomplete"
+            [config]="con.config_autocomplete"
+            [referenciados]="con.resources_autocomplete"
+            [formControlName]="con.form_control_name"
+        >
+        </super-input-autocompletar-objetos>
+
+        <super-datapicker 
+          *ngIf="con.super_input_type === 'date-selector' || con.super_input_type === 'date-picker' "
+          [formControlName]="con.form_control_name" 
+          [placeholder]="con.placeholder"
+          [buttonClass]="'btn-outline-secondary'"
+        >
+        </super-datapicker>
+    </div>
+    <button type="submit" class="btn btn-primary col-lg-2 col ">Añadir</button>
+</form>

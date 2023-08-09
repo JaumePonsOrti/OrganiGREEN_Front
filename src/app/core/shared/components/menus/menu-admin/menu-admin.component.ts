@@ -97,12 +97,13 @@ export class MenuAdminComponent extends Debug {
   }
 
   generarEnlace(menu:any){
-    let m = "intranet/"+menu.tipo_de_view +"/"+menu.controlador;
+    let m = "intranet/"+menu.controlador;
     return m;
   }
 
   cambiarAEnlace(menu:any){
-    this.menuService.paginaActual = menu;
+    this.menuService.setPaginaActual(menu);
+    this.router.navigate(["/intranet/"+menu.controlador]);
   }
   
 }

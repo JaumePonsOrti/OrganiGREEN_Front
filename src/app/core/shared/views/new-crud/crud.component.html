@@ -1,0 +1,74 @@
+
+<div class="row">
+    
+  <super-sidebar-avierta [config]="menuService.configSidebar"
+   [enlaces]="menuService.menus"
+   (singOutClick)="cerrarSesion()"
+   
+   class="col-3 col-lg-3 slider">
+  </super-sidebar-avierta>
+  <ion-content class="col-9 col-lg-9  m-0" [fullscreen]="true">
+    <!--
+    <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand">Navbar</a>
+        
+        <super-datapicker class="d-flex" [formControl]="formControl"></super-datapicker>
+      </div>
+    </nav>
+  --> 
+      
+      <div class="bg-body-primary position-relative row shadow-sm" *ngIf="crudConfig.can_dataPicker && informacionFiltrada === false">
+        <span class="col-lg-9 col-xl-9  col  mt-3 mb-1">
+        </span>
+        <button class="btn btn-danger col-lg-2 col-xl-2 col mt-1 mb-1" (click)="filtrarInformacion()">Filtrar información</button>        
+      </div>
+      <div class="bg-body-primary position-relative row shadow-sm" *ngIf="crudConfig.can_dataPicker && informacionFiltrada === true">
+        <span class="col-lg-6 col-xl-6  col  mt-3 mb-1">
+          Selecciona <b>Fecha</b> con la que <b>Filtrar </b> la {{nombreControlador}}:
+        </span>
+        <super-datapicker class="position-static end-0 col-lg-3 col-xl-3 col mt-1 mb-1" [formControl]="formControl" ></super-datapicker>
+        <button 
+          class="btn btn-outline-warning  col-lg-2 col-xl-2 col mt-1 mb-1" 
+          (click)="noFiltrarInformacion()"
+          >
+            No utilizar filtros 
+        </button>  
+      </div>
+
+      <div class="container "  *ngIf="crudConfig.can_ver === true" >
+        <super-inline-form 
+          [config]="config_form" class="m-3 "
+          (submited)="ejecuta($event,'crear')"
+          *ngIf="crudConfig.can_agregar === true && informacionFiltrada === false">
+        </super-inline-form>
+
+        <div *ngIf="listaContenidos.length > 0">
+          <super-tabla 
+            *ngIf="crudConfig.campo_por_el_que_agrupar === undefined"
+            [data]="listaContenidos" 
+            [configFormEdit]="config_form"
+            [config]="crudConfig.config_super_table"
+            (saveClick)="clickSave($event)" 
+            [headerArray] ="headerArrayTable" 
+            (deleteClick)="openModal($event)" class="m-3" 
+          >
+          </super-tabla>
+          <super-tabla 
+            *ngIf="crudConfig.campo_por_el_que_agrupar != undefined"
+            [data]="agrupadoParaMostrar" 
+            [configFormEdit]="config_form"
+            [config]="crudConfig.config_super_table"
+            (saveClick)="clickSave($event)" 
+            (deleteClick)="openModal($event)" class="m-3" 
+            [headerArray] ="headerArrayTable" 
+          >
+          </super-tabla>
+        </div>
+           
+        <p *ngIf="listaContenidos.length === 0 && peticionBD === false">
+          UPS no hay <b>ningun</b> elemento en  <b>{{nombreControlador}}</b>, añade uno ahora
+        </p>
+      </div>
+   </ion-content>
+</div>

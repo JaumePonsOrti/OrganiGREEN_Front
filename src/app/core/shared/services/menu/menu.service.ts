@@ -5,12 +5,13 @@ import { Debug } from '../../helpers/Debug';
 import { Enlace_Menu } from '../../models/enlace_menu';
 import { environment } from '../../../../../environments/environment';
 import { UsuariosService } from '../usuarios/usuarios.service';
+import { ConfigSidebar } from 'projects/super-lib/src/lib/modulos/Super-Sidebars/super-sidebar-avierta/super-sidebar-avierta.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService extends Debug{
-  public menus:any;
+  public menus:any[] = [];
   public paginaActual:any;
 
   apiUrl:string = environment.apiUrl+"/menu";
@@ -19,15 +20,37 @@ export class MenuService extends Debug{
     private usuario:UsuariosService
   ) {
     super(true);
-   
+    console.log("USER:",this.usuario.user);
   }
-
+  
+  public configSidebar: ConfigSidebar = {
+    tipo: 'g',
+    tema: 'bg',
+    usuario: {
+      nombre_usuario: this.usuario.user?? "error",
+      imagen_usuario: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcMmpT59rWhdr964CJCAW4F3Jh-_fHbMetaTv_x52brg&s'
+    },
+    barraBusqueda:  {
+      nombre_campo:"enlaceMENU",
+      nombre_visible:"Busqueda ...",
+      tipo_input:"text",
+      campo_mostrar:{
+        nombre_campo:"nombre_del_campo",
+        nombre_tabla:"unidad_medida",
+      },
+      search_type:"search_with_button_integrated"
+    }
+  };
   getMenuDeApi(): Observable<any> {
     return this.http.get(this.apiUrl+'/get') .pipe(
       map(response => {
-       
-        this.menus = response;
-        this.menus = this.menus.menus;
+        let variable_transition:any = response;
+        this.menus = variable_transition.menus;
+        this.menus.forEach(
+          (element: any) => {
+             element.direccion_url ="/intranet/"+ element.controlador;
+          }
+        );
         this.log("Menu",this.menus);
         return response;
       }),
@@ -41,6 +64,10 @@ export class MenuService extends Debug{
         return throwError(error);
       })
     );
+  }
+
+  public setPaginaActual(paginaActual:any){
+    this.paginaActual = paginaActual;
   }
   
   

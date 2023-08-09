@@ -1,0 +1,13 @@
+<input type="text"
+    [placeholder]="config.nombre_visible "
+    [formControl]="form"
+    [matAutocomplete]="auto"
+    class="form-control"
+>
+<mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let object of filtreredObject | async" 
+    [value]="object"
+    (click)="onClick(object)">
+        {{object}}
+    </mat-option>
+</mat-autocomplete>

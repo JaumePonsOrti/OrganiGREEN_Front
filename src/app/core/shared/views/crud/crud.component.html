@@ -12,8 +12,7 @@
         <b>
           Crear nuevo {{nombreControlador}}:
         </b>
-        <app-dynamic-form  *ngIf="can_agregar === true" [fields]="contenidoInsert" (submited)="ejecuta($event,'crear')"></app-dynamic-form>
-       
+        <app-crear-form [configs]="configView.crear" (submited)="ejecuta($event,'crear')"></app-crear-form>
       </div>
 
       <b>

@@ -35,12 +35,11 @@
               "src/assets/icheck-bootstrap/icheck-bootstrap.min.css",
               "src/assets/css/adminlte.min.css",
               "src/theme/variables.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/global.scss",
               "src/assets/fontawesome-free/css/all.min.css"
             ],
-            "scripts": [
-              
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -124,6 +123,7 @@
               "src/assets/css/adminlte.min.css",
               "src/theme/variables.scss",
               "src/global.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
@@ -145,13 +145,45 @@
           }
         }
       }
+    },
+    "super-lib": {
+      "projectType": "library",
+      "root": "projects/super-lib",
+      "sourceRoot": "projects/super-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/super-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/super-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/super-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/super-lib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ],
-    "analytics": false
+    ]
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

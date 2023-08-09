@@ -1,0 +1,23 @@
+
+<form class="row row-cols-sm-auto ">
+	<div class="col-12">
+		<div class="input-group">
+			<input
+				class="form-control"
+        		[formControl]="formControl"
+				placeholder="yyyy-mm-dd"
+				name="dp"
+				[displayMonths]="displayMonths"
+				[navigation]="navigation"
+				[outsideDays]="outsideDays"
+				[showWeekNumbers]="showWeekNumbers"
+				ngbDatepicker
+				[placeholder]="placeholder"
+				#d="ngbDatepicker"
+				
+        
+			/>
+			<button class="btn  bi bi-calendar3" [class]="buttonClass" (click)="d.toggle()" type="button"></button>
+		</div>
+	</div>
+</form>
