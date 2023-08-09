@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+  <div class="row ml-2 mr-2">
+    <div class="col" *ngFor="let field of keyFieldsArray; ">
+      <input class="form-control" type="text" [formControlName]="field" [placeholder]="field" />
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-outline-primary col-12" (click)="ejecutar()">
+        Crear
+      </button>
+    </div>
+  </div>
+
+  
+  
+</form>

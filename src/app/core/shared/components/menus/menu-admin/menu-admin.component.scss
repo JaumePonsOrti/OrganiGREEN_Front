@@ -1,0 +1,18 @@
+@import "../menu.scss";
+.ml-0{
+    margin-left: 0px;
+}
+.alertActivada{
+    height: 3.5em;
+}
+
+.main-header{
+    .navbar-nav{
+        li{
+            &.nav-item{
+                margin-left: auto;
+                margin-right: 1rem;
+            }
+        }
+    }
+}

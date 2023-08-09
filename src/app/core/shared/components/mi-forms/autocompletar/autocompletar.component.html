@@ -1,0 +1,13 @@
+<form class="example-form">
+    <input type="text"
+    [placeholder]="config.nombre_visible "
+    [formControl]="form"
+    [matAutocomplete]="auto"
+    class="form-control"
+    >
+    <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let object of filtreredObject | async" [value]="object[config.campo_mostrar.nombre_campo]">
+    {{object[config.campo_mostrar.nombre_campo]}}
+    </mat-option>
+    </mat-autocomplete>
+  </form>

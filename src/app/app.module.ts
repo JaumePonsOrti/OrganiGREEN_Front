@@ -7,11 +7,33 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CoreModule } from './core/core.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AlertsModule } from './core/shared/components/alerts/alerts.module';
+import { GuardsModule } from './core/shared/guards/guards.module';
+import { NoConComponent } from './home/no-con/no-con.component';
+import { ViewsModule } from './core/shared/views/views.module';
+import { IntranetModule } from './intranet/intranet.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlanificacionModule } from './intranet/planificacion/planificacion.module';
+import { PlanificacionService } from './core/shared/services/planificacion.service';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, NgbModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  imports: [BrowserModule,
+     IonicModule.forRoot(),
+     AppRoutingModule, 
+     NgbModule,
+     CoreModule,
+     GuardsModule,
+     BrowserAnimationsModule,
+     
+    ],
+  providers: [{
+     provide: RouteReuseStrategy, useClass: IonicRouteStrategy, 
+    },
+    PlanificacionService
+    ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

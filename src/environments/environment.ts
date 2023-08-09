@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  appKey:"805df14fe1abf76a20842166429e0c501f3de5b85a482a168007ede0dda70f67",
+  puedeTrabajarSinConexion:true,
+  apiUrl:"http://[::1]:3000",
+  frontendName:"OrganiGreen",
+  metaTitlePage:"",
+  lenguage:"es-ES",
+  imagenesUrl:"http://localhost/images/personal",
+  tiempoComprobarSiHayConexion:1500
 };
 
 /*

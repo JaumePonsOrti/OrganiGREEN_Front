@@ -1,0 +1,28 @@
+{
+  "name": "super-lib",
+  "version": "0.7.1",
+  "peerDependencies": {
+    "@angular/common": ["^15.0.0", "^16.0.0"],
+    "@angular/core": ["^15.0.0", "^16.0.0"],
+    "@angular/material":["^15.0.0", "^16.0.0"],
+    "@types/jasmine": "~4.3.0",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0", "@types/jasmine": "~4.3.0",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "@angular/material":["^15.0.0", "^16.0.0"],
+    "@ng-bootstrap/ng-bootstrap": ["^13.0.0","^14.2.0"]
+  },
+  "sideEffects": false
+}

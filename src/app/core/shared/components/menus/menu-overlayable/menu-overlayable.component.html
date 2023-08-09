@@ -1,0 +1,23 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">{{environment.frontendName}}</a>
+            <button class="navbar-toggler" type="button"  (click)="abrirCerrarMenu()">
+                <i class="bi bi-list"></i>
+            </button>
+    
+            <div class="collapse navbar-collapse" >
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" *ngFor="let l of configLinks">
+                        <a class="nav-link" [href]="l.enlace">{{l.texto}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="container display-none-lg navbar-collapse-lg"  *ngIf="isMenuOpen">
+                <div class="nav flex-column display-none-lg mr-auto">
+                    <a class="nav-link" *ngFor="let l of configLinks" [href]="l.enlace">{{l.texto}}</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

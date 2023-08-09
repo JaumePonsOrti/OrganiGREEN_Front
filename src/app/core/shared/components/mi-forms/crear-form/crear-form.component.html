@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  
+  <div class="row ml-2 mr-2">
+    <div class="col" *ngFor="let config of configs; ">
+      <input class="form-control" 
+      [type]="config.tipo_input" 
+      [formControlName]="config.nombre_campo" 
+      [placeholder]="config.nombre_visible" 
+      *ngIf="config.autocompletar === false"/>
+      <app-autocompletar 
+      [formControlName]="config.nombre_campo" 
+      [config]="config" 
+      *ngIf="config.autocompletar === true"
+      ></app-autocompletar>
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-outline-primary col-12" (click)="ejecutar()">
+        Crear
+      </button>
+    </div>
+  </div>
+
+  
+  
+</form>

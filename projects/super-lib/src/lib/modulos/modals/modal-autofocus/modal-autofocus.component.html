@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">
+    {{ tittle }}
+  </h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close button"
+    aria-describedby="modal-title"
+    (click)="modal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <p>
+    <strong>
+      {{ strong1 }}
+      <span class="text-primary">
+        {{spanStrong}}
+      </span>
+      {{ strong2 }}
+    </strong>
+  </p>
+  <p>
+    {{textoNormal}}
+    <span class="text-danger">{{textDanger}} </span>
+  </p>
+  
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    (click)="modal.dismiss('cancel click')"
+  >
+    Cancel
+  </button>
+  <button
+    type="button"
+    ngbAutofocus
+    class="btn btn-danger"
+    (click)="modal.close('Ok click')"
+  >
+    Ok
+  </button>
+</div>

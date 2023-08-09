@@ -1,0 +1,84 @@
+<table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <!-- Itera sobre los encabezados y los muestra -->
+        <th *ngFor="
+          let header of headerArray; 
+          let ultimo = last;
+          trackBy: trackByIndex
+          "  
+          [class]="{'d-none': ultimo}"
+        >
+          {{ header }}
+        </th>
+        <td *ngIf="config.canEdit === true">
+          Editar
+        </td>
+        <td *ngIf="config.canDelete === true">
+          Borrar
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Itera sobre los datos y los muestra en filas -->
+      <tr *ngFor="
+        let row of data;
+        let i = index "
+        >
+        <!-- Itera sobre los valores de cada fila y los muestra en celdas -->
+        
+        <td 
+          *ngFor="
+          let value of headers
+          let primero = first; 
+          let ultimo = last;
+          let j = index
+          "  
+          [class]="{'d-none': ultimo}"
+        >
+          <span *ngIf="row.editable === false">
+            {{ row[value] }}
+          </span>
+            
+          <div *ngIf="row.editable === true">
+            <input *ngIf="
+            conditionInput(j) 
+            " 
+              class="form-control" 
+              [type]="configFormEdit[j].type"  
+              [formControl] = "arrayControlForm[j]"
+              [placeholder]="configFormEdit[j].placeholder"
+              [disabled]="configFormEdit[j].disabled" />
+            <div *ngIf=" conditionAutocompletar(j) === true ">
+              <super-input-autocompletar-objetos 
+                [config]="configFormEdit[j].config_autocomplete ?? configAutocomplete"
+                [referenciados]="configFormEdit[j].resources_autocomplete"
+                [formControl] = "arrayControlForm[j]">
+              </super-input-autocompletar-objetos>
+            </div>
+            <!--
+            <super-datapicker 
+              *ngIf="(configFormEdit[j].super_input_type === 'date-selector' || configFormEdit[j].super_input_type === 'date-picker') && configFormEdit[j].super_input_type"
+              [formControl] = "arrayControlForm[j]"
+              [placeholder]="configFormEdit[j].placeholder"
+              [buttonClass]="'btn-outline-secondary'"
+            >
+            </super-datapicker>
+            -->
+            
+          </div>
+        </td>
+        <td *ngIf="config.canEdit === true">
+          <button *ngIf="row.editable === false" class="btn btn-primary" (click)="editarClicked(i)">Editar</button>
+          <div *ngIf="row.editable === true">
+            <button class="btn btn-success" (click)="saveButtonClicked(i)">Guardar</button> 
+            <button class="btn btn-outline-primary ml-1" (click)="cancelEditClicked(i)">Cancelar</button> 
+            
+          </div>
+        </td>
+        <td *ngIf="config.canDelete === true">
+          <button class="btn btn-outline-danger" (click)="deleteEmit(row, i)">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

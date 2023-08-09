@@ -1,0 +1,102 @@
+<ion-header>
+  <app-menu-admin (menuAbierto)="seAbrioMenu($event)"> </app-menu-admin>
+</ion-header>
+<ion-content [fullscreen]="true" >
+ <div [class]="claseAAplicar">
+  <!--
+<app-busqueda></app-busqueda>
+  -->
+  
+    <div class="container">
+      <div class="mt-2 mb-3 ">
+        <b>
+          Crear nuevo {{nombreControlador}}:
+        </b>
+        <app-crear-form [configs]="configView.crear" (submited)="ejecuta($event,'crear')"></app-crear-form>
+      </div>
+
+      <b>
+        Contenido de {{nombreControlador}}:
+      </b>
+      <div class="row m-auto" *ngIf="can_ver === true">
+        <table class="table table-striped col-8 ">
+          <thead>
+            <tr>
+              <th *ngFor=" let contenido of listaClavesContenidoSinNombreTablas; let ultimo = last;"  
+              [class]="{'d-none': ultimo}"
+               class="text-center">{{contenido}}</th>
+              <th class="text-center" *ngIf="can_editar === true">Editar</th>
+              <th class="text-center" *ngIf="can_borrar === true">Borrar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contenido of listaContenidos; let i = index; trackBy: trackByFuncion">
+              <td class="text-center" 
+              *ngFor="
+                let parte of listaClavesContenido;
+                let j = index;
+                trackBy: trackByClave;
+                let ultimo = last;
+                "  
+                [class]="{'d-none': ultimo}"
+                >
+                
+                <span *ngIf="contenido.editable === false">
+                  {{contenido[parte]}}
+                </span>
+               
+                <div *ngIf="contenido.editable === true ">
+                  <input *ngIf="
+                  parte !== nombreControlador+'_id'
+                  " 
+                    class="form-control" 
+                    type="text"  
+                    [formControl] = "listaFormsContol[j]"
+                    [placeholder]="contenido[parte]" />
+                </div>
+                
+                
+              </td>
+            
+              <td class="text-center">
+               <!--
+               <span *ngIf="can_editar === false">No tienes permiso</span>
+               -->
+                <div *ngIf="can_editar === true">
+                  <button  *ngIf="contenido.editable === false" class="btn btn-primary" (click)="activarDesactivarEdicion(i)">
+                    Editar
+                  </button>
+                  <div *ngIf="contenido.editable === true">
+                    <button class="btn btn-success col-4" (click)="modificarEnBd(i)">
+                      Guardar cambios
+                    </button>
+                    <button class="btn btn-outline-danger col-4 " (click)="activarDesactivarEdicion(i)">
+                      Cancelar cambios
+                    </button>
+                  </div>
+                  
+                </div>
+               
+              </td>
+              <td class="text-center"  *ngIf="can_borrar === true">
+                <!--
+                <span *ngIf="can_borrar === false">No tienes permiso</span>
+                -->
+                
+                <button class="btn btn-danger"  (click)="openModal(contenido)">
+                  Borrar
+                 </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  
+    <!--
+      Tabla  boostrap
+        {{nombreControlador}}
+    -->
+  </div>
+</ion-content>

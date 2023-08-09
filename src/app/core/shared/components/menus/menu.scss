@@ -1,0 +1,60 @@
+/* Estilos compartidos del menú */
+
+ul {
+    background-color: transparent;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+        display: inline-block;
+        //margin-right: 10px;
+        .nav-link {
+            display: block;
+            // padding: 10px;
+            //font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            &::hover {
+                background-color: #007bff;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.navbar-brand {
+    font-weight: bold; 
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+.navbar-toggler {
+    //border-color: #fff;
+    //color:#fff;
+    background-image: none;
+}
+
+
+
+.navbar-toggler-icon {
+    border-color: #000;
+}
+
+.menu-vertical{
+    .nav-link {
+        color:#333
+    }
+}
+
+.subtitle {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.container {
+    z-index: 1;
+    text-align: center;
+}
