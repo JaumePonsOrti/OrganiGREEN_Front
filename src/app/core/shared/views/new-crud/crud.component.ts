@@ -89,6 +89,7 @@ export class CrudComponent implements OnInit, OnChanges {
   }
   public agrupadoParaMostrar:any;
   ngOnInit() {
+    
     if(typeof this.listaContenidos !== "undefined" && this.listaContenidos.length>0){
       this.listaContenidos = this.listaContenidos;
       this.editar();
