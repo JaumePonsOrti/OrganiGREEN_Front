@@ -1,6 +1,6 @@
 {
   "name": "OrganiGreen-Front2",
-  "version": "1.0.2.beta",
+  "version": "1.0.2.1.beta",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -9,7 +9,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "build:lib": " ng-packagr -p projects/super-lib/ng-package.json"
   },
   "private": true,
   "dependencies": {
