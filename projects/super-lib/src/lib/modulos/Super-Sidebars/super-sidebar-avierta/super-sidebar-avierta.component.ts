@@ -6,6 +6,7 @@ import { Configuracion_Autocompletar } from '../../inputs/modelos/clases/configu
 import { Observable, Subscriber, map, pipe, startWith } from 'rxjs';
 import { Config_Search } from '../../busquedas/models/Config_Search';
 import { SuperSidebarService } from '../../../servicios/super-sidebar.service';
+import { Usuario } from 'src/app/core/shared/models/usuario';
 
 @Component({
   selector: 'super-sidebar-avierta',
@@ -63,7 +64,7 @@ export class SuperSidebarAviertaComponent implements OnInit,OnChanges {
   @Input() enlaces: Enlace_Menu[] = [];
   @Input () enlaces_perfil!:  Enlace_Menu[];
   @Output() singOutClick: EventEmitter<any> = new EventEmitter();
- 
+  @Input() user!:Usuario;
   formControl: FormControl = new FormControl("");
   configBusquedas: Config_Search = 
   {
@@ -90,6 +91,6 @@ export interface ConfigSidebar {
 }
 
 export interface User{
-  nombre_usuario: string;
+  usuario_email: string;
     imagen_usuario: string;
 }

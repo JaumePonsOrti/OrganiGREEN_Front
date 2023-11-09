@@ -16,6 +16,7 @@ export class DesplegableComponent  implements OnInit, OnChanges {
   @Output() private clickCerrarSesion: EventEmitter<any> = new EventEmitter();
   constructor(
       public menuService:MenuService,
+      public usuario:UsuariosService
   ) { }
   public configsAgrupados:any = {}; 
   public indiceFiltro:string ="";

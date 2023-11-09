@@ -54,7 +54,22 @@
   <div ngbDropdown class="d-inline-block" *ngIf="config.usuario">
     <a type="button" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
       <img [src]="config.usuario.imagen_usuario" alt="" width="32" height="32" class="rounded-circle me-2">
-      <strong>{{ config.usuario.nombre_usuario }}</strong>
+      <strong>{{ config.usuario.usuario_email }}</strong>
+    </a>
+    <div ngbDropdownMenu aria-labelledby="dropdown1">
+      <!-- items as links -->
+      <div *ngFor="let enlace of enlaces_perfil">
+        <a ngbDropdownItem [routerLink]="enlace.direccion_url" >{{ enlace.nombre_del_campo }}</a>
+      </div>
+      <hr ngbDropdownDivider *ngIf="enlaces_perfil">
+      <a ngbDropdownItem class="dropdown-item" type="button" (click)="singOut()">Sign out</a>
+      
+    </div>
+  </div>
+  <div ngbDropdown class="d-inline-block" *ngIf="user">
+    <a type="button" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+      <img [src]="user.usuario_imagen" alt="" width="32" height="32" class="rounded-circle me-2">
+      <strong>{{ user.usuario_email }}</strong>
     </a>
     <div ngbDropdownMenu aria-labelledby="dropdown1">
       <!-- items as links -->

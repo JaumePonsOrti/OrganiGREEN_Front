@@ -7,6 +7,8 @@ import { HashService } from '../crytp/hash.service';
 import { environment } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { SesionService } from '../sesion/sesion.service';
+import { Usuario } from '../../models/usuario';
+import { User } from 'projects/super-lib/src/lib/modulos/Super-Sidebars/super-sidebar-avierta/super-sidebar-avierta.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,19 @@ export class UsuariosService {
   loggedIn: boolean = false;
   //username: string = '';
   token: string = '';
-  user:any;
+  user:Usuario = {
+    usuario_email:"123",
+    usuario_token:"",
+    usuario_rol:null,
+    usuario_imagen: "string",
+  };
+  userLimpio:Usuario = 
+  {
+    usuario_email:"123",
+    usuario_token:"",
+    usuario_rol:null,
+    usuario_imagen: "string",
+  };
   //cookieNameVar:string = this.hasher.sha3_512("auth_code");
   cookieNameVar:string = "token";
   cookieNameVar2:string = "user";
@@ -46,12 +60,14 @@ export class UsuariosService {
       .pipe(
         map(response => {
           this.loggedIn = true;
-           this.sesion.caducada = false;
+          this.sesion.caducada = false;
           this.token = response.usuario_token;
-          this.user =  response;
+          this.user = Object.assign({}, response);
+      
           this.cookieService.set(this.cookieNameVar,response.usuario_token,1);
           this.cookieService.set(this.cookieNameVar2,response,1);
-          
+          console.log("USUARIO:", this.user);
+          console.log("USUARIO en response:", response);
           return response;
         }),
         catchError(error => {
@@ -68,10 +84,18 @@ export class UsuariosService {
     return this.token;
   }
   
+  getUserSidebar(){
+    let user:User = {
+      usuario_email:this.user.usuario_email,
+      imagen_usuario: this.user.usuario_imagen
+    }
+    return  user;
+  }
+ 
   cerrarSesion(sesionCaducada?:boolean){
     this.token = "";
     this.loggedIn = false;
-    this.user = null;
+    this.user = Object.assign({},this.userLimpio);
     this.cookieService.delete(this.cookieNameVar);
     this.cookieService.delete(this.cookieNameVar2);
     if(sesionCaducada){
