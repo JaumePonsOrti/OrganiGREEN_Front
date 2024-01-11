@@ -44,7 +44,8 @@ export class UsuariosService {
     private sesion:SesionService
   ) {
     if(this.cookieService.get(this.cookieNameVar) != ""){
-      this.token=this.cookieService.get(this.cookieNameVar);
+      this.token = this.cookieService.get(this.cookieNameVar);
+      this.user = JSON.parse(this.cookieService.get(this.cookieNameVar2));
     }
    }
 
@@ -65,7 +66,7 @@ export class UsuariosService {
           this.user = Object.assign({}, response);
       
           this.cookieService.set(this.cookieNameVar,response.usuario_token,1);
-          this.cookieService.set(this.cookieNameVar2,response,1);
+          this.cookieService.set(this.cookieNameVar2, JSON.stringify(response),1);
           console.log("USUARIO:", this.user);
           console.log("USUARIO en response:", response);
           return response;
