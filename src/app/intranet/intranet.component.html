@@ -1,14 +1,13 @@
-<div class=" row" >
-    <!--
-        <super-sidebar-avierta 
-        [config]="menuService.configSidebar"
-        [enlaces]="menuService.menus"
-        (singOutClick)="cerrarSesion()"
-        
-        class="col-3 col-lg-3 slider">
-        </super-sidebar-avierta>
-    -->
-    <app-menu-admin></app-menu-admin>
+<div class=" row " >
+  <super-sidebar-avierta 
+  [config]="menuService.configSidebar"
+  [enlaces]="menuService.menus"
+  (singOutClick)="cerrarSesion()"
+  *ngIf="menuService.menus.length > 0"
+  
+  class="col-3 col-lg-3 slider">
+  </super-sidebar-avierta>
+    
     <div class="col-9">
 
     </div>
