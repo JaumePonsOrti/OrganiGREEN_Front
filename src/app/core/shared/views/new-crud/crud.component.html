@@ -5,7 +5,9 @@
    [enlaces]="menuService.menus"
    (singOutClick)="cerrarSesion()"
    [user]="usuario.user"
-   class="col-3 col-lg-3 slider">
+   class="col-3 col-lg-3 slider"
+   *ngIf="menuService.menus.length > 0"
+   >
   </super-sidebar-avierta>
   <ion-content class="col-9 col-lg-9  m-0" [fullscreen]="true">
     <!--
