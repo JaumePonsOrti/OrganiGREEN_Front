@@ -2,6 +2,7 @@
   <super-sidebar-avierta 
   [config]="menuService.configSidebar"
   [enlaces]="menuService.menus"
+  [user]="usuario.user"
   (singOutClick)="cerrarSesion()"
   *ngIf="menuService.menus.length > 0"
   

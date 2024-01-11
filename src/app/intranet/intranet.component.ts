@@ -14,7 +14,7 @@ export class IntranetComponent  implements OnInit {
   constructor(
     public menuService:MenuService,
     private modalService: NgbModal,
-    private usuario:UsuariosService,
+    public usuario:UsuariosService,
     private router:Router
   ) {}
   
