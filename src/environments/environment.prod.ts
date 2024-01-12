@@ -6,5 +6,5 @@ export const environment = {
   metaTitlePage:"",
   lenguage:"es",
   imagenesUrl:"http://localhost/images/personal",
-  tiempoComprobarSiHayConexion:1500
+  tiempoComprobarSiHayConexion:5000
 };

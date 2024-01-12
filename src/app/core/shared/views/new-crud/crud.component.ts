@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, Input, OnChanges, SimpleChanges,EventEmitter } from '@angular/core';
 import { ActivatedRoute, Event, Router } from '@angular/router';
-import { ClassView } from '../classView';
 import { UniversalService } from '../../services/universal/universal.service';
 import { 
   NgbModal 
@@ -9,16 +8,11 @@ import { ModalAutofocusComponent } from '../../components/modals/modal-autofocus
 import { HashService } from '../../services/crytp/hash.service';
 import { FormControl } from '@angular/forms';
 import { ConfigModal } from '../../models/configModal';
-import { s } from '@fullcalendar/core/internal-common';
 import { MenuService } from '../../services/menu/menu.service';
-import { Configuracion_View } from '../../models/cofiguracion_view';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
-import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
 import { Convertidor_Tipos } from '../../helpers/Convertidor_tipos.helper';
 import { ICrudConfig } from './models/ICrudConfig';
-import { switchAll } from 'rxjs';
-
 
 
 @Component({

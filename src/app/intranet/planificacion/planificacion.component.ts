@@ -235,7 +235,7 @@ export class PlanificacionComponent  implements OnInit {
     let modal = this._modalService.open(ModalAutofocusComponent);
     
     //Modificar variable para cambia el strong1
-    modal.componentInstance.tittle ="Redirigir a pagina planificar productos planificacion"
+    modal.componentInstance.tittle = "Redirigir a pagina planificar productos planificacion";
     modal.componentInstance.strong1 = 'Si pulsas ok se te redirigira a planificar productos y si pulsas cancelar no ocurrira nada';
     //Modificar variable para cambia el palabra entre comillas
     modal.componentInstance.spanStrong = " ";
