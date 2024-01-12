@@ -55,20 +55,20 @@ export class HomePage {
       this.usuariosServices.login(username, password)
         .subscribe({
           next: data => {
-            if(environment.production===false){
+            if(environment.production === false){
               console.log("Respuesta login:",data);
             }
+            
             console.log("Respuesta login:",data);
             if(data.usuario_token){
               this.router.navigate(['/intranet']); 
             }else{
-                
               alert(data.error); 
             }
               
           },
           error: err => {
-            if(environment.production==false){
+            if(environment.production == false){
               console.log("Respuesta login:",err);
             }
             switch (err.statusText) {
