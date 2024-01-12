@@ -26,7 +26,7 @@ export class MenuService extends Debug{
   public configSidebar: ConfigSidebar = {
     tipo: 'g',
     tema: 'bg',
-    
+    brandName:"Organi GREEN",
     barraBusqueda:  {
       nombre_campo:"enlaceMENU",
       nombre_visible:"Busqueda ...",
