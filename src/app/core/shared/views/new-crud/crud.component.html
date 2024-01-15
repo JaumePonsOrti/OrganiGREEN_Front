@@ -25,6 +25,7 @@
         </span>
         <button class="btn btn-danger col-lg-2 col-xl-2 col mt-1 mb-1" (click)="filtrarInformacion()">Filtrar información</button>        
       </div>
+      
       <div class="bg-body-primary position-relative row shadow-sm" *ngIf="crudConfig.can_dataPicker && informacionFiltrada === true">
         <span class="col-lg-6 col-xl-6  col  mt-3 mb-1">
           Selecciona <b>Fecha</b> con la que <b>Filtrar </b> la {{nombreControlador}}:

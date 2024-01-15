@@ -133,8 +133,8 @@ export class PlanificacionComponent  implements OnInit {
     },
     modificar_objeto_posteriormente:false
   };
-  ngOnInit() {
 
+  ngOnInit() {
     console.log("Menu planificacion:", this.menuService.menus);
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
@@ -176,6 +176,7 @@ export class PlanificacionComponent  implements OnInit {
           this.crudConfig.can_agregar = false;
       }
     });
+
     this.universalService.request( 
       this.nombreControlador,"ver", "todos").subscribe(
       {
@@ -184,10 +185,10 @@ export class PlanificacionComponent  implements OnInit {
         
           for (let index = 0; index < response.length; index++) {
             let element = response[index];
+            this.listaContenidos[index]["planificacion_fecha_realizar"] = element["planificacion_fecha_realizar"].split("T")[0];
             delete element["planificacion_timestamp_inicio"];
             delete element[this.nombreControlador+"_timestamp_final"];
             //element["planificacion_estado"] =  this.arrayEstados[element["planificacion_estado"]].nombre;
-            
           }
           console.log("Lista Contenidos: ",this.listaContenidos);
         },
@@ -195,6 +196,7 @@ export class PlanificacionComponent  implements OnInit {
         },
       }
     );
+
    this.universalService.request(
       "campo","ver", "todos").subscribe(
       {

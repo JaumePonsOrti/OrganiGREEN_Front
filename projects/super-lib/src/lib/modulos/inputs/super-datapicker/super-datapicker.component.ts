@@ -42,7 +42,10 @@ export class SuperDatapickerComponent  implements OnInit, OnChanges, ControlValu
     this.formControl.valueChanges.subscribe({
       next:(value) =>{
         
-        let string: string = value.year+"-"+value.month+"-"+value.day+" 00:00:00:UTC";
+        let month = value.month>9 ? value.month : "0" + value.month;
+        let day = value.day>9 ? value.day : "0" + value.day;
+        let string: string = value.year + "-" + month + "-" + day;
+        
         this.onChange(string);
       },
       error(err) {
