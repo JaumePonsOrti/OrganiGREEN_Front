@@ -1,22 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from './core/core.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AlertsModule } from './core/shared/components/alerts/alerts.module';
 import { GuardsModule } from './core/shared/guards/guards.module';
-import { NoConComponent } from './home/no-con/no-con.component';
-import { ViewsModule } from './core/shared/views/views.module';
-import { IntranetModule } from './intranet/intranet.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PlanificacionModule } from './intranet/planificacion/planificacion.module';
-import { PlanificacionService } from './core/shared/services/planificacion.service';
+import { MenuService } from './core/shared/services/menu/menu.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +24,7 @@ import { PlanificacionService } from './core/shared/services/planificacion.servi
   providers: [{
      provide: RouteReuseStrategy, useClass: IonicRouteStrategy, 
     },
-    PlanificacionService
+    MenuService
     ],
   bootstrap: [AppComponent],
 })

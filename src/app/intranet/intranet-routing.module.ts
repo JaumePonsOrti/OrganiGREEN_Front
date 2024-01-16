@@ -15,15 +15,7 @@ const routes: Routes = [
     loadChildren:  ()=> import('../core/shared/views/planificacion/planificacion.module').then(
       m => m.PlanificacionModule
     ),
-    
-  },
-  {
-    path:'crud',
-    loadChildren:  () => import('../core/shared/views/crud/crud.module'
-    ).then(
-      m => m.CrudModule
-    )
-  },     
+  },   
   {
     path: "cliente",
     loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule),
