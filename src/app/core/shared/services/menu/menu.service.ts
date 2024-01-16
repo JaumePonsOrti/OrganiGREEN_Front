@@ -26,10 +26,7 @@ export class MenuService extends Debug{
   public configSidebar: ConfigSidebar = {
     tipo: 'g',
     tema: 'bg',
-    usuario: {
-      nombre_usuario: this.usuario.user?? "error",
-      imagen_usuario: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcMmpT59rWhdr964CJCAW4F3Jh-_fHbMetaTv_x52brg&s'
-    },
+    brandName:"Organi GREEN",
     barraBusqueda:  {
       nombre_campo:"enlaceMENU",
       nombre_visible:"Busqueda ...",
@@ -41,6 +38,7 @@ export class MenuService extends Debug{
       search_type:"search_with_button_integrated"
     }
   };
+
   getMenuDeApi(): Observable<any> {
     return this.http.get(this.apiUrl+'/get') .pipe(
       map(response => {

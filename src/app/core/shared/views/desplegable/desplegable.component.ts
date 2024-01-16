@@ -3,6 +3,7 @@ import { ISuperDesplegableConfig } from 'projects/super-lib/src/lib/modulos/supe
 import { MenuService } from '../../services/menu/menu.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-desplegable',
@@ -14,8 +15,11 @@ export class DesplegableComponent  implements OnInit, OnChanges {
   public formControl: FormControl = new FormControl();
   @Input() configs: ISuperDesplegableConfig[] = [];
   @Output() private clickCerrarSesion: EventEmitter<any> = new EventEmitter();
+
   constructor(
       public menuService:MenuService,
+      public usuario:UsuariosService,
+      public router:Router
   ) { }
   public configsAgrupados:any = {}; 
   public indiceFiltro:string ="";
@@ -70,8 +74,10 @@ export class DesplegableComponent  implements OnInit, OnChanges {
       
     } 
   }
+  
   cerrarSesion() { 
-    this.clickCerrarSesion.emit();
+    this.usuario.cerrarSesion();
+    this.router.navigateByUrl('/');
   }
 }
 
