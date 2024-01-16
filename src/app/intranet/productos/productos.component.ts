@@ -35,7 +35,7 @@ export class ProductosComponent  implements OnInit {
   public listaContenidos:any = [];
   public nombreControlador:string = "productos";
 
-  headerArray = ["ID", "Nº Registro", "Nombre","Precio","Dosis","Unidad de Medida","Fecha de actualizacion","Actualizado de SIPAC","editable"];
+  headerArray = ["ID", "Nº Registro", "Nombre","Precio","Dosis","Unidad de Medida","editable"];
   
   config_form:IFormConfig[] = [
     {
@@ -45,7 +45,7 @@ export class ProductosComponent  implements OnInit {
       disabled: true
     },
     {
-      type:"number",
+      type:"text",
       placeholder:"Numero registro",
       form_control_name:"productos_numero_registro",
       disabled:false
@@ -69,12 +69,12 @@ export class ProductosComponent  implements OnInit {
       disabled:false
     }, 
     {
-      type:"number",
+    
       placeholder:"unidad de medidas",
       form_control_name:"productos_medida_id",
       disabled:false,
       config_autocomplete:{
-        tipo_input:"text",
+        tipo_input:"number",
         campo_mostrar:{
           nombre_campo:"medida_nombre",
           nombre_tabla:"medida",
@@ -149,7 +149,12 @@ export class ProductosComponent  implements OnInit {
       {
         next: (response: any) => {
           this.listaContenidos = response;
-        
+         
+          for (let index = 0; index < this.listaContenidos.length; index++) {
+            delete this.listaContenidos[index].productos_timestamp_actualizacion ;
+            delete this.listaContenidos[index].productos_subido;
+          }
+          
           console.log("Lista Contenidos: ",this.listaContenidos);
         },
         error: (error:any) => {

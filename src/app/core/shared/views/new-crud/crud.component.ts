@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, Input, OnChanges, SimpleChanges,EventEmitter } from '@angular/core';
 import { ActivatedRoute, Event, Router } from '@angular/router';
-import { ClassView } from '../classView';
 import { UniversalService } from '../../services/universal/universal.service';
 import { 
   NgbModal 
@@ -9,15 +8,11 @@ import { ModalAutofocusComponent } from '../../components/modals/modal-autofocus
 import { HashService } from '../../services/crytp/hash.service';
 import { FormControl } from '@angular/forms';
 import { ConfigModal } from '../../models/configModal';
-import { s } from '@fullcalendar/core/internal-common';
 import { MenuService } from '../../services/menu/menu.service';
-import { Configuracion_View } from '../../models/cofiguracion_view';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
-import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
 import { Convertidor_Tipos } from '../../helpers/Convertidor_tipos.helper';
 import { ICrudConfig } from './models/ICrudConfig';
-import { switchAll } from 'rxjs';
 
 
 
@@ -79,29 +74,31 @@ export class CrudComponent implements OnInit, OnChanges {
     
     
     this.formControl.valueChanges.subscribe({
-      next:(date:any) =>{
-        //alert(e);       
-        
-        this.agrupadoParaMostrar = this.agrupacion[new Date(date).toJSON()]  ?? [];
-        console.log("Agrupado Para Mostrar :",this.agrupadoParaMostrar);
-        this.agrupadoParaMostrar = this.agrupacion[new Date(date).toJSON()];
+      next:(date:any) =>{ 
+      
+        this.agrupadoParaMostrar = this.agrupacion[date]  ?? [];
         this.fechaCambiada.emit(date);
+
       }
     });
+
   }
+
   public agrupadoParaMostrar:any;
+
   ngOnInit() {
-    
+
     if(typeof this.listaContenidos !== "undefined" && this.listaContenidos.length>0){
       this.listaContenidos = this.listaContenidos;
       this.editar();
+
       if(typeof this.crudConfig.campo_por_el_que_agrupar !== "undefined"){
         alert("En init");
         this.agrupar();
       }
-    
+
     }
-    
+
   }
   
   private agrupar(){
@@ -165,7 +162,7 @@ export class CrudComponent implements OnInit, OnChanges {
   }
   
   openModal(object: any, configModal?:ConfigModal) {
-    console.log("A borar:",object);
+    
     //let modal = this._modalService.open(MODALS["autoFocus"]);
     let modal = this._modalService.open(ModalAutofocusComponent);
     let modalC:ConfigModal|undefined = configModal;
@@ -334,10 +331,10 @@ export class CrudComponent implements OnInit, OnChanges {
           },
           error : (error) => {
             let mensaje:string ="Error al Crear/Editar. "+
-            "Si estas intentando editar un usuario  vuelve a crear otro nuevo, elimina el antiguo y cierra sesion si no se hace automaticamente automaticamente con la nu.Recarga la pagina si no se hace automáticamente.";
+            "Si estas intentando editar un usuario vuelve a crear otro nuevo, elimina el antiguo y cierra sesion si no se hace automaticamente automaticamente con la nu.Recarga la pagina si no se hace automáticamente.";
             if(this.nombreControlador !== "usuario") {
-              mensaje ="Error al Crear/Editar. "+
-              "Si estas intentando editar y da error elimina y vuelve a crear. "+
+              mensaje ="Error al Crear/Editar. " +
+              "Si estas intentando editar y da error elimina y vuelve a crear. " +
               "Recarga la pagina si no se hace automáticamente antes de continuar para solucionar posibles problemas.";
               
             }

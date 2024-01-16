@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { IntranetRoutingModule } from './intranet-routing.module';
 import { IntranetComponent } from './intranet.component';
 import { RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../core/shared/components/components.module';
 import { SuperSidebarsModule } from 'projects/super-lib/src/public-api';
 
@@ -18,8 +17,7 @@ import { SuperSidebarsModule } from 'projects/super-lib/src/public-api';
         ComponentsModule,
         RouterModule,
         SuperSidebarsModule
-        
-    ],exports:
+        ],exports:
     [
         IntranetComponent
     ]

@@ -4,8 +4,10 @@
   <super-sidebar-avierta [config]="menuService.configSidebar"
    [enlaces]="menuService.menus"
    (singOutClick)="cerrarSesion()"
-   
-   class="col-3 col-lg-3 slider">
+   [user]="usuario.user"
+   class="col-3 col-lg-3 slider"
+   *ngIf="menuService.menus.length > 0"
+   >
   </super-sidebar-avierta>
   <ion-content class="col-9 col-lg-9  m-0" [fullscreen]="true">
     <!--
@@ -23,6 +25,7 @@
         </span>
         <button class="btn btn-danger col-lg-2 col-xl-2 col mt-1 mb-1" (click)="filtrarInformacion()">Filtrar información</button>        
       </div>
+      
       <div class="bg-body-primary position-relative row shadow-sm" *ngIf="crudConfig.can_dataPicker && informacionFiltrada === true">
         <span class="col-lg-6 col-xl-6  col  mt-3 mb-1">
           Selecciona <b>Fecha</b> con la que <b>Filtrar </b> la {{nombreControlador}}:
