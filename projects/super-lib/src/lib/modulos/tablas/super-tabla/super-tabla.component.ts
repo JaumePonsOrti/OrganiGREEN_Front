@@ -10,6 +10,7 @@ import { Configuracion_Autocompletar } from '../../inputs/modelos/clases/configu
   styleUrls: ['./super-tabla.component.css']
 })
 export class SuperTablaComponent implements OnInit,OnChanges {
+
  //Inputs y Outpust
   @Input() data: any[] = [];
   @Input() config:SuperTableConfig = {
@@ -20,6 +21,7 @@ export class SuperTablaComponent implements OnInit,OnChanges {
   @Input() configFormEdit: IFormConfig[] = [];
   @Output() deleteClick = new EventEmitter();
   @Output() saveClick = new EventEmitter()
+  @Output() personalizatedButtonClicked = new EventEmitter();
 
   //Variables
   cargadoData:boolean = false;
@@ -57,8 +59,10 @@ export class SuperTablaComponent implements OnInit,OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     let length:number = this.configFormEdit.length;
     
+    
     try {
       if(this.cargadoData === false && this.data.length > 0) {
+        this.config.buttonPersonalized = this.config.buttonPersonalized ?? [];
         let typeOfData = typeof this.data[0];
         switch (typeOfData) {
           case "object":
@@ -107,6 +111,7 @@ export class SuperTablaComponent implements OnInit,OnChanges {
   get headers(): string[] {
     return this.data.length > 0 ? Object.keys(this.data[0]) : [];
   }
+
   configAutocomplete:Configuracion_Autocompletar={
     campo_mostrar: {
       nombre_campo: "",
@@ -187,9 +192,23 @@ export class SuperTablaComponent implements OnInit,OnChanges {
     delete object2["editable"];
     return object2;
   };
+
+  butPerClicked(arg0: string,row:any) {
+    this.personalizatedButtonClicked.emit({intern_name:arg0, row: row});
+  }
 }
+
  export interface SuperTableConfig{
   canDelete: boolean,
-  canEdit: boolean
+  canEdit: boolean,
+  buttonPersonalized?: PersonalizedButton[]
+ }
+
+ export interface PersonalizedButton{
+  name: string,
+  intern_name: string,
+  icon?: string,
+  class?: string,
+  color?: string,
  }
  

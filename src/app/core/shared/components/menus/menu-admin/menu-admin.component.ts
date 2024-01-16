@@ -21,6 +21,7 @@ export class MenuAdminComponent extends Debug {
   mostrarAlertaConectado = false;
   
   @Output() menuAbierto = new EventEmitter<boolean>();
+
   constructor(
     public conectadoService: ConectadoService,
     public menuService: MenuService, 
@@ -37,6 +38,7 @@ export class MenuAdminComponent extends Debug {
     ).subscribe({
       next: (tiempo) => {
         this.conectadoService.ping().subscribe({
+
           next: (response) => {
             this.menuService.getMenuDeApi().subscribe();
             if (this.conectadoService.estadoAnterior !== this.conectadoService.conectada) {
@@ -45,14 +47,15 @@ export class MenuAdminComponent extends Debug {
               this.conectadoService.alertAbierto = true;
             }        
           },
+
           error: (err) => {
             if (this.conectadoService.estadoAnterior !== this.conectadoService.conectada) {
               this.mostrarAlertaDesconectado = true;
               this.mostrarAlertaConectado = false;
               this.conectadoService.alertAbierto = true;
             }
-            
           },
+          
         });
       },
       error: (err) => {},

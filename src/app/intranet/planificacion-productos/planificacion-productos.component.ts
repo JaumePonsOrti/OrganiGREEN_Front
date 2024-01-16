@@ -97,8 +97,10 @@ export class PlanificacionProductosComponent  implements OnInit {
     },
     modificar_objeto_posteriormente:true
   };
+  
   ngOnInit() {
-    //console.log("Planificacion:",this.planificacionService.idPlanificacion.planificacion_id);
+    console.log("Planificacion Prod: ",this.planificacionService.idPlanificacion.planificacion_id);
+
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
         this.crudConfig.can_ver= true;
@@ -139,6 +141,7 @@ export class PlanificacionProductosComponent  implements OnInit {
           this.crudConfig.can_agregar = false;
       }
     });
+
     this.universalService.request( 
       this.nombreControlador,"ver", "todos").subscribe(
       {
@@ -146,22 +149,24 @@ export class PlanificacionProductosComponent  implements OnInit {
           //this.listaContenidos = response;
           let list :any[] = [];
 
-          this.crudConfig.objeto_referencia=response[1];
+          this.crudConfig.objeto_referencia = response[1];
+          this.listaContenidos = response;
 
           for (let index = 0; index < response.length; index++) {
             const element = response[index];
-              if(element.productos_planificados_id_planificacio === this.planificacionService.idPlanificacion.planificacion_id){
-                list.push(element);
-              }
+            if(element.productos_planificados_id_planificacion == this.planificacionService.idPlanificacion.planificacion_id){
+              list.push(element);
+            }
           }
           this.listaContenidos = list;
           
-          
         },
         error: (error:any) => {
+          console.log("Error: ",error);
         },
       }
     );
+
    this.universalService.request(
       "productos","ver", "todos").subscribe(
       {

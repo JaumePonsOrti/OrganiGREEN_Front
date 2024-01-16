@@ -27,6 +27,7 @@ import { switchAll } from 'rxjs';
   styleUrls: ['./crud.component.scss'],
 })
 export class CrudComponent implements OnInit, OnChanges {
+
   constructor(
     public rutaActiva: ActivatedRoute,
     private universalService:UniversalService, 
@@ -55,6 +56,7 @@ export class CrudComponent implements OnInit, OnChanges {
   @Output () añadido = new EventEmitter();
   @Input() headerArrayTable: any[] = [];
   @Output() fechaCambiada = new EventEmitter();
+  @Output() personalizatedButtonClicked = new EventEmitter();
   peticionBD:boolean = false;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -368,6 +370,10 @@ export class CrudComponent implements OnInit, OnChanges {
   noFiltrarInformacion(){
     this.informacionFiltrada = false;
     this.agrupadoParaMostrar = this.listaContenidos;
+  }
+
+  butPerClicked($event: any) {
+    this.personalizatedButtonClicked.emit($event);
   }
 }
 

@@ -19,7 +19,6 @@ import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConf
   styleUrls: ['./planificacion.component.scss'],
 })
 export class PlanificacionComponent  implements OnInit {
-
  
   config: SuperTableConfig = {
     canDelete: true,
@@ -126,6 +125,13 @@ export class PlanificacionComponent  implements OnInit {
     config_super_table:{
       canDelete: false,
       canEdit: false,
+      buttonPersonalized: [
+        {
+          name:"Editar Prod. Planificación",
+          intern_name:"planificacion_producto",
+          class:"btn btn-outline-primary",
+        }
+      ]
     },
     campo_por_el_que_agrupar:{
       nombre_campo:"planificacion_fecha_realizar",
@@ -259,6 +265,13 @@ export class PlanificacionComponent  implements OnInit {
     this.planificacionService.idPlanificacion = events;
     this.router.navigateByUrl("/intranet/planificacion_producto");
     
+  }
+
+  butPerClicked($event: any) {
+    console.log("butPerClicked:", $event);
+    if($event.intern_name === "planificacion_producto"){
+      this.redirigir($event.row);
+    }
   }
 
 }

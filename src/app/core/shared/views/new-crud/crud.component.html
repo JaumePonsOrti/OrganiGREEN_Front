@@ -52,6 +52,7 @@
             (saveClick)="clickSave($event)" 
             [headerArray] ="headerArrayTable" 
             (deleteClick)="openModal($event)" class="m-3" 
+            (personalizatedButtonClicked)="butPerClicked($event)"
           >
           </super-tabla>
           <super-tabla 
@@ -62,6 +63,7 @@
             (saveClick)="clickSave($event)" 
             (deleteClick)="openModal($event)" class="m-3" 
             [headerArray] ="headerArrayTable" 
+            (personalizatedButtonClicked)="butPerClicked($event)"
           >
           </super-tabla>
         </div>

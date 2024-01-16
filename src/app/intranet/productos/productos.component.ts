@@ -98,8 +98,10 @@ export class ProductosComponent  implements OnInit {
     config_super_table:{
       canDelete: false,
       canEdit: false,
+      
     }
   };
+
   ngOnInit() {
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {

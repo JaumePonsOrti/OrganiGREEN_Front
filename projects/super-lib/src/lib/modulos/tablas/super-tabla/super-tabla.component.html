@@ -14,6 +14,9 @@
         <td *ngIf="config.canEdit === true">
           Editar
         </td>
+        <td *ngFor="let butPer of config.buttonPersonalized">
+          {{butPer.name}}
+        </td>
         <td *ngIf="config.canDelete === true">
           Borrar
         </td>
@@ -68,6 +71,7 @@
             
           </div>
         </td>
+
         <td *ngIf="config.canEdit === true">
           <button *ngIf="row.editable === false" class="btn btn-primary" (click)="editarClicked(i)">Editar</button>
           <div *ngIf="row.editable === true">
@@ -76,6 +80,16 @@
             
           </div>
         </td>
+
+        <td *ngFor="let butPer of config.buttonPersonalized">
+          <button 
+            (click)="butPerClicked(butPer.intern_name, row)" 
+            class="btn"
+            [class]="butPer.class">
+              {{butPer.name}}
+          </button>
+        </td>
+
         <td *ngIf="config.canDelete === true">
           <button class="btn btn-outline-danger" (click)="deleteEmit(row, i)">Borrar</button>
         </td>
