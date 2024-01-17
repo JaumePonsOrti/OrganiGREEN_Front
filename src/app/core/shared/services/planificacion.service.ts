@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   })
 export class PlanificacionService{
   private miDato = new BehaviorSubject<any>(undefined);
-  public idPlanificacion = this.miDato.asObservable();
+  public planificacion = this.miDato.asObservable();
 
   constructor() { }
 

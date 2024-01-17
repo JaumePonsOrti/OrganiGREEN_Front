@@ -26,7 +26,7 @@ export class PlanificacionProductosComponent  implements OnInit {
   };
   can_ver!: boolean;
   can_agregar!: boolean;
-  idPlanificacion!: any;
+  planificacion!: any;
 
   constructor(
     public rutaActiva: ActivatedRoute,
@@ -150,10 +150,10 @@ export class PlanificacionProductosComponent  implements OnInit {
           this.crudConfig.objeto_referencia = response[1];
           this.listaContenidos = response;
 
-          this.planificacionService.idPlanificacion.subscribe({
+          this.planificacionService.planificacion.subscribe({
             next: (data:any) => {
               if(data != null){
-                this.idPlanificacion = data;
+                this.planificacion = data;
                for (let index = 0; index < response.length; index++) {
                  const element = response[index];
                  if(element.productos_planificados_id_planificacion == data.planificacion_id){
@@ -163,13 +163,11 @@ export class PlanificacionProductosComponent  implements OnInit {
                this.listaContenidos = list;
              }
             }
-          })
-          console.log("PLANIFICACIÓN SERVICE: ",this.planificacionService);
-          
+          })       
           
         },
         error: (error:any) => {
-          console.log("Error: ",error);
+        
         },
       }
     );
@@ -212,9 +210,9 @@ export class PlanificacionProductosComponent  implements OnInit {
   }
   
   actualizarDespuesDeAnyadido(event: any){
-    if(this.idPlanificacion){
+    if(this.planificacion){
       try {
-        event.productos_planificados_id_planificacion = this.idPlanificacion.planificacion_id;
+        event.productos_planificados_id_planificacion = this.planificacion.planificacion_id;
       } catch (error) {
          
       }
