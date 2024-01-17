@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { co } from '@fullcalendar/core/internal-common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
 import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
@@ -25,7 +26,8 @@ export class PlanificacionProductosComponent  implements OnInit {
   };
   can_ver!: boolean;
   can_agregar!: boolean;
-  
+  idPlanificacion!: any;
+
   constructor(
     public rutaActiva: ActivatedRoute,
     private universalService:UniversalService, 
@@ -34,7 +36,8 @@ export class PlanificacionProductosComponent  implements OnInit {
     public menuService: MenuService,
     public router:Router, 
     public usuario:UsuariosService,
-    public planificacionService: PlanificacionService
+    public planificacionService: PlanificacionService,
+    
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "productos_planificados";
@@ -99,12 +102,10 @@ export class PlanificacionProductosComponent  implements OnInit {
   };
   
   ngOnInit() {
-    console.log("Planificacion Prod: ",this.planificacionService.idPlanificacion.planificacion_id);
 
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
         this.crudConfig.can_ver= true;
-        console.log("ver:",data);
       },
       error: (error) => {
         this.crudConfig.can_ver = false;
@@ -114,7 +115,6 @@ export class PlanificacionProductosComponent  implements OnInit {
     this.universalService.can_update(this.nombreControlador).subscribe({
       next: (data) => {
         this.crudConfig.config_super_table.canEdit = true;
-        console.log("editar:",data);
       },
       error: (error) => {
         this.crudConfig.config_super_table.canEdit = false;
@@ -124,8 +124,6 @@ export class PlanificacionProductosComponent  implements OnInit {
     this.universalService.can_delete(this.nombreControlador,0+"").subscribe({
       next: (data) => {
           this.crudConfig.config_super_table.canDelete = true;
-          console.log("borrar:",data);
-
       },
       error: (error) => {
           this.crudConfig.config_super_table.canDelete = false;
@@ -135,7 +133,7 @@ export class PlanificacionProductosComponent  implements OnInit {
     this.universalService.can_create(this.nombreControlador).subscribe({
       next: (data) => {
           this.crudConfig.can_agregar = true;
-          console.log("create:",data);
+         
       },
       error: (error) => {
           this.crudConfig.can_agregar = false;
@@ -147,18 +145,27 @@ export class PlanificacionProductosComponent  implements OnInit {
       {
         next: (response: any) => {
           //this.listaContenidos = response;
-          let list :any[] = [];
+          let list :any = [];
 
           this.crudConfig.objeto_referencia = response[1];
           this.listaContenidos = response;
 
-          for (let index = 0; index < response.length; index++) {
-            const element = response[index];
-            if(element.productos_planificados_id_planificacion == this.planificacionService.idPlanificacion.planificacion_id){
-              list.push(element);
+          this.planificacionService.idPlanificacion.subscribe({
+            next: (data:any) => {
+              if(data != null){
+                this.idPlanificacion = data;
+               for (let index = 0; index < response.length; index++) {
+                 const element = response[index];
+                 if(element.productos_planificados_id_planificacion == data.planificacion_id){
+                   list.push(element);
+                 }
+               }   
+               this.listaContenidos = list;
+             }
             }
-          }
-          this.listaContenidos = list;
+          })
+          console.log("PLANIFICACIÓN SERVICE: ",this.planificacionService);
+          
           
         },
         error: (error:any) => {
@@ -172,7 +179,6 @@ export class PlanificacionProductosComponent  implements OnInit {
       {
       next: (response:any) =>
         {
-          console.log("Lista productoss: ",this.listaContenidos);
           this.config_form[1].resources_autocomplete = response;
         }
 
@@ -206,11 +212,14 @@ export class PlanificacionProductosComponent  implements OnInit {
   }
   
   actualizarDespuesDeAnyadido(event: any){
-    try {
-     event.productos_planificados_id_planificacion = this.planificacionService.idPlanificacion.planificacion_id;
-    } catch (error) {
-      
+    if(this.idPlanificacion){
+      try {
+        event.productos_planificados_id_planificacion = this.idPlanificacion.planificacion_id;
+      } catch (error) {
+         
+      }
     }
+    
    //alert("Recivido");
    this.universalService.request(this.nombreControlador, "actualizar",event[this.nombreControlador+"_id"],event).subscribe(
     {

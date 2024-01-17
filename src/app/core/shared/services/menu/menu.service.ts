@@ -20,7 +20,6 @@ export class MenuService extends Debug{
     private usuario:UsuariosService
   ) {
     super(true);
-    console.log("USER:",this.usuario.user);
   }
   
   public configSidebar: ConfigSidebar = {

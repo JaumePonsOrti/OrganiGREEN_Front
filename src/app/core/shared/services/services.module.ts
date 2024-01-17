@@ -23,6 +23,7 @@ import { PlanificacionService } from './planificacion.service';
     MenuService,
     UniversalService, 
     SesionService,
+    PlanificacionService
   
   ]
 })

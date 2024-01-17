@@ -74,16 +74,19 @@ export class InputAutocompletarComponent  implements OnInit, OnChanges, ControlV
     let filtered:any[] = [];
     
     const mostrar_autocompletar = this.config.campo_mostrar.nombre_campo ;
-    filtered = this.referenciados.filter(
-      (referenciado: any) =>  {
-        const condicion = this._normalizeValue(referenciado[mostrar_autocompletar]).includes(filterValue);
-        if (condicion){
-          this.objetoSelecionado = referenciado;
-         
+    if(typeof this.referenciados !== "undefined"){
+      filtered = this.referenciados.filter(
+        (referenciado: any) =>  {
+          const condicion = this._normalizeValue(referenciado[mostrar_autocompletar]).includes(filterValue);
+          if (condicion){
+            this.objetoSelecionado = referenciado;
+           
+          }
+          return this._normalizeValue(referenciado[mostrar_autocompletar]).includes(filterValue);
         }
-        return this._normalizeValue(referenciado[mostrar_autocompletar]).includes(filterValue);
-      }
-    );
+      );
+    }
+    
     console.log("FILTRADO:",filtered);
     return filtered;
   }

@@ -141,11 +141,9 @@ export class PlanificacionComponent  implements OnInit {
   };
 
   ngOnInit() {
-    console.log("Menu planificacion:", this.menuService.menus);
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
         this.crudConfig.can_ver= true;
-        console.log("ver:",data);
       },
       error: (error) => {
         this.crudConfig.can_ver = false;
@@ -155,7 +153,6 @@ export class PlanificacionComponent  implements OnInit {
     this.universalService.can_update(this.nombreControlador).subscribe({
       next: (data) => {
         this.crudConfig.config_super_table.canEdit = true;
-        console.log("editar:",data);
       },
       error: (error) => {
         this.crudConfig.config_super_table.canEdit = false;
@@ -165,21 +162,19 @@ export class PlanificacionComponent  implements OnInit {
     this.universalService.can_delete(this.nombreControlador,0+"").subscribe({
       next: (data) => {
           this.crudConfig.config_super_table.canDelete = true;
-          console.log("borrar:",data);
 
       },
       error: (error) => {
-          this.crudConfig.config_super_table.canDelete = false;
+        this.crudConfig.config_super_table.canDelete = false;
       }
     });
 
     this.universalService.can_create(this.nombreControlador).subscribe({
       next: (data) => {
-          this.crudConfig.can_agregar = true;
-          console.log("create:",data);
+        this.crudConfig.can_agregar = true;
       },
       error: (error) => {
-          this.crudConfig.can_agregar = false;
+        this.crudConfig.can_agregar = false;
       }
     });
 
@@ -196,7 +191,7 @@ export class PlanificacionComponent  implements OnInit {
             delete element[this.nombreControlador+"_timestamp_final"];
             //element["planificacion_estado"] =  this.arrayEstados[element["planificacion_estado"]].nombre;
           }
-          console.log("Lista Contenidos: ",this.listaContenidos);
+
         },
         error: (error:any) => {
         },
@@ -208,7 +203,6 @@ export class PlanificacionComponent  implements OnInit {
       {
       next: (response:any) =>
         {
-          console.log("Lista medidas: ",this.listaContenidos);
           this.config_form[1].resources_autocomplete = response;
         }
 
@@ -256,21 +250,19 @@ export class PlanificacionComponent  implements OnInit {
 
     modal.componentInstance.title = "Redirigir a pagina de planificar productos";
     modal.closed.subscribe((closed: any)=>{
-      console.log('CLOSED modal:', closed);
-      console.log('events:', events);
       this.redirigir(events);
     });
     
   }
 
   redirigir(events: any): void {
-    this.planificacionService.idPlanificacion = events;
+
+    this.planificacionService.cambiarDato(events);
     this.router.navigateByUrl("/intranet/planificacion_producto");
     
   }
 
   butPerClicked($event: any) {
-    console.log("butPerClicked:", $event);
     if($event.intern_name === "planificacion_producto"){
       this.redirigir($event.row);
     }
