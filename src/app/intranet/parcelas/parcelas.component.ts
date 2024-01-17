@@ -35,7 +35,7 @@ export class ParcelasComponent implements OnInit {
     public route: ActivatedRoute
   ) { 
     this.route.params.subscribe(params => {      
-      this.campo = params['id'] ? {planificacion_id: params['id']} : undefined ; // El signo más convierte el string a número
+      this.campo = params['id'] ? {campo_id: params['id']} : undefined ; // El signo más convierte el string a número
     });
   }
   public listaContenidos:any = [];

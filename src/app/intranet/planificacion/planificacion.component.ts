@@ -256,7 +256,6 @@ export class PlanificacionComponent  implements OnInit {
   }
 
   redirigir(events: any): void {
-    
     this.router.navigateByUrl("/intranet/planificacion_producto/"+events.planificacion_id);
   }
 
