@@ -14,7 +14,7 @@ import { CamposService } from 'src/app/core/shared/services/campos/campos.sevice
   templateUrl: './parcelas.component.html',
   styleUrls: ['./parcelas.component.scss'],
 })
-export class ParcelasComponent implements OnInit, OnDestroy {
+export class ParcelasComponent implements OnInit {
   config: SuperTableConfig = {
     canDelete: true,
     canEdit: true,
@@ -32,7 +32,12 @@ export class ParcelasComponent implements OnInit, OnDestroy {
     public router:Router, 
     public usuario:UsuariosService,
     public campoService: CamposService,
-  ) { }
+    public route: ActivatedRoute
+  ) { 
+    this.route.params.subscribe(params => {      
+      this.campo = params['id'] ? {planificacion_id: params['id']} : undefined ; // El signo más convierte el string a número
+    });
+  }
   public listaContenidos:any = [];
   public nombreControlador:string = "parcelas";
   public headerArray:any = [
@@ -166,22 +171,16 @@ export class ParcelasComponent implements OnInit, OnDestroy {
           
           this.listaContenidos = response;
 
-          this.campoService.campo.subscribe({
-            next: (data:any) => {
-
-              if(data != null){
-                this.campo = data;
-                const responseArray = response as any[]; // Type assertion
-                for (let index = 0; index < responseArray.length; index++) {
-                  const element = responseArray[index];
-                  if(element.parcelas_campo_id == data.campo_id){
-                    list.push(element);
-                  }
-                }   
-               this.listaContenidos = list;
-             }
-            }
-          })    
+          if(this.campo != undefined){
+            const responseArray = response as any[]; // Type assertion
+            for (let index = 0; index < responseArray.length; index++) {
+              const element = responseArray[index];
+              if(element.parcelas_campo_id == this.campo.campo_id){
+                list.push(element);
+              }
+            }   
+           this.listaContenidos = list;
+          }   
         
           console.log("Lista Contenidos: ",this.listaContenidos);
         },
@@ -207,7 +206,5 @@ export class ParcelasComponent implements OnInit, OnDestroy {
     this.router.navigate(["/intranet/campo"]);
   }
 
-  ngOnDestroy(): void {
-    this.campoService.cambiarDato(undefined);
-  }
+ 
 }

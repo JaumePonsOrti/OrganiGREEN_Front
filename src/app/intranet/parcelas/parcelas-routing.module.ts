@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ParcelasComponent } from './parcelas.component';
 
 const routes: Routes = [
-  {path:"", component: ParcelasComponent}
+  {path:"", component: ParcelasComponent},
+  {path:":id", component: ParcelasComponent}
 ];
 
 @NgModule({

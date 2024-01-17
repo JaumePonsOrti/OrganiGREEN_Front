@@ -256,8 +256,8 @@ export class PlanificacionComponent  implements OnInit {
   }
 
   redirigir(events: any): void {
-    this.planificacionService.cambiarDato(events);
-    this.router.navigateByUrl("/intranet/planificacion_producto");
+    
+    this.router.navigateByUrl("/intranet/planificacion_producto/"+events.planificacion_id);
   }
 
   butPerClicked($event: any) {

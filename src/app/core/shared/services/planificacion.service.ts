@@ -12,4 +12,8 @@ export class PlanificacionService{
   cambiarDato(dato: any) {
     this.miDato.next(dato);
   }
+  resetDato(){
+    this.miDato = new BehaviorSubject<any>(undefined);
+    this.planificacion = this.miDato.asObservable();  
+  }
 }

@@ -9,7 +9,8 @@ export class CamposService{
 
   constructor() { }
 
-  cambiarDato(dato: any) {
+   public cambiarDato(dato: any) {
+    
     this.miDato.next(dato);
   }
 }

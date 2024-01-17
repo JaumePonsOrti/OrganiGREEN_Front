@@ -167,7 +167,7 @@ export class CamposComponent implements OnInit {
 
   redirigir(events: any): void {
     this.camposService.cambiarDato(events);
-    this.router.navigateByUrl("/intranet/parcela");
+    this.router.navigateByUrl("/intranet/parcela/"+events.campo_id);
   }
 
   butPerClicked($event: any) {

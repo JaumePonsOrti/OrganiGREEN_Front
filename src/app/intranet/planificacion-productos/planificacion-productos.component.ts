@@ -18,7 +18,7 @@ import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConf
   templateUrl: './planificacion-productos.component.html',
   styleUrls: ['./planificacion-productos.component.scss'],
 })
-export class PlanificacionProductosComponent  implements OnInit, OnDestroy {
+export class PlanificacionProductosComponent  implements OnInit {
 
   config: SuperTableConfig = {
     canDelete: true,
@@ -31,14 +31,15 @@ export class PlanificacionProductosComponent  implements OnInit, OnDestroy {
   constructor(
     public rutaActiva: ActivatedRoute,
     private universalService:UniversalService, 
-    private hasService: HashService,
-    private _modalService:NgbModal, 
     public menuService: MenuService,
     public router:Router, 
     public usuario:UsuariosService,
-    public planificacionService: PlanificacionService,
-    
-  ) { }
+    private route: ActivatedRoute
+    ) {
+      this.route.params.subscribe(params => {      
+        this.planificacion =params['id'] ? {planificacion_id: params['id']} : undefined ; // El signo más convierte el string a número
+      });
+    }
  
   public listaContenidos:any = [];
   public nombreControlador:string = "productos_planificados";
@@ -151,22 +152,16 @@ export class PlanificacionProductosComponent  implements OnInit, OnDestroy {
           this.crudConfig.objeto_referencia = response[1];
           this.listaContenidos = response;
 
-          this.planificacionService.planificacion.subscribe({
-            next: (data:any) => {
-              this.planificacion = data;
-              
-              if(data != null){
-                
-                for (let index = 0; index < response.length; index++) {
-                  const element = response[index];
-                  if(element.productos_planificados_id_planificacion == data.planificacion_id){
-                    list.push(element);
-                  }
-                }   
-               this.listaContenidos = list;
-             }
-            }
-          })       
+          if(this.planificacion != null){
+            for (let index = 0; index < response.length; index++) {
+              const element = response[index];
+              if(element.productos_planificados_id_planificacion == this.planificacion.planificacion_id){
+                list.push(element);
+              }
+            }  
+
+            this.listaContenidos = list;
+          }     
           
         },
         error: (error:any) => {
@@ -241,7 +236,4 @@ export class PlanificacionProductosComponent  implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.planificacionService.cambiarDato(undefined);
-  }
 }
