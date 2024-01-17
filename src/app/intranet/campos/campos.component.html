@@ -1,7 +1,10 @@
-<app-new-crud [config_form]="config_form" [nombreControlador]="nombreControlador"
+<app-new-crud 
+ [config_form]="config_form" 
+ [nombreControlador]="nombreControlador"
  [listaContenidos]="listaContenidos" 
  [crudConfig]="crudConfig"
  [headerArrayTable]="headerArray"
+ (personalizatedButtonClicked)="butPerClicked($event)"
  >
  <!-- [headerArrayTable]="headerArray"
  --->

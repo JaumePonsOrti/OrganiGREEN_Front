@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { co } from '@fullcalendar/core/internal-common';
@@ -18,7 +18,7 @@ import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConf
   templateUrl: './planificacion-productos.component.html',
   styleUrls: ['./planificacion-productos.component.scss'],
 })
-export class PlanificacionProductosComponent  implements OnInit {
+export class PlanificacionProductosComponent  implements OnInit, OnDestroy {
 
   config: SuperTableConfig = {
     canDelete: true,
@@ -39,6 +39,7 @@ export class PlanificacionProductosComponent  implements OnInit {
     public planificacionService: PlanificacionService,
     
   ) { }
+ 
   public listaContenidos:any = [];
   public nombreControlador:string = "productos_planificados";
 
@@ -77,7 +78,7 @@ export class PlanificacionProductosComponent  implements OnInit {
       disabled:false
     },
     {
-      type:"string",
+      type:"text",
       form_control_name:"productos_planificados_numero_de_lote", 
       placeholder:"Numero de lote",
       disabled:false
@@ -152,14 +153,16 @@ export class PlanificacionProductosComponent  implements OnInit {
 
           this.planificacionService.planificacion.subscribe({
             next: (data:any) => {
+              this.planificacion = data;
+              
               if(data != null){
-                this.planificacion = data;
-               for (let index = 0; index < response.length; index++) {
-                 const element = response[index];
-                 if(element.productos_planificados_id_planificacion == data.planificacion_id){
-                   list.push(element);
-                 }
-               }   
+                
+                for (let index = 0; index < response.length; index++) {
+                  const element = response[index];
+                  if(element.productos_planificados_id_planificacion == data.planificacion_id){
+                    list.push(element);
+                  }
+                }   
                this.listaContenidos = list;
              }
             }
@@ -210,7 +213,7 @@ export class PlanificacionProductosComponent  implements OnInit {
   }
   
   actualizarDespuesDeAnyadido(event: any){
-    if(this.planificacion){
+    if(this.planificacion != null){
       try {
         event.productos_planificados_id_planificacion = this.planificacion.planificacion_id;
       } catch (error) {
@@ -218,7 +221,7 @@ export class PlanificacionProductosComponent  implements OnInit {
       }
     }
     
-   //alert("Recivido");
+
    this.universalService.request(this.nombreControlador, "actualizar",event[this.nombreControlador+"_id"],event).subscribe(
     {
       next:()=>{
@@ -236,5 +239,9 @@ export class PlanificacionProductosComponent  implements OnInit {
       },
       complete:()=>{}
     });
+  }
+
+  ngOnDestroy(): void {
+    this.planificacionService.cambiarDato(undefined);
   }
 }

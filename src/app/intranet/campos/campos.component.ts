@@ -6,6 +6,7 @@ import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/moda
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
 import { Convertidor_Tipos } from 'src/app/core/shared/helpers/Convertidor_tipos.helper';
 import { ConfigModal } from 'src/app/core/shared/models/configModal';
+import { CamposService } from 'src/app/core/shared/services/campos/campos.sevice';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
 import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
@@ -24,6 +25,7 @@ export class CamposComponent implements OnInit {
   };
   can_ver!: boolean;
   can_agregar!: boolean;
+
   public headerArray:string[] = ["ID", "Nombre del campo","Tamaño de factuarción","Cliente","editable"];
   constructor(
     public rutaActiva: ActivatedRoute,
@@ -32,7 +34,8 @@ export class CamposComponent implements OnInit {
     private _modalService:NgbModal, 
     public menuService: MenuService,
     public router:Router, 
-    public usuario:UsuariosService
+    public usuario:UsuariosService,
+    private camposService: CamposService,
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "campo";
@@ -84,6 +87,13 @@ export class CamposComponent implements OnInit {
     config_super_table:{
       canDelete: false,
       canEdit: false,
+      buttonPersonalized: [
+        {
+          name:"Editar Parcelas",
+          intern_name:"parcelas",
+          class:"btn btn-outline-primary",
+        }
+      ]
     }
   };
   ngOnInit() {
@@ -141,6 +151,7 @@ export class CamposComponent implements OnInit {
         },
       }
     );
+
     this.universalService.request(
       "cliente","ver", "todos").subscribe(
       {
@@ -153,5 +164,16 @@ export class CamposComponent implements OnInit {
       }
     );
   }  
+
+  redirigir(events: any): void {
+    this.camposService.cambiarDato(events);
+    this.router.navigateByUrl("/intranet/parcela");
+  }
+
+  butPerClicked($event: any) {
+    if($event.intern_name === "parcelas"){
+      this.redirigir($event.row);
+    }
+  }
 
  }

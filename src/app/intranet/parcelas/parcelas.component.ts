@@ -1,28 +1,28 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormConfig } from 'projects/super-lib/src/lib/modulos/formularios/form_Config';
-import { ModalAutofocusComponent } from 'projects/super-lib/src/lib/modulos/modals/modal-autofocus/modal-autofocus.component';
 import { SuperTableConfig } from 'projects/super-lib/src/lib/modulos/tablas/super-tabla/super-tabla.component';
-import { ConfigModal } from 'src/app/core/shared/models/configModal';
 import { HashService } from 'src/app/core/shared/services/crytp/hash.service';
 import { MenuService } from 'src/app/core/shared/services/menu/menu.service';
 import { UniversalService } from 'src/app/core/shared/services/universal/universal.service';
-import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';import { Component, OnInit } from '@angular/core';
+import { UsuariosService } from 'src/app/core/shared/services/usuarios/usuarios.service';import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ICrudConfig } from 'src/app/core/shared/views/new-crud/models/ICrudConfig';
+import { CamposService } from 'src/app/core/shared/services/campos/campos.sevice';
 
 @Component({
   selector: 'app-parcelas',
   templateUrl: './parcelas.component.html',
   styleUrls: ['./parcelas.component.scss'],
 })
-export class ParcelasComponent implements OnInit {
+export class ParcelasComponent implements OnInit, OnDestroy {
   config: SuperTableConfig = {
     canDelete: true,
     canEdit: true,
   };
   can_ver!: boolean;
   can_agregar!: boolean;
-  
+  campo!:any;
+
   constructor(
     public rutaActiva: ActivatedRoute,
     private universalService:UniversalService, 
@@ -30,7 +30,8 @@ export class ParcelasComponent implements OnInit {
     private _modalService:NgbModal, 
     public menuService: MenuService,
     public router:Router, 
-    public usuario:UsuariosService
+    public usuario:UsuariosService,
+    public campoService: CamposService,
   ) { }
   public listaContenidos:any = [];
   public nombreControlador:string = "parcelas";
@@ -103,6 +104,7 @@ export class ParcelasComponent implements OnInit {
       disabled:false
     }
   ];
+
   public crudConfig: ICrudConfig = {
     can_agregar:false,
     can_ver:false,
@@ -112,6 +114,7 @@ export class ParcelasComponent implements OnInit {
       canEdit: false,
     },
   };
+
   ngOnInit() {
     this.universalService.can_get(this.nombreControlador).subscribe({
       next: (data) => {
@@ -157,8 +160,28 @@ export class ParcelasComponent implements OnInit {
     this.universalService.request( 
       this.nombreControlador,"ver", "todos").subscribe(
       {
-        next: (response) => {
+        next: (response:any) => {
+          let list :any = [];
+
+          
           this.listaContenidos = response;
+
+          this.campoService.campo.subscribe({
+            next: (data:any) => {
+
+              if(data != null){
+                this.campo = data;
+                const responseArray = response as any[]; // Type assertion
+                for (let index = 0; index < responseArray.length; index++) {
+                  const element = responseArray[index];
+                  if(element.parcelas_campo_id == data.campo_id){
+                    list.push(element);
+                  }
+                }   
+               this.listaContenidos = list;
+             }
+            }
+          })    
         
           console.log("Lista Contenidos: ",this.listaContenidos);
         },
@@ -180,7 +203,11 @@ export class ParcelasComponent implements OnInit {
     
   }
 
+  volver(){
+    this.router.navigate(["/intranet/campo"]);
+  }
 
-  
-
+  ngOnDestroy(): void {
+    this.campoService.cambiarDato(undefined);
+  }
 }
