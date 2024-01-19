@@ -33,19 +33,23 @@ export class DesplegableComponent  implements OnInit, OnChanges {
       for (let index = 0; index < this.configs.length; index++) {
         const element = this.configs[index];
         console.log("ELEMENT",element);
+        
         if(typeof element.dato_por_el_que_filtrar !== "undefined"){
           
           if(this.configsAgrupados[element.dato_por_el_que_filtrar] === undefined){
             this.configsAgrupados[element.dato_por_el_que_filtrar] = [];
           }
+          
           this.configsAgrupados[element.dato_por_el_que_filtrar].push(element);
         }
+
         this.cargado = true;
         let date2 = new Date(date.getFullYear() + "-"+(date.getMonth()+1 )+ "-"+date.getDate()+ " 00:00:00:UTC").toJSON();
         this.indiceFiltro = date2;
         console.log("AGRUPADOS:", this.configsAgrupados);
         console.log(this.indiceFiltro);
       } 
+
       this.formControl.valueChanges.subscribe({
         next:(date:any) =>{
           //alert(e);       

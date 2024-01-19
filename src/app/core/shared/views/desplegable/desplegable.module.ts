@@ -12,7 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [DesplegableComponent],
+  declarations: [
+    DesplegableComponent,
+  ],
   imports: [
     CommonModule,
     SuperSidebarsModule,
@@ -22,6 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports:[DesplegableComponent]
+  exports:[
+    DesplegableComponent,
+  ]
 })
 export class DesplegableModule { }
